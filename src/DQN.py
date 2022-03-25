@@ -4,34 +4,38 @@ import random
 import numpy as np
 
 from tensorflow import keras
+from tensorflow.keras.optimizers import Adam
 from keras import layers, losses
 from keras.models import load_model
-from keras.optimizers import Adam
 
 class DQN:
     def __init__(self):
         self.input_dim = 3
         self.output_dim = 2
         self.batch_size = 32
-        self.learning_rate
-        self._model = self._build_model(3)
-        self.sample
-        self.size_max
-        self.size_min
+        self.learning_rate = 0.1
+        self._model = self._create_model(2, 10)
+        self.samples = []
+        self.size_max = 100
+        self.size_min = 1
 
     '''
     INITIALIZE MODEL
     '''
     
     def _create_model(self, num_layers, width):
-        inputs = keras.Input(shape=(self._input_dim,))
+        inputs = keras.Input(shape=(self.input_dim,))
         x = layers.Dense(width, activation='relu')(inputs)
         for _ in range(num_layers):
             x = layers.Dense(width, activation='relu')(x)
-        outputs = layers.Dense(self._output_dim, activation='linear')(x)
+        outputs = layers.Dense(self.output_dim, activation='linear')(x)
 
         model = keras.Model(inputs=inputs, outputs=outputs, name='model')
-        model.compile(loss=losses.mean_squared_error, optimizer=Adam(lr=self._learning_rate))
+        model.compile(loss=losses.mean_squared_error, optimizer=Adam(lr=self.learning_rate))
+
+        #test
+        model.summary()
+
         return model
     
     def _load_model(self):
@@ -61,19 +65,30 @@ class DQN:
     '''
 
     def add_sample(self, sample):
-        self._samples.append(sample)
-        if self._size_now() > self._size_max:
-            self._samples.pop(0) 
+        self.samples.append(sample)
+        if self._size_now() > self.size_max:
+            self.samples.pop(0) 
 
     def get_samples(self, n):
-        if self._size_now() < self._size_min:
+        if self._size_now() < self.size_min:
             return []
 
         if n > self._size_now():
-            return random.sample(self._samples, self._size_now())  
+            return random.sample(self.samples, self._size_now())  
         else:
-            return random.sample(self._samples, n)
+            return random.sample(self.samples, n)
 
     def _size_now(self):
-        return len(self._samples)
-    
+        return len(self.samples)
+
+
+'''
+TESTING PURPOSES
+'''
+
+def main():
+    print("Hello, Wold")
+    agent = DQN()
+
+if __name__=="__main__":
+    main()  
