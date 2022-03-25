@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-03-10 15:55:34 by Eclipse SUMO netedit Version 1.11.0
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <flow id="flow_0" begin="0.00" from="left_in" to="right_out" end="3600.00" number="100"/>
+    <flow id="flow_1" begin="0.00" departSpeed="30.00" from="bottom_in" to="top_out" end="3600.00" number="100"/>
+    <flow id="flow_2" begin="0.00" departLane="random" departSpeed="25.00" from="right_in" to="top_out" end="3600.00" number="100"/>
+    <flow id="flow_3" begin="0.00" departLane="random" departSpeed="15.00" from="top_in" to="bottom_out" end="3600.00" number="100"/>
+    <flow id="flow_4" begin="0.00" departLane="random" departSpeed="10.00" from="bottom_in" to="top_out" end="3600.00" number="100"/>
+</routes>
