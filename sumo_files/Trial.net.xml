@@ -4,7 +4,7 @@
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <output>
-        <output-file value="C:\Users\Lance\Desktop\Trial\Trial.net.xml"/>
+        <output-file value="Trial.net.xml"/>
     </output>
 
     <processing>
@@ -16,7 +16,7 @@
     </junctions>
 
     <netedit>
-        <route-files value="C:\Users\Lance\Desktop\Trial\try.rou.xml"/>
+        <route-files value="try.rou.xml"/>
     </netedit>
 
     <report>

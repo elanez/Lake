@@ -1,7 +1,6 @@
 import os
 import sys
 import random
-import numpy as np
 
 from tensorflow import keras
 from tensorflow.keras.optimizers import Adam
@@ -39,7 +38,7 @@ class DQN:
         return model
     
     def _load_model(self):
-        model_file_path = os.path('../Models/trained_model.h5')
+        model_file_path = os.path('../models/trained_model.h5')
         
         if os.path.isfile(model_file_path):
             loaded_model = load_model(model_file_path)
@@ -58,7 +57,7 @@ class DQN:
         self._model.fit(states, q, epochs=1, verbose=0)
 
     def save_model(self):
-        self._model.save(os.path('../Models/trained_model.h5'))
+        self._model.save(os.path('../models/trained_model.h5'))
     
     '''
     EXPRIENCE REPLAY
