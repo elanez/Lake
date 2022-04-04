@@ -1,6 +1,7 @@
 import os
 import sys
 import random
+import numpy as np
 
 from tensorflow import keras
 from tensorflow.keras.optimizers import Adam
@@ -49,6 +50,9 @@ class DQN:
     '''
     TRAINING ARC
     '''
+    def predict_one(self, state):
+        state = np.reshape(state, [1, self._input_dim])
+        return self._model.predict(state)
 
     def predict_batch(self, states):
         return self._model.predict(states)
