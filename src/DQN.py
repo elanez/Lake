@@ -14,7 +14,7 @@ class DQN:
         self.output_dim = 2
         self.batch_size = 32
         self.learning_rate = 0.1
-        self._model = self._create_model(2, 10)
+        self._model = self._create_model(2, 16)
         self.samples = []
         self.size_max = 100
         self.size_min = 1
@@ -60,8 +60,9 @@ class DQN:
     def train_batch(self, states, q):
         self._model.fit(states, q, epochs=1, verbose=0)
 
-    def save_model(self):
-        self._model.save(os.path('../models/trained_model.h5'))
+    def save_model(self, file_name):
+        file_location = f'.../models/{file_name}.h5'
+        self._model.save(os.path(file_location))
     
     '''
     EXPRIENCE REPLAY
