@@ -4,7 +4,7 @@ import traci
 
 class Simulation:
     def __init__(self):
-        self._sumo_cmd = ["sumo-gui", "-c", "../sumo_files/trial_osm.sumocfg"]
+        self._sumo_cmd = ["sumo-gui", "-c", "../sumo_files/environment.sumocfg"]
         self._gamma
         self._actions
         self._epochs

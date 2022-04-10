@@ -12,9 +12,11 @@ class Agent:
     def __init__(self):
         self.input_dim = 3
         self.output_dim = 2
-        self.batch_size = 100
+        self.batch_size = 32
         self.learning_rate = 0.1
         self._model = self._create_model(4, 400)
+
+        #MEMORY
         self.samples = []
         self.size_max = 50000
         self.size_min = 600
