@@ -11,8 +11,8 @@ class Routing:
         '''
         np.random.seed(seed)
 
-        with open("../sumo_files/route.net.xml", "w") as routes:
-            print('''<routes>
+        with open("../sumo_files/routes.rou.xml", "w") as routes:
+            print('''<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
             <vType accel="1.0" decel="4.5" id="standard_car" length="5.0" minGap="2.5" maxSpeed="25" sigma="0.5" />
 
             <route id="East_to_North" edges="right_in top_out/>
@@ -29,4 +29,4 @@ class Routing:
             <route id="South_to_West" edges="bottom_in left_out/>
 
             ''', file=routes)
-            
+
