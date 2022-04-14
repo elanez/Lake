@@ -24,8 +24,9 @@ class Agent:
     '''
     INITIALIZE MODEL
     '''
-    
     def _create_model(self, num_layers, width):
+        print("Creating model...")
+
         inputs = keras.Input(shape=(self.input_dim,))
         x = layers.Dense(width, activation='relu')(inputs)
         for _ in range(num_layers):
@@ -36,7 +37,8 @@ class Agent:
         model.compile(loss=losses.mean_squared_error, optimizer=Adam(lr=self.learning_rate))
 
         #test
-        model.summary()
+        #model.summary()
+        print("Model - DONE")
 
         return model
     
@@ -48,7 +50,7 @@ class Agent:
             loaded_model = load_model(model_file_path)
             return loaded_model
         else:
-            sys.exit("Model not found")
+            sys.exit("Model not found!")
     
     '''
     TRAINING ARC
@@ -70,7 +72,6 @@ class Agent:
     '''
     EXPRIENCE REPLAY / MEMORY
     '''
-
     def add_sample(self, sample):
         self.samples.append(sample)
         if self._size_now() > self.size_max:
