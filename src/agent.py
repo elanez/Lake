@@ -2,6 +2,7 @@ import os
 import sys
 import random
 import numpy as np
+import tensorflow as tf
 
 from tensorflow import keras
 from tensorflow.keras.optimizers import Adam
@@ -26,6 +27,12 @@ class Agent:
     '''
     def _create_model(self, num_layers, width):
         print("Creating model...")
+
+        #Look for gpu
+        if tf.test.gpu_device_name():
+            print('==== Default GPU Device: {} ==='.format(tf.test.gpu_device_name()))
+        else:
+            print('=== Please install GPU version of Tf ===')
 
         inputs = keras.Input(shape=(self.input_dim,))
         x = layers.Dense(width, activation='relu')(inputs)
