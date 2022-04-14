@@ -2,13 +2,16 @@ import numpy as np
 import math
 import os
 
+from logger import Logger
+
 class Routing:
     def __init__(self, n_cars, max_steps):
+        self._logger = Logger(__name__, 'debug.log')  #(name, file name)
         self._n_cars = n_cars #number of cars per episode
         self._max_steps = max_steps
     
     def generate_routefile(self, seed):
-        print('     Generating route file...')
+        self._logger.log_info('Generate routing file...')
 
         np.random.seed(seed)  # make tests reproducible
 
@@ -82,4 +85,4 @@ class Routing:
                         print(f'    <vehicle id="S_W_{car_counter}" type="standard_car" route="South_to_West" depart="{step}" departLane="random" departSpeed="{depart_speed}" />', file=routes)
 
             print('</routes>', file=routes)
-            print('     Generate route file - DONE')
+        self._logger.log_info('Generate route file = SUCCESSFULL')

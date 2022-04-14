@@ -8,9 +8,11 @@ from tensorflow import keras
 from tensorflow.keras.optimizers import Adam
 from keras import layers, losses
 from keras.models import load_model
+from logger import Logger
 
 class Agent:
     def __init__(self):
+        self._logger = Logger(__name__, 'debug.log')  #(name, file name)
         self.input_dim = 3
         self.output_dim = 2
         self.batch_size = 32
@@ -26,13 +28,13 @@ class Agent:
     INITIALIZE MODEL
     '''
     def _create_model(self, num_layers, width):
-        print("Creating model...")
+        self._logger.log_info('Create model...')
 
         #Look for gpu
         if tf.test.gpu_device_name():
-            print('==== Default GPU Device: {} ==='.format(tf.test.gpu_device_name()))
+            self._logger.log_info('==== Default GPU Device: {} ==='.format(tf.test.gpu_device_name()))
         else:
-            print('=== Please install GPU version of Tf ===')
+            self._logger.log_warning('=== Please install GPU version of Tf ===')
 
         inputs = keras.Input(shape=(self.input_dim,))
         x = layers.Dense(width, activation='relu')(inputs)
@@ -45,19 +47,23 @@ class Agent:
 
         #test
         model.summary()
-        print("Model - DONE")
+        self._logger.log_info('Create Model = SUCCESSFULL')
 
         return model
     
     def _load_model(self, file_name):
         #file_location = f'.../models/{file_name}.h5'
+        self._logger.log_info('Load Model...')
         model_file_path = os.path(f'.../models/{file_name}.h5')
         
         if os.path.isfile(model_file_path):
             loaded_model = load_model(model_file_path)
+            self._logger.log_info('Load Model = SUCCESSFUL')
             return loaded_model
         else:
-            sys.exit("Model not found!")
+            error_message = 'Model not found!'
+            self._logger.log_critical(error_message)
+            sys.exit(error_message)
     
     '''
     TRAINING ARC
@@ -73,7 +79,6 @@ class Agent:
         self._model.fit(states, q, epochs=1, verbose=0)
 
     def save_model(self, file_name):
-        #file_location = f'.../models/{file_name}.h5'
         self._model.save(os.path(f'.../models/{file_name}.h5'))
     
     '''
