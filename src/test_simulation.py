@@ -1,7 +1,7 @@
 import traci
 
 
-sumoCmd = ["sumo-gui", "-c", "sumo_files/trial_osm.sumocfg"]
+sumoCmd = ["sumo", "-c", "sumo_files/trial_osm.sumocfg"]
 traci.start(sumoCmd)
 
 
