@@ -37,7 +37,7 @@ class Agent:
         model.compile(loss=losses.mean_squared_error, optimizer=Adam(lr=self.learning_rate))
 
         #test
-        #model.summary()
+        model.summary()
         print("Model - DONE")
 
         return model

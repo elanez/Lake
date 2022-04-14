@@ -9,21 +9,23 @@ from sumolib import checkBinary
 
 class Simulation:
     def __init__(self):
-        self._sumo_cmd = self._set_sumo(False, 'sumo_config.sumocfg')
-        self._sumo_intersection = Routing(1000, 60)
+        self._sumo_cmd = self._set_sumo(False, 'sumo_config.sumocfg') #(gui, filename)
+        self._sumo_intersection = Routing(1000, 60) #(number of cars, max steps)
         self._num_states = 100
+        self._episodes = 50
         # self._gamma
         # self._actions
         # self._epochs
 
+    '''
+    SUMO INTERACTIONS
+    '''
     def run(self):
-        '''
-        Run simulation
-        '''
         print('Starting simulation...')
 
-        self._sumo_intersection.generate_routefile(42)
+        self._sumo_intersection.generate_routefile(self._episodes)
         traci.start(self._sumo_cmd)
+
         traci.close()
         print('Simulation - DONE')
     

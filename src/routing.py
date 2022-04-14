@@ -8,9 +8,6 @@ class Routing:
         self._max_steps = max_steps
     
     def generate_routefile(self, seed):
-        '''
-        Generate car routes
-        '''
         print('     Generating route file...')
 
         np.random.seed(seed)  # make tests reproducible
