@@ -4,13 +4,12 @@ import numpy as np
 import random
 import traci
 
-from logger import Logger
+from logger import getLogger
 from routing import Routing
 from sumolib import checkBinary
 
 class Simulation:
     def __init__(self):
-        self._logger = Logger(__name__, 'debug.log')  #(name, file name)
         self._sumo_cmd = self._set_sumo(False, 'sumo_config.sumocfg') #(gui, filename)
         self._sumo_intersection = Routing(1000, 60) #(number of cars, max steps)
         self._num_states = 100
@@ -23,13 +22,13 @@ class Simulation:
     SUMO INTERACTIONS
     '''
     def run(self):
-        self._logger.log_info('Starting simulation...')
+        getLogger().info('Starting simulation...')
 
         self._sumo_intersection.generate_routefile(self._episodes)
         traci.start(self._sumo_cmd)
 
         traci.close()
-        self._logger.log_info('Simulation = DONE')
+        getLogger().info('Simulation = DONE')
     
     def _get_state(self):
         state = np.zeros(self._num_states)
@@ -44,7 +43,7 @@ class Simulation:
             sys.path.append(tools)
         else:
             error_message = "please declare environment variable 'SUMO_HOME'"
-            self._logger.log_critical(error_message)
+            getLogger().critical(error_message)
             sys.exit(error_message)
         
         if gui == True:

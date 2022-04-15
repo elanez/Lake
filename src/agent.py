@@ -8,11 +8,10 @@ from tensorflow import keras
 from tensorflow.keras.optimizers import Adam
 from keras import layers, losses
 from keras.models import load_model
-from logger import Logger
+from logger import getLogger
 
 class Agent:
     def __init__(self):
-        self._logger = Logger(__name__, 'debug.log')  #(name, file name)
         self.input_dim = 3
         self.output_dim = 2
         self.batch_size = 32
@@ -28,13 +27,13 @@ class Agent:
     INITIALIZE MODEL
     '''
     def _create_model(self, num_layers, width):
-        self._logger.log_info('Create model...')
+        getLogger().info('Create model...')
 
         #Look for gpu
         if tf.test.gpu_device_name():
-            self._logger.log_info('==== Default GPU Device: {} ==='.format(tf.test.gpu_device_name()))
+            getLogger().info('==== Default GPU Device: {} ==='.format(tf.test.gpu_device_name()))
         else:
-            self._logger.log_warning('=== Please install GPU version of Tf ===')
+            getLogger().warning('=== Please install GPU version of Tf ===')
 
         inputs = keras.Input(shape=(self.input_dim,))
         x = layers.Dense(width, activation='relu')(inputs)
@@ -47,22 +46,22 @@ class Agent:
 
         #test
         model.summary()
-        self._logger.log_info('Create Model = SUCCESSFULL')
+        getLogger().info('Create Model = DONE')
 
         return model
     
     def _load_model(self, file_name):
         #file_location = f'.../models/{file_name}.h5'
-        self._logger.log_info('Load Model...')
+        getLogger().info('Load Model...')
         model_file_path = os.path(f'.../models/{file_name}.h5')
         
         if os.path.isfile(model_file_path):
             loaded_model = load_model(model_file_path)
-            self._logger.log_info('Load Model = SUCCESSFUL')
+            getLogger().info('Load Model = DONE')
             return loaded_model
         else:
             error_message = 'Model not found!'
-            self._logger.log_critical(error_message)
+            getLogger().critical(error_message)
             sys.exit(error_message)
     
     '''

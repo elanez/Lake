@@ -1,13 +1,11 @@
 from agent import Agent
 from simulation import Simulation
-from logger import Logger
+from logger import getLogger
 
 if __name__ == "__main__":
-    logger = Logger(__name__, 'debug.log') #(name, file name)
-    
-    logger.log_info('===== START PROGRAM =====')
+    getLogger().info('===== START PROGRAM =====')
     sample_agent = Agent()
     test_simulation = Simulation()
     
     test_simulation.run()
-    logger.log_info('====== END PROGRAM ======')
+    getLogger().info('====== END PROGRAM ======')
