@@ -26,7 +26,7 @@ class Agent:
     '''
     INITIALIZE MODEL
     '''
-    def _create_model(self, num_layers, width):
+    def _create_model(self, num_layers, width): #CONSTRUCT NEURAL NET
         getLogger().info('Create model...')
 
         #Look for gpu
@@ -50,7 +50,7 @@ class Agent:
 
         return model
     
-    def _load_model(self, file_name):
+    def _load_model(self, file_name): #LOAD MODEL FILE
         #file_location = f'.../models/{file_name}.h5'
         getLogger().info('Load Model...')
         model_file_path = os.path(f'.../models/{file_name}.h5')
@@ -67,28 +67,28 @@ class Agent:
     '''
     TRAINING ARC
     '''
-    def predict_one(self, state):
+    def predict_one(self, state): #PREDICT ACTION: SINGLE STATE
         state = np.reshape(state, [1, self._input_dim])
         return self._model.predict(state)
 
-    def predict_batch(self, states):
+    def predict_batch(self, states): #PREDICT ACTION: BATCH OF STATES
         return self._model.predict(states)
 
-    def train_batch(self, states, q):
+    def train_batch(self, states, q): #TRAIN NEURAL NET
         self._model.fit(states, q, epochs=1, verbose=0)
 
-    def save_model(self, file_name):
+    def save_model(self, file_name): #SAVE MDOEL TO "models" FOLDER
         self._model.save(os.path(f'.../models/{file_name}.h5'))
     
     '''
     EXPRIENCE REPLAY / MEMORY
     '''
-    def add_sample(self, sample):
+    def add_sample(self, sample): #ADD TO MEMORY
         self.samples.append(sample)
         if self._size_now() > self.size_max:
             self.samples.pop(0) 
 
-    def get_samples(self, n):
+    def get_samples(self, n): #GET n RANDOM FROM MEMORY
         if self._size_now() < self.size_min:
             return []
 
@@ -97,5 +97,5 @@ class Agent:
         else:
             return random.sample(self.samples, n)
 
-    def _size_now(self):
+    def _size_now(self): #GET MEMORY LENGTH
         return len(self.samples)
