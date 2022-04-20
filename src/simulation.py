@@ -23,15 +23,13 @@ class Simulation:
     def __init__(self, AGENT):
         self._AGENT = AGENT
         self._sumo_cmd = self._set_sumo(False, 'sumo_config.sumocfg') #(gui, filename)
-        self._sumo_intersection = Routing(1000, 60) #(number of cars, max steps)
+        self._sumo_intersection = Routing(1000, 3600) #(number of cars, max steps)
         self._num_states = 80
         self._num_actions = 4
         self._step = 0
-        self._max_steps = 60
-        self._training_epochs = 800
-        # self._gamma
-        # self._actions
-        # self._epochs
+        self._max_steps = 3600
+        self._epochs = 10
+        self._gamma = 0.75
 
     '''
     SUMO INTERACTIONS
@@ -46,7 +44,7 @@ class Simulation:
         #init
         self._step = 0
         self._waiting_times = {}
-        self._sum_neg_reward = 0
+        self._sum_reward = 0
         self._sum_queue_length = 0
         self._sum_waiting_time = 0
         old_total_wait = 0
@@ -79,15 +77,15 @@ class Simulation:
             old_total_wait = current_total_wait
 
             if reward < 0:
-                self._sum_neg_reward += reward
+                self._sum_reward += reward
 
-        getLogger().info(f'Total reward: {self._sum_neg_reward} - Epsilon: {round(epsilon, 2)}')
+        getLogger().info(f'Total reward: {self._sum_reward} - Epsilon: {round(epsilon, 2)}')
         traci.close()
         simulation_time = round(timeit.default_timer() - start_time, 1)
 
-        getLogger().info('Training ...')
+        # getLogger().info('Training ...')
         start_time = timeit.default_timer()
-        for _ in range(self._training_epochs):
+        for _ in range(self._epochs):
             self._replay()
         training_time = round(timeit.default_timer() - start_time, 1)
 
@@ -194,10 +192,15 @@ class Simulation:
         
     
     def _choose_action(self, state, epsilon): #CHOOSE ACTION
+        action = 0
         if random.random() < epsilon:
-            return random.randint(0, self._num_actions - 1) #explore
+            # getLogger().info('Agent chooses to explore')
+            action = random.randint(0, self._num_actions - 1) #explore
         else:
-            return np.argmax(self._AGENT.predict_one(state)) #exploit
+            # getLogger().info('Agent chooses to exploit')
+            action = np.argmax(self._AGENT.predict_one(state)) #exploit
+        # getLogger().info(f'Action: {action}')
+        return action
 
     '''
     UTILS
@@ -248,6 +251,7 @@ class Simulation:
                     del self._waiting_times[car_id]
         
         total_waiting_time = sum(self._waiting_times.values())
+        # getLogger().info(f'Total Wait time: {total_waiting_time}')
         return total_waiting_time
     
     def _get_queue_length(self): #GET QUEUE LENGTH FOR ALL INCOMING LANES

@@ -1,4 +1,6 @@
 import os
+os.environ['TF_CPP_MIN_LOG_LEVEL']='2' #kill tensorflow warning
+
 import sys
 import random
 import numpy as np
@@ -13,9 +15,9 @@ from logger import getLogger
 class Agent:
     def __init__(self):
         self._input_dim = 80
-        self._output_dim = 2
-        self._batch_size = 100
-        self._learning_rate = 0.1
+        self._output_dim = 4
+        self._batch_size = 10
+        self._learning_rate = 0.001
         self._model = self._create_model(4, 400) #(number of layers, width)
 
         #MEMORY
@@ -75,6 +77,7 @@ class Agent:
         return self._model.predict(states)
 
     def train_batch(self, states, q): #TRAIN NEURAL NET
+        # getLogger().info('Training NN...')
         self._model.fit(states, q, epochs=1, verbose=0)
 
     def save_model(self, file_name): #SAVE MDOEL TO "models" FOLDER
@@ -86,6 +89,7 @@ class Agent:
     def add_sample(self, sample): #ADD TO MEMORY
         self.samples.append(sample)
         if self._size_now() > self.size_max:
+            # getLogger().info('Size full! Deleting old memory...')
             self.samples.pop(0) 
 
     def get_samples(self, n): #GET n RANDOM FROM MEMORY

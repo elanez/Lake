@@ -10,6 +10,10 @@
         <route-files value="routes.rou.xml"/>
     </input>
 
+    <time>
+      <begin value="0"/>
+    </time>
+
     <processing>
         <time-to-teleport value="-1"/>
     </processing>
