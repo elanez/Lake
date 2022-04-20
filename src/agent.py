@@ -12,11 +12,11 @@ from logger import getLogger
 
 class Agent:
     def __init__(self):
-        self.input_dim = 3
-        self.output_dim = 2
-        self.batch_size = 32
-        self.learning_rate = 0.1
-        self._model = self._create_model(4, 400)
+        self._input_dim = 80
+        self._output_dim = 2
+        self._batch_size = 100
+        self._learning_rate = 0.1
+        self._model = self._create_model(4, 400) #(number of layers, width)
 
         #MEMORY
         self.samples = []
@@ -35,17 +35,17 @@ class Agent:
         else:
             getLogger().warning('=== Please install GPU version of Tf ===')
 
-        inputs = keras.Input(shape=(self.input_dim,))
+        inputs = keras.Input(shape=(self._input_dim,))
         x = layers.Dense(width, activation='relu')(inputs)
         for _ in range(num_layers):
             x = layers.Dense(width, activation='relu')(x)
-        outputs = layers.Dense(self.output_dim, activation='linear')(x)
+        outputs = layers.Dense(self._output_dim, activation='linear')(x)
 
         model = keras.Model(inputs=inputs, outputs=outputs, name='model')
-        model.compile(loss=losses.mean_squared_error, optimizer=Adam(lr=self.learning_rate))
+        model.compile(loss=losses.mean_squared_error, optimizer=Adam(lr=self._learning_rate))
 
         #test
-        model.summary()
+        #model.summary()
         getLogger().info('Create Model - DONE')
 
         return model

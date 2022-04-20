@@ -30,7 +30,7 @@ class Routing:
         # round every value to int
         car_gen_steps = np.rint(car_gen_steps)
 
-        getLogger().info(f'Current directory: {os.getcwd()}')
+        # getLogger().info(f'Current directory: {os.getcwd()}')
 
         with open("sumo_files/routes.rou.xml", "w") as routes:
             print('''<routes>
@@ -84,4 +84,3 @@ class Routing:
                         print(f'    <vehicle id="S_W_{car_counter}" type="standard_car" route="South_to_West" depart="{step}" departLane="random" departSpeed="{depart_speed}" />', file=routes)
 
             print('</routes>', file=routes)
-        getLogger().info('Generate route file - DONE')
