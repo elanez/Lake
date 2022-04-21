@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-04-14 13:33:25 by Eclipse SUMO GUI Version 1.10.0
+<!-- generated on 2022-04-20 12:42:56 by Eclipse SUMO GUI Version 1.10.0
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -9,6 +9,10 @@
         <net-file value="environment.net.xml"/>
         <route-files value="routes.rou.xml"/>
     </input>
+
+    <time>
+      <begin value="0"/>
+    </time>
 
     <processing>
         <time-to-teleport value="-1"/>

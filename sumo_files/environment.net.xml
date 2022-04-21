@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-04-10 14:47:26 by Eclipse SUMO netedit Version 1.10.0
+<!-- generated on 2022-04-20 12:58:36 by Eclipse SUMO netedit Version 1.10.0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -85,53 +85,53 @@
         <lane id=":MN_19_0" index="0" speed="11.36" length="29.67" shape="383.20,98.40 391.25,99.55 397.00,103.00 400.45,108.75 401.60,116.80"/>
     </edge>
 
-    <edge id="bottom_in" from="SN" to="MN" priority="-1">
-        <lane id="bottom_in_0" index="0" speed="13.89" length="1283.20" shape="411.20,-1200.00 411.20,83.20"/>
-        <lane id="bottom_in_1" index="1" speed="13.89" length="1283.20" shape="408.00,-1200.00 408.00,83.20"/>
-        <lane id="bottom_in_2" index="2" speed="13.89" length="1283.20" shape="404.80,-1200.00 404.80,83.20"/>
-        <lane id="bottom_in_3" index="3" speed="13.89" length="1283.20" shape="401.60,-1200.00 401.60,83.20"/>
+    <edge id="bottom_in" from="SN" to="MN" priority="-1" length="750.00">
+        <lane id="bottom_in_0" index="0" speed="13.89" length="750.00" shape="411.20,-1200.00 411.20,83.20"/>
+        <lane id="bottom_in_1" index="1" speed="13.89" length="750.00" shape="408.00,-1200.00 408.00,83.20"/>
+        <lane id="bottom_in_2" index="2" speed="13.89" length="750.00" shape="404.80,-1200.00 404.80,83.20"/>
+        <lane id="bottom_in_3" index="3" speed="13.89" length="750.00" shape="401.60,-1200.00 401.60,83.20"/>
     </edge>
-    <edge id="bottom_out" from="MN" to="SN" priority="-1">
-        <lane id="bottom_out_0" index="0" speed="13.89" length="1283.20" shape="388.80,83.20 388.80,-1200.00"/>
-        <lane id="bottom_out_1" index="1" speed="13.89" length="1283.20" shape="392.00,83.20 392.00,-1200.00"/>
-        <lane id="bottom_out_2" index="2" speed="13.89" length="1283.20" shape="395.20,83.20 395.20,-1200.00"/>
-        <lane id="bottom_out_3" index="3" speed="13.89" length="1283.20" shape="398.40,83.20 398.40,-1200.00"/>
+    <edge id="bottom_out" from="MN" to="SN" priority="-1" length="750.00">
+        <lane id="bottom_out_0" index="0" speed="13.89" length="750.00" shape="388.80,83.20 388.80,-1200.00"/>
+        <lane id="bottom_out_1" index="1" speed="13.89" length="750.00" shape="392.00,83.20 392.00,-1200.00"/>
+        <lane id="bottom_out_2" index="2" speed="13.89" length="750.00" shape="395.20,83.20 395.20,-1200.00"/>
+        <lane id="bottom_out_3" index="3" speed="13.89" length="750.00" shape="398.40,83.20 398.40,-1200.00"/>
     </edge>
-    <edge id="left_in" from="WN" to="MN" priority="-1">
-        <lane id="left_in_0" index="0" speed="60.00" length="1483.20" shape="-1100.00,88.80 383.20,88.80"/>
-        <lane id="left_in_1" index="1" speed="60.00" length="1483.20" shape="-1100.00,92.00 383.20,92.00"/>
-        <lane id="left_in_2" index="2" speed="60.00" length="1483.20" shape="-1100.00,95.20 383.20,95.20"/>
-        <lane id="left_in_3" index="3" speed="60.00" length="1483.20" shape="-1100.00,98.40 383.20,98.40"/>
+    <edge id="left_in" from="WN" to="MN" priority="-1" length="750.00">
+        <lane id="left_in_0" index="0" speed="60.00" length="750.00" shape="-1100.00,88.80 383.20,88.80"/>
+        <lane id="left_in_1" index="1" speed="60.00" length="750.00" shape="-1100.00,92.00 383.20,92.00"/>
+        <lane id="left_in_2" index="2" speed="60.00" length="750.00" shape="-1100.00,95.20 383.20,95.20"/>
+        <lane id="left_in_3" index="3" speed="60.00" length="750.00" shape="-1100.00,98.40 383.20,98.40"/>
     </edge>
-    <edge id="left_out" from="MN" to="WN" priority="-1">
-        <lane id="left_out_0" index="0" speed="60.00" length="1483.20" shape="383.20,111.20 -1100.00,111.20"/>
-        <lane id="left_out_1" index="1" speed="60.00" length="1483.20" shape="383.20,108.00 -1100.00,108.00"/>
-        <lane id="left_out_2" index="2" speed="60.00" length="1483.20" shape="383.20,104.80 -1100.00,104.80"/>
-        <lane id="left_out_3" index="3" speed="60.00" length="1483.20" shape="383.20,101.60 -1100.00,101.60"/>
+    <edge id="left_out" from="MN" to="WN" priority="-1" length="750.00">
+        <lane id="left_out_0" index="0" speed="60.00" length="750.00" shape="383.20,111.20 -1100.00,111.20"/>
+        <lane id="left_out_1" index="1" speed="60.00" length="750.00" shape="383.20,108.00 -1100.00,108.00"/>
+        <lane id="left_out_2" index="2" speed="60.00" length="750.00" shape="383.20,104.80 -1100.00,104.80"/>
+        <lane id="left_out_3" index="3" speed="60.00" length="750.00" shape="383.20,101.60 -1100.00,101.60"/>
     </edge>
-    <edge id="right_in" from="EN" to="MN" priority="-1">
-        <lane id="right_in_0" index="0" speed="60.00" length="1683.20" shape="2100.00,111.20 416.80,111.20"/>
-        <lane id="right_in_1" index="1" speed="60.00" length="1683.20" shape="2100.00,108.00 416.80,108.00"/>
-        <lane id="right_in_2" index="2" speed="60.00" length="1683.20" shape="2100.00,104.80 416.80,104.80"/>
-        <lane id="right_in_3" index="3" speed="60.00" length="1683.20" shape="2100.00,101.60 416.80,101.60"/>
+    <edge id="right_in" from="EN" to="MN" priority="-1" length="750.00">
+        <lane id="right_in_0" index="0" speed="60.00" length="750.00" shape="2100.00,111.20 416.80,111.20"/>
+        <lane id="right_in_1" index="1" speed="60.00" length="750.00" shape="2100.00,108.00 416.80,108.00"/>
+        <lane id="right_in_2" index="2" speed="60.00" length="750.00" shape="2100.00,104.80 416.80,104.80"/>
+        <lane id="right_in_3" index="3" speed="60.00" length="750.00" shape="2100.00,101.60 416.80,101.60"/>
     </edge>
-    <edge id="right_out" from="MN" to="EN" priority="-1">
-        <lane id="right_out_0" index="0" speed="60.00" length="1683.20" shape="416.80,88.80 2100.00,88.80"/>
-        <lane id="right_out_1" index="1" speed="60.00" length="1683.20" shape="416.80,92.00 2100.00,92.00"/>
-        <lane id="right_out_2" index="2" speed="60.00" length="1683.20" shape="416.80,95.20 2100.00,95.20"/>
-        <lane id="right_out_3" index="3" speed="60.00" length="1683.20" shape="416.80,98.40 2100.00,98.40"/>
+    <edge id="right_out" from="MN" to="EN" priority="-1" length="750.00">
+        <lane id="right_out_0" index="0" speed="60.00" length="750.00" shape="416.80,88.80 2100.00,88.80"/>
+        <lane id="right_out_1" index="1" speed="60.00" length="750.00" shape="416.80,92.00 2100.00,92.00"/>
+        <lane id="right_out_2" index="2" speed="60.00" length="750.00" shape="416.80,95.20 2100.00,95.20"/>
+        <lane id="right_out_3" index="3" speed="60.00" length="750.00" shape="416.80,98.40 2100.00,98.40"/>
     </edge>
-    <edge id="top_in" from="NN" to="MN" priority="-1">
-        <lane id="top_in_0" index="0" speed="60.00" length="1083.20" shape="388.80,1200.00 388.80,116.80"/>
-        <lane id="top_in_1" index="1" speed="60.00" length="1083.20" shape="392.00,1200.00 392.00,116.80"/>
-        <lane id="top_in_2" index="2" speed="60.00" length="1083.20" shape="395.20,1200.00 395.20,116.80"/>
-        <lane id="top_in_3" index="3" speed="60.00" length="1083.20" shape="398.40,1200.00 398.40,116.80"/>
+    <edge id="top_in" from="NN" to="MN" priority="-1" length="750.00">
+        <lane id="top_in_0" index="0" speed="60.00" length="750.00" shape="388.80,1200.00 388.80,116.80"/>
+        <lane id="top_in_1" index="1" speed="60.00" length="750.00" shape="392.00,1200.00 392.00,116.80"/>
+        <lane id="top_in_2" index="2" speed="60.00" length="750.00" shape="395.20,1200.00 395.20,116.80"/>
+        <lane id="top_in_3" index="3" speed="60.00" length="750.00" shape="398.40,1200.00 398.40,116.80"/>
     </edge>
-    <edge id="top_out" from="MN" to="NN" priority="-1">
-        <lane id="top_out_0" index="0" speed="60.00" length="1083.20" shape="411.20,116.80 411.20,1200.00"/>
-        <lane id="top_out_1" index="1" speed="60.00" length="1083.20" shape="408.00,116.80 408.00,1200.00"/>
-        <lane id="top_out_2" index="2" speed="60.00" length="1083.20" shape="404.80,116.80 404.80,1200.00"/>
-        <lane id="top_out_3" index="3" speed="60.00" length="1083.20" shape="401.60,116.80 401.60,1200.00"/>
+    <edge id="top_out" from="MN" to="NN" priority="-1" length="750.00">
+        <lane id="top_out_0" index="0" speed="60.00" length="750.00" shape="411.20,116.80 411.20,1200.00"/>
+        <lane id="top_out_1" index="1" speed="60.00" length="750.00" shape="408.00,116.80 408.00,1200.00"/>
+        <lane id="top_out_2" index="2" speed="60.00" length="750.00" shape="404.80,116.80 404.80,1200.00"/>
+        <lane id="top_out_3" index="3" speed="60.00" length="750.00" shape="401.60,116.80 401.60,1200.00"/>
     </edge>
 
     <tlLogic id="TL" type="static" programID="0" offset="0">

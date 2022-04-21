@@ -10,7 +10,7 @@ class Routing:
         self._max_steps = max_steps
     
     def generate_routefile(self, seed):
-        getLogger().info('Generate routing file...')
+        # getLogger().info('Generate route file...')
 
         np.random.seed(seed)  # make tests reproducible
 
@@ -30,11 +30,11 @@ class Routing:
         # round every value to int
         car_gen_steps = np.rint(car_gen_steps)
 
-        #print (os.getcwd())
+        # getLogger().info(f'Current directory: {os.getcwd()}')
 
         with open("sumo_files/routes.rou.xml", "w") as routes:
             print('''<routes>
-    <vType accel="1.0" decel="4.5" id="standard_car" length="5.0" minGap="2.5" maxSpeed="60" sigma="0.5" />
+    <vType accel="1.0" id="standard_car" length="5.0" minGap="2.5" maxSpeed="60" sigma="0.5" />
 
     <route id="East_to_North" edges="right_in top_out"/>
     <route id="East_to_West" edges="right_in left_out"/>
@@ -84,4 +84,3 @@ class Routing:
                         print(f'    <vehicle id="S_W_{car_counter}" type="standard_car" route="South_to_West" depart="{step}" departLane="random" departSpeed="{depart_speed}" />', file=routes)
 
             print('</routes>', file=routes)
-        getLogger().info('Generate route file = DONE')
