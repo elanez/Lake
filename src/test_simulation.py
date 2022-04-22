@@ -1,64 +1,87 @@
+from subprocess import list2cmdline
 import traci
+import numpy as np
+import os
+import sys
+import logging
 
+from routing import Routing
 
-sumoCmd = ["sumo", "-c", "sumo_files/trial_osm.sumocfg"]
-traci.start(sumoCmd)
+'''
+Logger
+'''
+logger = logging.getLogger('test_logs')
+logger.setLevel(logging.DEBUG)
 
+file_handler = logging.FileHandler('test.log')
+file_handler.setLevel(logging.DEBUG)
 
-vehiclesIDCount = traci.vehicle.getIDCount()
-trafficlights=traci.trafficlight.getIDList()
-tlsList = []
-lanes = traci.lane.getIDList()
-edges = traci.edge.getIDList()
-trafficlights=traci.trafficlight.getIDList()
-tl_lanes = ['bottom_in_0', 'bottom_in_1', 'bottom_in_2','left_in_0', 'left_in_1', 'left_in_2', 'right_in_0', 'right_in_1', 'right_in_2', 'top_in_0', 'top_in_1', 'top_in_2',]
+formatter = logging.Formatter('%(asctime)s - %(module)s - %(levelname)s - %(message)s')
+file_handler.setFormatter(formatter)
 
-def getCarNumber():
-  for k in range(0, len(tl_lanes)):
-    checker = tl_lanes[k]
-    print("Car count: ", traci.lane.getLastStepVehicleNumber(checker), "in lane: ", checker)
+logger.addHandler(file_handler)
+
+'''
+INITIALIZE
+'''
+if 'SUMO_HOME' in os.environ:
+    tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
+    sys.path.append(tools)
+else:
+    error_message = "please declare environment variable 'SUMO_HOME'"
+    sys.exit(error_message)
+
+sumo = ["sumo", "-c", "sumo_files/sumo_config.sumocfg"]
+sumo_intersection = Routing(1000, 3600) #(number of cars, max steps))
+max_step = 3600
+
+'''
+FUNCTIONS
+'''
+def run(episode):
+    sumo_intersection.generate_routefile(episode)
+    traci.start(sumo)
+
+    # traffic_light = traci.trafficlight.getIDList
+    # lanes = traci.trafficlight.getControlledLanes
+    # logger.info(f'TrafficLightID: {traffic_light}, Lanes: {lanes}')
+
+    for _ in range(max_step):
+        logger.info(get_state())
+        # get_state()
+        traci.simulationStep()
     
+    traci.close()
 
-def getCarNumberRed():
-    for q in range(0, len(trafficlights)): 
-        if(traci.trafficlight.getPhase(trafficlights[q]) == 1):
-            for k in range(0, len(tl_lanes)):
-                checker = tl_lanes[k]
-                print("Car count: ", traci.lane.getLastStepVehicleNumber(checker), "in lane: ", checker, "vehicle ID",traci.lane.getLastStepVehicleIDs(checker))
-        elif(traci.trafficlight.getPhase(trafficlights[q]) == 3):
-            for k in range(0, len(tl_lanes)):
-                checker = tl_lanes[k]
-                print("Car count: ", traci.lane.getLastStepVehicleNumber(checker), "in lane: ", checker,  "vehicle ID",traci.lane.getLastStepVehicleIDs(checker))
+def get_state():
+    traffic_light_list = traci.trafficlight.getIDList()
+    lanes = traci.trafficlight.getControlledLanes(traffic_light_list[0])
 
+    #remove duplicate
+    temp_list = []
+    for i in lanes:
+        if i not in temp_list:
+            temp_list.append(i)
+    lanes = temp_list
 
-                
-def getVehicleInfo():
-    vehicles=traci.vehicle.getIDList()
-    for i in range(0,len(vehicles)):
-        print(traci.vehicle.getLaneID(vehicles[i]), " in lenght: ", traci.vehicle.getLanePosition(vehicles[i]), "Speed: ", traci.vehicle.getSpeed(vehicles[i]))
+    # logger.info(f'Lanes: {lanes}')
+    state = np.zeros(len(lanes))
+    state_i = 0
+    car_count = 0
+    
+    for l in lanes:
+        car_count = traci.lane.getLastStepVehicleNumber(l)
+        # logger.info(f'Lane: {l}, Car Count:{car_count}')
+        state[state_i] = car_count
+        state_i += 1
 
-        #Other details
-        vehid = vehicles[i]
-        x, y = traci.vehicle.getPosition(vehicles[i])
-        coord = [x, y]
-        lon, lat = traci.simulation.convertGeo(x, y)
-        gpscoord = [lon, lat]
-        spd = round(traci.vehicle.getSpeed(vehicles[i])*3.6,2)
-        edge = traci.vehicle.getRoadID(vehicles[i])
-        lane = traci.vehicle.getLaneID(vehicles[i])
-        displacement = round(traci.vehicle.getDistance(vehicles[i]),2)
-        turnAngle = round(traci.vehicle.getAngle(vehicles[i]),2)
-        nextTLS = traci.vehicle.getNextTLS(vehicles[i])
+    # logger.info(f'TrafficLightID: {traffic_light_list}, Lanes: {lanes}')               
+    return state
 
-def getTLInfo():
-    for q in range(0, len(trafficlights)): 
-        print("Phase", traci.trafficlight.getPhase(trafficlights[q]) , " Phase Duration:" , traci.trafficlight.getPhaseDuration(trafficlights[q]) , " State:" , traci.trafficlight.getRedYellowGreenState(trafficlights[q]))
+'''
+Simulation
+'''
+episodes = 1
 
-
-while traci.simulation.getMinExpectedNumber() > 0:
-    traci.simulationStep()
-
-    getCarNumberRed()
-
-
-traci.close
+for i in range(episodes):
+    run(i)
