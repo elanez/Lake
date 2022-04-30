@@ -1,6 +1,5 @@
 import numpy as np
 import math
-import os
 
 from logger import getLogger
 
@@ -53,7 +52,6 @@ class Routing:
             depart_speed = 'max'
             
             for car_counter, step in enumerate(car_gen_steps):
-                #straight_or_turn = np.random.uniform()
                 if np.random.uniform() < 0.60: #car goes straight
                     straight = np.random.randint(0, 4) # random source and destination
                     if straight == 0:

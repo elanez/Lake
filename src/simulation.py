@@ -24,17 +24,17 @@ class Simulation:
         self._AGENT = AGENT
         self._sumo_cmd = self._set_sumo(False, 'sumo_config.sumocfg') #(gui, filename)
         self._sumo_intersection = Routing(1000, 3600) #(number of cars, max steps)
-        self._num_states = 80
+        self._num_states = 16
         self._num_actions = 4
         self._step = 0
         self._max_steps = 3600
         self._epochs = 10
-        self._gamma = 0.75
+        self._gamma = 0.75 #discount rate
 
     '''
     SUMO INTERACTIONS
     '''
-    def run(self, episode, epsilon): #RUN SIMULATION
+    def run(self, episode, epsilon): #START SIMULATION
         start_time = timeit.default_timer()
 
         self._sumo_intersection.generate_routefile(episode)
@@ -47,12 +47,14 @@ class Simulation:
         self._sum_reward = 0
         self._sum_queue_length = 0
         self._sum_waiting_time = 0
+        action = 0
         old_total_wait = 0
         old_state = -1
         old_action = -1
 
         while self._step < self._max_steps:
-            current_state = self._get_state()
+            current_state = self._get_state(action)
+            # getLogger().info(f'Current State: {current_state}')
 
             current_total_wait = self._get_waiting_time()
             reward = old_total_wait - current_total_wait
@@ -91,94 +93,77 @@ class Simulation:
 
         return simulation_time, training_time
     
-    def _get_state(self): #GET STATE FROM SUMO
-        state = np.zeros(self._num_states)
-        car_list = traci.vehicle.getIDList()
+    def _get_state(self, action): #GET STATE FROM SUMO
+        #init
+        position_matrix = np.zeros((self._num_states, 16))
+        velocity_matrix = np.zeros((self._num_states, 16))
+        phase_matrix = np.zeros(4)
+        cell_length = 7
+        offset = 1
 
-        for car_id in car_list:
-            lane_pos = 750 - traci.vehicle.getLanePosition(car_id)
-            lane_id = traci.vehicle.getLaneID(car_id)
+        #current active traffic light phase
+        if action < 4:
+            phase_matrix[action] = 1
+        else:
+            getLogger().debug(f'Incorrect Green phase action: {action} from getState()')
 
-            #map into cells
-            if lane_pos < 7:
-                lane_cell = 0
-            elif lane_pos < 14:
-                lane_cell = 1
-            elif lane_pos < 21:
-                lane_cell = 2
-            elif lane_pos < 28:
-                lane_cell = 3
-            elif lane_pos < 40:
-                lane_cell = 4
-            elif lane_pos < 60:
-                lane_cell = 5
-            elif lane_pos < 100:
-                lane_cell = 6
-            elif lane_pos < 160:
-                lane_cell = 7
-            elif lane_pos < 400:
-                lane_cell = 8
-            elif lane_pos <= 750:
-                lane_cell = 9
-            
-            if lane_id == "right_in_0" or lane_id == "right_in_1" or lane_id == "right_in_2":
-                lane_group = 0
-            elif lane_id == "right_in_3":
-                lane_group = 1
-            elif lane_id == "left_in_0" or lane_id == "left_in_1" or lane_id == "left_in_2":
-                lane_group = 2
-            elif lane_id == "left_in_3":
-                lane_group = 3
-            elif lane_id == "top_in_0" or lane_id == "top_in_1" or lane_id == "top_in_2":
-                lane_group = 4
-            elif lane_id == "top_in_3":
-                lane_group = 5
-            elif lane_id == "bottom_in_0" or lane_id == "bottom_in_1" or lane_id == "bottom_in_2":
-                lane_group = 6
-            elif lane_id == "bottom_in_3":
-                lane_group = 7
-            else:
-                lane_group = -1
-            
-            if lane_group >= 1 and lane_group <= 7:
-                car_position = int(str(lane_group) + str(lane_cell))  # composition of the two postion ID to create a number in interval 0-79
-                valid_car = True
-            elif lane_group == 0:
-                car_position = lane_cell
-                valid_car = True
-            else:
-                valid_car = False 
+        traffic_light = traci.trafficlight.getIDList()
 
-            if valid_car:
-                state[car_position] = 1
+        for tl in traffic_light:
+            lanes = self._get_controlled_lanes(tl)
 
-        return state
+            for index, l in enumerate(lanes):
+                lane_length = traci.lane.getLength(l)
+                vehicles = traci.lane.getLastStepVehicleIDs(l)
+
+                for v in vehicles:
+                    lane_pos = traci.vehicle.getLanePosition(v)
+                    target_pos = lane_length - (self._num_states * cell_length)
+
+                    if lane_pos > target_pos: #if vehicle is close to the traffic light
+                        speed = round(traci.vehicle.getSpeed(v) / traci.lane.getMaxSpeed(l), 2)
+
+                        #([lane_id][position])
+                        index_1 = self._get_lane_id(l) * offset
+                        index_2 = int((lane_length - lane_pos) / cell_length)
+
+                        position_matrix[index_1][index_2] = 1
+                        velocity_matrix[index_1][index_2] = speed
+                
+                if index == 3 + (4 * (offset - 1)):
+                    offset += 1
+
+        # getLogger().info(f'Pos: {position_matrix} \n Vel: {velocity_matrix} \n Phase: {phase_matrix}')
+
+        return [position_matrix, velocity_matrix, phase_matrix]
     
-    def _replay(self):
+    def _replay(self): #STORE TO AGENT MEMORY
         batch = self._AGENT.get_samples(self._AGENT._batch_size)
 
         if len(batch) > 0:  # if memory is full
-            states = np.array([val[0] for val in batch])
-            next_states = np.array([val[3] for val in batch])
+            states = ([val[0] for val in batch])
+            next_states = ([val[3] for val in batch])
 
             # prediction
             q = self._AGENT.predict_batch(states)
             q_next = self._AGENT.predict_batch(next_states) 
 
             # setup training arrays
-            x = np.zeros((len(batch), self._num_states))
+            x = []
             y = np.zeros((len(batch), self._num_actions))
+            # getLogger().info(f'x shape: {x.shape}, y shape: {y.shape}')
 
             for i, b in enumerate(batch):
                 state, action, reward, _ = b[0], b[1], b[2], b[3]
                 current_q = q[i] 
                 current_q[action] = reward + self._gamma * np.amax(q_next[i])  # update Q(state, action)
-                x[i] = state
+
+                x.append(state)
                 y[i] = current_q  # Q(state)
 
             self._AGENT.train_batch(x, y)  # train the NN
     
-    def _simulate(self, steps_todo):
+    def _simulate(self, steps_todo): #RUN SUMO SIMULATION
         if (self._step + steps_todo) >= self._max_steps: 
             steps_todo = self._max_steps - self._step
         
@@ -221,11 +206,11 @@ class Simulation:
 
         return [sumoBinary, "-c", os.path.join('sumo_files', sumocfg_filename)]
     
-    def _set_yellow_phase(self, action):
+    def _set_yellow_phase(self, action): #CHANGE PHASE TO YELLOW
         phase_code = action * 2 + 1
         traci.trafficlight.setPhase("TL", phase_code)
     
-    def _set_green_phase(self, action):
+    def _set_green_phase(self, action): #CHANGE PHASE TO GREEN
         if action == 0:
             traci.trafficlight.setPhase("TL", PHASE_EW_GREEN)
         elif action == 1:
@@ -262,3 +247,17 @@ class Simulation:
         
         queue_length = road_N + road_E + road_S + road_W
         return queue_length
+
+    def _get_controlled_lanes(self, traffic_light_id): #GET ALL CONTROLLED LANES OF THE TRAFFIC LIGHT
+        lanes = traci.trafficlight.getControlledLanes(traffic_light_id)
+        
+        #remove duplicate
+        temp_list = []
+        for i in lanes:
+            if i not in temp_list:
+                temp_list.append(i)
+        lanes = temp_list
+        return lanes
+
+    def _get_lane_id(self, lane_id): #GET LAST CHARRACTER OF A STRING
+        return int(lane_id[len(lane_id)-1])

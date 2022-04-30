@@ -1,4 +1,3 @@
-from subprocess import list2cmdline
 import traci
 import numpy as np
 import os
@@ -47,8 +46,8 @@ def run(episode):
     # logger.info(f'TrafficLightID: {traffic_light}, Lanes: {lanes}')
 
     for _ in range(max_step):
-        logger.info(get_state())
-        # get_state()
+        # logger.info(get_state())
+        get_state()
         traci.simulationStep()
     
     traci.close()
@@ -69,9 +68,10 @@ def get_state():
     state_i = 0
     car_count = 0
     
-    for l in lanes:
+    for index, l in enumerate(lanes):
         car_count = traci.lane.getLastStepVehicleNumber(l)
         # logger.info(f'Lane: {l}, Car Count:{car_count}')
+        # logger.info(f'index: {index}, lane:{l}')
         state[state_i] = car_count
         state_i += 1
 

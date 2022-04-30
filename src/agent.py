@@ -1,53 +1,63 @@
 import os
-os.environ['TF_CPP_MIN_LOG_LEVEL']='2' #kill tensorflow warning
+os.environ['TF_CPP_MIN_LOG_LEVEL']='2' #remove tensorflow warning
 
 import sys
 import random
 import numpy as np
 import tensorflow as tf
 
+from collections import deque
 from tensorflow import keras
 from tensorflow.keras.optimizers import Adam
-from keras import layers, losses
+from keras import losses
+from keras.layers import Input, Flatten, Dense, concatenate
 from keras.models import load_model
 from logger import getLogger
 
 class Agent:
     def __init__(self):
-        self._input_dim = 80
+        self._input_dim = 3
         self._output_dim = 4
-        self._batch_size = 10
+        self._batch_size = 32
         self._learning_rate = 0.001
-        self._model = self._create_model(4, 400) #(number of layers, width)
+        self._model = self._create_model(16) #(number of lanes)
 
         #MEMORY
-        self.samples = []
         self.size_max = 50000
         self.size_min = 600
-
+        self.samples = deque(maxlen=self.size_max)
+        
     '''
     INITIALIZE MODEL
     '''
-    def _create_model(self, num_layers, width): #CONSTRUCT NEURAL NET
+    def _create_model(self, num_lanes): #CONSTRUCT NEURAL NET
         getLogger().info('Create model...')
 
         #Look for gpu
         if tf.test.gpu_device_name():
-            getLogger().info('==== Default GPU Device: {} ==='.format(tf.test.gpu_device_name()))
+            getLogger().info(f'==== Default GPU Device: {tf.test.gpu_device_name()} ===')
         else:
             getLogger().warning('=== Please install GPU version of Tf ===')
 
-        inputs = keras.Input(shape=(self._input_dim,))
-        x = layers.Dense(width, activation='relu')(inputs)
-        for _ in range(num_layers):
-            x = layers.Dense(width, activation='relu')(x)
-        outputs = layers.Dense(self._output_dim, activation='linear')(x)
+        input_1 = Input(shape=(num_lanes, 16,)) #position
+        x1 = Flatten()(input_1)
 
-        model = keras.Model(inputs=inputs, outputs=outputs, name='model')
-        model.compile(loss=losses.mean_squared_error, optimizer=Adam(lr=self._learning_rate))
+        input_2 = Input(shape=(num_lanes, 16,)) #velocity
+        x2 = Flatten()(input_2)
+
+        input_3 = Input(shape=(4,))    #traffic light phase
+
+        x = concatenate([x1, x2, input_3])
+        x = Dense(128, activation='relu')(x)
+        x = Dense(64, activation='relu')(x)
+
+        outputs = Dense(self._output_dim, activation='linear')(x)
+
+        model = keras.Model(inputs=[input_1, input_2, input_3], outputs=outputs, name='model')
+        model.compile(loss=losses.mean_squared_error, optimizer=Adam(learning_rate=self._learning_rate))
 
         #test
-        #model.summary()
+        # model.summary()
         getLogger().info('Create Model - DONE')
 
         return model
@@ -69,28 +79,35 @@ class Agent:
     '''
     TRAINING ARC
     '''
-    def predict_one(self, state): #PREDICT ACTION: SINGLE STATE
-        state = np.reshape(state, [1, self._input_dim])
-        return self._model.predict(state)
+    def predict_one(self, state): #PREDICT ACTION: SINGLE STATE  
+        input_1 = np.reshape(state[0], (1, 16, 16, 1))
+        input_2 = np.reshape(state[1], (1, 16, 16, 1))
+        input_3 = np.reshape(state[2], (1, 4, 1))
+
+        return self._model.predict([input_1, input_2, input_3])
 
     def predict_batch(self, states): #PREDICT ACTION: BATCH OF STATES
-        return self._model.predict(states)
+        return self._model.predict(self.get_input_state(states))
 
     def train_batch(self, states, q): #TRAIN NEURAL NET
-        # getLogger().info('Training NN...')
-        self._model.fit(states, q, epochs=1, verbose=0)
+                self._model.fit(self.get_input_state(states), q, epochs=1, verbose=0)
 
     def save_model(self, file_name): #SAVE MDOEL TO "models" FOLDER
         self._model.save(os.path(f'.../models/{file_name}.h5'))
+    
+    def get_input_state(self, states):
+        input_1 = np.array([val[0] for val in states])
+        input_2 = np.array([val[1] for val in states])
+        input_3 = np.array([val[2] for val in states])
+        return [input_1, input_2, input_3]
     
     '''
     EXPRIENCE REPLAY / MEMORY
     '''
     def add_sample(self, sample): #ADD TO MEMORY
         self.samples.append(sample)
-        if self._size_now() > self.size_max:
-            # getLogger().info('Size full! Deleting old memory...')
-            self.samples.pop(0) 
+        # if self._size_now() > self.size_max:
+        #     self.samples.pop(0) 
 
     def get_samples(self, n): #GET n RANDOM FROM MEMORY
         if self._size_now() < self.size_min:
@@ -103,3 +120,5 @@ class Agent:
 
     def _size_now(self): #GET MEMORY LENGTH
         return len(self.samples)
+
+# test = Agent()
