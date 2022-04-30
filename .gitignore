@@ -1,5 +1,6 @@
 #files
 sumo_files/routes.rou.xml
+models/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
