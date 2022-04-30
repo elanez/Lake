@@ -15,17 +15,16 @@ from keras.models import load_model
 from logger import getLogger
 
 class Agent:
-    def __init__(self):
-        self._input_dim = 3
-        self._output_dim = 4
-        self._batch_size = 32
-        self._learning_rate = 0.001
-        self._model = self._create_model(16) #(number of lanes)
+    def __init__(self, input_dim, output_dim, batch_size, learning_rate, size_min, size_max):
+        self._output_dim = output_dim
+        self._batch_size = batch_size
+        self._learning_rate = learning_rate
+        self._model = self._create_model(input_dim) #(number of lanes)
 
         #MEMORY
-        self.size_max = 50000
-        self.size_min = 600
-        self.samples = deque(maxlen=self.size_max)
+        self._size_min = size_min
+        # self._size_max = size_max
+        self.samples = deque(maxlen=size_max)
         
     '''
     INITIALIZE MODEL
@@ -65,7 +64,7 @@ class Agent:
     def _load_model(self, file_name): #LOAD MODEL FILE
         #file_location = f'.../models/{file_name}.h5'
         getLogger().info('Load Model...')
-        model_file_path = os.path(f'.../models/{file_name}.h5')
+        model_file_path = os.path(f'models/{file_name}.h5')
         
         if os.path.isfile(model_file_path):
             loaded_model = load_model(model_file_path)
@@ -90,10 +89,11 @@ class Agent:
         return self._model.predict(self.get_input_state(states))
 
     def train_batch(self, states, q): #TRAIN NEURAL NET
-                self._model.fit(self.get_input_state(states), q, epochs=1, verbose=0)
+        self._model.fit(self.get_input_state(states), q, epochs=1, verbose=0)
 
-    def save_model(self, file_name): #SAVE MDOEL TO "models" FOLDER
-        self._model.save(os.path(f'.../models/{file_name}.h5'))
+    def save_model(self, path): #SAVE MDOEL
+        self._model.save(path)
+        getLogger().info(f'Saved model to {path}')
     
     def get_input_state(self, states):
         input_1 = np.array([val[0] for val in states])
@@ -110,7 +110,7 @@ class Agent:
         #     self.samples.pop(0) 
 
     def get_samples(self, n): #GET n RANDOM FROM MEMORY
-        if self._size_now() < self.size_min:
+        if self._size_now() < self._size_min:
             return []
 
         if n > self._size_now():
@@ -121,4 +121,5 @@ class Agent:
     def _size_now(self): #GET MEMORY LENGTH
         return len(self.samples)
 
-# test = Agent()
+# FOR TESTING ONLY
+# test = Agent(16,4,32,0.001,600,50000)

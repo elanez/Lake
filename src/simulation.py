@@ -1,13 +1,11 @@
-import os
-import sys
-import numpy as np
 import random
 import timeit
 import traci
+import numpy as np
 
+from config import set_sumo
 from logger import getLogger
 from routing import Routing
-from sumolib import checkBinary
 
 #PHASE CODE from SUMO
 PHASE_EW_GREEN = 0
@@ -20,16 +18,16 @@ PHASE_NSS_GREEN = 6
 PHASE_NSS_YELLOW = 7
 
 class Simulation:
-    def __init__(self, AGENT):
+    def __init__(self, AGENT, gui, epochs, gamma, max_step, input_dim, num_cars, config_file):
         self._AGENT = AGENT
-        self._sumo_cmd = self._set_sumo(False, 'sumo_config.sumocfg') #(gui, filename)
-        self._sumo_intersection = Routing(1000, 3600) #(number of cars, max steps)
-        self._num_states = 16
+        self._sumo_cmd = set_sumo(gui, config_file) #(boolean, string)
+        self._sumo_intersection = Routing(num_cars, max_step)
+        self._input_dim = input_dim
         self._num_actions = 4
         self._step = 0
-        self._max_steps = 3600
-        self._epochs = 10
-        self._gamma = 0.75 #discount rate
+        self._max_steps = max_step
+        self._epochs = epochs
+        self._gamma = gamma #discount rate
 
     '''
     SUMO INTERACTIONS
@@ -95,21 +93,21 @@ class Simulation:
     
     def _get_state(self, action): #GET STATE FROM SUMO
         #init
-        position_matrix = np.zeros((self._num_states, 16))
-        velocity_matrix = np.zeros((self._num_states, 16))
+        position_matrix = np.zeros((self._input_dim, 16))
+        velocity_matrix = np.zeros((self._input_dim, 16))
         phase_matrix = np.zeros(4)
         cell_length = 7
         offset = 1
 
-        #current active traffic light phase
+        #phase matrix based on current active traffic light phase
         if action < 4:
             phase_matrix[action] = 1
         else:
             getLogger().debug(f'Incorrect Green phase action: {action} from getState()')
 
-        traffic_light = traci.trafficlight.getIDList()
+        traffic_lights = traci.trafficlight.getIDList()
 
-        for tl in traffic_light:
+        for tl in traffic_lights:
             lanes = self._get_controlled_lanes(tl)
 
             for index, l in enumerate(lanes):
@@ -118,7 +116,7 @@ class Simulation:
 
                 for v in vehicles:
                     lane_pos = traci.vehicle.getLanePosition(v)
-                    target_pos = lane_length - (self._num_states * cell_length)
+                    target_pos = lane_length - (self._input_dim * cell_length)
 
                     if lane_pos > target_pos: #if vehicle is close to the traffic light
                         speed = round(traci.vehicle.getSpeed(v) / traci.lane.getMaxSpeed(l), 2)
@@ -189,23 +187,7 @@ class Simulation:
 
     '''
     UTILS
-    '''
-    def _set_sumo(self, gui, sumocfg_filename): #CONFIGURE SUMO
-        if 'SUMO_HOME' in os.environ:
-            tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
-            sys.path.append(tools)
-        else:
-            error_message = "please declare environment variable 'SUMO_HOME'"
-            getLogger().critical(error_message)
-            sys.exit(error_message)
-        
-        if gui == True:
-            sumoBinary = checkBinary('sumo-gui')
-        else:
-            sumoBinary = checkBinary('sumo')
-
-        return [sumoBinary, "-c", os.path.join('sumo_files', sumocfg_filename)]
-    
+    '''  
     def _set_yellow_phase(self, action): #CHANGE PHASE TO YELLOW
         phase_code = action * 2 + 1
         traci.trafficlight.setPhase("TL", phase_code)
@@ -250,7 +232,7 @@ class Simulation:
 
     def _get_controlled_lanes(self, traffic_light_id): #GET ALL CONTROLLED LANES OF THE TRAFFIC LIGHT
         lanes = traci.trafficlight.getControlledLanes(traffic_light_id)
-        
+
         #remove duplicate
         temp_list = []
         for i in lanes:
