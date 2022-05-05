@@ -1,6 +1,8 @@
 import datetime
 import os
 
+from shutil import copyfile
+
 from agent import Agent
 from train_simulation import TrainSimulation
 from logger import getLogger
@@ -8,8 +10,7 @@ from config import import_train_config, set_model_path
 
 if __name__ == "__main__":
     getLogger().info('===== START PROGRAM =====')
-    config = import_train_config('train_config.ini')
-    path = set_model_path(config['model_name'])
+    config = import_train_config('train_settings.ini')
 
     agent = Agent(
         config['input_dim'],
@@ -46,6 +47,8 @@ if __name__ == "__main__":
     
     getLogger().info(f'SUMMARY -> Start time: {timestamp_start} End time: {datetime.datetime.now()}')
 
+    path = set_model_path(config['model_folder'])
     agent.save_model(path)
+    copyfile(src='train_settings.ini', dst=os.path.join(path, 'train_settings.ini'))
 
     getLogger().info('====== END PROGRAM ======')

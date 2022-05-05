@@ -78,6 +78,7 @@ class Agent:
         self._model.fit(self.get_input_state(states), q, epochs=1, verbose=0)
 
     def save_model(self, path): #SAVE MDOEL
+        path = os.path.join(path, 'model.h5')
         self._model.save(path)
         getLogger().info(f'Saved model to {path}')
     
@@ -117,6 +118,8 @@ class TestAgent():
     
     def _load_model(self, path): #LOAD MODEL FILE
         getLogger().info('Load Model...')
+
+        path = os.path.join(path, 'model.h5')
         getLogger().info(f'Model at: {path}')
         
         if os.path.isfile(path):

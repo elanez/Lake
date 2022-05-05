@@ -1,19 +1,21 @@
 import datetime
 import os
 
+from shutil import copyfile
+
 from agent import TestAgent
 from test_simulation import TestSimulation
 from logger import getLogger
-from config import import_test_config, set_model_path
+from config import import_test_config, get_model_path
 
 if __name__ == "__main__":
     getLogger().info('===== START PROGRAM =====')
-    config = import_test_config('test_config.ini')
-    path = set_model_path(config['model_name'])
+    config = import_test_config('test_settings.ini')
+    model_path,plot_path = get_model_path(config['model_folder'])
 
     agent = TestAgent(
         config['input_dim'],
-        'models/model.h5'
+        model_path
     )
 
     simulation = TestSimulation(
@@ -30,5 +32,8 @@ if __name__ == "__main__":
     timestamp_start = datetime.datetime.now()
     simulation.run(config['episode_seed'])
     getLogger().info(f'SUMMARY -> Start time: {timestamp_start} End time: {datetime.datetime.now()}')
+
+    copyfile(src='test_settings.ini', dst=os.path.join(model_path, 'test_settings.ini'))
+
     getLogger().info('====== END PROGRAM ======')
 
