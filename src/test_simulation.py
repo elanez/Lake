@@ -151,29 +151,32 @@ class TestSimulation():
             getLogger().debug(f'Incorrect Green phase action: {action}')
     
     def _get_waiting_time(self): #GET ALL WAITING TIME FOR ALL INCOMING LANES
-        incoming_roads = ["top_in", "right_in", "left_in", "bottom_in"]
+        traffic_lights = traci.trafficlight.getIDList()
         car_list = traci.vehicle.getIDList()
 
-        for car_id in car_list:
-            wait_time = traci.vehicle.getAccumulatedWaitingTime(car_id)
-            road_id = traci.vehicle.getRoadID(car_id)
-            if road_id in incoming_roads:
-                self._waiting_times[car_id] = wait_time
-            else:
-                if car_id in self._waiting_times: #if car has left the intersection
-                    del self._waiting_times[car_id]
+        for tl in traffic_lights:
+            lanes = self._get_controlled_lanes(tl)
+            for car_id in car_list:
+                wait_time = traci.vehicle.getAccumulatedWaitingTime(car_id)
+                road_id = traci.vehicle.getRoadID(car_id)        
+                if road_id in lanes:
+                    self._waiting_times[car_id] = wait_time
+                else:
+                    if car_id in self._waiting_times: #if car has left the intersection
+                        del self._waiting_times[car_id]
         
         total_waiting_time = sum(self._waiting_times.values())
-        # getLogger().info(f'Total Wait time: {total_waiting_time}')
         return total_waiting_time
     
     def _get_queue_length(self): #GET QUEUE LENGTH FOR ALL INCOMING LANES
-        road_N = traci.edge.getLastStepHaltingNumber("top_in")
-        road_E = traci.edge.getLastStepHaltingNumber("right_in")
-        road_S = traci.edge.getLastStepHaltingNumber("bottom_in")
-        road_W = traci.edge.getLastStepHaltingNumber("left_in")
-        
-        queue_length = road_N + road_E + road_S + road_W
+        traffic_lights = traci.trafficlight.getIDList()
+        queue_length = 0
+
+        for tl in traffic_lights:
+            lanes = self._get_controlled_lanes(tl)
+            for l in lanes:
+                queue_length = queue_length + traci.lane.getLastStepHaltingNumber(l)
+
         return queue_length
 
     def _get_controlled_lanes(self, traffic_light_id): #GET ALL CONTROLLED LANES OF THE TRAFFIC LIGHT
