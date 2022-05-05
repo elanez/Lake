@@ -5,7 +5,7 @@ import configparser
 from logger import getLogger
 from sumolib import checkBinary
 
-def import_configuration(file): #CONFIGURE SETTINGS
+def import_train_config(file): #CONFIGURE SETTINGS FOR TRAINING
     content = configparser.ConfigParser()
     content.read(file)
     config = {}
@@ -26,6 +26,30 @@ def import_configuration(file): #CONFIGURE SETTINGS
     config['max_step'] = content['simulation'].getint('max_step')
     config['epochs'] = content['simulation'].getint('epochs')
     config['gamma'] = content['simulation'].getfloat('gamma')
+    config['green_duration'] = content['simulation'].getint('green_duration')
+    config['yellow_duration'] = content['simulation'].getint('yellow_duration')
+
+    #routing
+    config['num_cars'] = content['routing'].getint('num_cars')
+
+    #dir
+    config['sumocfg_file'] = content['dir']['sumocfg_file']
+    config['model_name'] = content['dir']['model_name']
+
+    return config
+
+def import_test_config(file): #CONFIGURE SETTINGS FOR TESTING
+    content = configparser.ConfigParser()
+    content.read(file)
+    config = {}
+
+    #agent
+    config['input_dim'] = content['agent'].getint('input_dim')
+
+    #simulation
+    config['episode_seed'] = content['simulation'].getint('episode_seed')
+    config['sumo_gui'] = content['simulation'].getboolean('sumo_gui')
+    config['max_step'] = content['simulation'].getint('max_step')
     config['green_duration'] = content['simulation'].getint('green_duration')
     config['yellow_duration'] = content['simulation'].getint('yellow_duration')
 

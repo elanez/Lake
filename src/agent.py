@@ -61,20 +61,6 @@ class Agent:
 
         return model
     
-    def _load_model(self, file_name): #LOAD MODEL FILE
-        #file_location = f'.../models/{file_name}.h5'
-        getLogger().info('Load Model...')
-        model_file_path = os.path(f'models/{file_name}.h5')
-        
-        if os.path.isfile(model_file_path):
-            loaded_model = load_model(model_file_path)
-            getLogger().info('Load Model - DONE')
-            return loaded_model
-        else:
-            error_message = 'Model not found!'
-            getLogger().critical(error_message)
-            sys.exit(error_message)
-    
     '''
     TRAINING ARC
     '''
@@ -121,5 +107,30 @@ class Agent:
     def _size_now(self): #GET MEMORY LENGTH
         return len(self.samples)
 
-# FOR TESTING ONLY
-# test = Agent(16,4,32,0.001,600,50000)
+'''
+LOAD AND TEST AGENT
+'''
+class TestAgent():
+    def __init__(self,input_dim, model_path):
+        self._input_dim = input_dim
+        self._model = self._load_model(model_path)
+    
+    def _load_model(self, path): #LOAD MODEL FILE
+        getLogger().info('Load Model...')
+        getLogger().info(f'Model at: {path}')
+        
+        if os.path.isfile(path):
+            loaded_model = load_model(path)
+            getLogger().info('Load Model - DONE')
+            return loaded_model
+        else:
+            error_message = 'Model not found!'
+            getLogger().critical(error_message)
+            sys.exit(error_message)
+
+    def predict_one(self, state): #PREDICT ACTION: SINGLE STATE  
+        input_1 = np.reshape(state[0], (1, 16, 16, 1))
+        input_2 = np.reshape(state[1], (1, 16, 16, 1))
+        input_3 = np.reshape(state[2], (1, 4, 1))
+
+        return self._model.predict([input_1, input_2, input_3])

@@ -1,87 +1,191 @@
 import traci
+import timeit
 import numpy as np
-import os
-import sys
-import logging
 
+from config import set_sumo
+from logger import getLogger
 from routing import Routing
 
-'''
-Logger
-'''
-logger = logging.getLogger('test_logs')
-logger.setLevel(logging.DEBUG)
+#PHASE CODE from SUMO
+PHASE_EW_GREEN = 0
+PHASE_EW_YELLOW = 1
+PHASE_EWS_GREEN = 2
+PHASE_EWS_YELLOW = 3
+PHASE_NS_GREEN = 4
+PHASE_NS_YELLOW = 5
+PHASE_NSS_GREEN = 6
+PHASE_NSS_YELLOW = 7
 
-file_handler = logging.FileHandler('test.log')
-file_handler.setLevel(logging.DEBUG)
+class TestSimulation():
+    def __init__(self, AGENT, gui, max_step, green_duration, yellow_duration, input_dim, num_cars, config_file):
+        self._AGENT = AGENT
+        self._sumo_cmd = set_sumo(gui, config_file)
+        self._sumo_intersection = Routing(num_cars, max_step)
+        self._input_dim = input_dim
+        self._num_actions = 4
+        self._step = 0
+        self._max_steps = max_step
+        self._green_duration = green_duration
+        self._yellow_duraiton = yellow_duration
 
-formatter = logging.Formatter('%(asctime)s - %(module)s - %(levelname)s - %(message)s')
-file_handler.setFormatter(formatter)
-
-logger.addHandler(file_handler)
-
-'''
-INITIALIZE
-'''
-if 'SUMO_HOME' in os.environ:
-    tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
-    sys.path.append(tools)
-else:
-    error_message = "please declare environment variable 'SUMO_HOME'"
-    sys.exit(error_message)
-
-sumo = ["sumo", "-c", "sumo_files/sumo_config.sumocfg"]
-sumo_intersection = Routing(1000, 3600) #(number of cars, max steps))
-max_step = 3600
-
-'''
-FUNCTIONS
-'''
-def run(episode):
-    sumo_intersection.generate_routefile(episode)
-    traci.start(sumo)
-
-    # traffic_light = traci.trafficlight.getIDList
-    # lanes = traci.trafficlight.getControlledLanes
-    # logger.info(f'TrafficLightID: {traffic_light}, Lanes: {lanes}')
-
-    for _ in range(max_step):
-        # logger.info(get_state())
-        get_state()
-        traci.simulationStep()
+        self._reward_episode = []
+        self._queue_length_episode = []
     
-    traci.close()
+    def run(self, episode):
+        start_time = timeit.default_timer()
 
-def get_state():
-    traffic_light_list = traci.trafficlight.getIDList()
-    lanes = traci.trafficlight.getControlledLanes(traffic_light_list[0])
+        self._sumo_intersection.generate_routefile(episode)
+        traci.start(self._sumo_cmd)
+        getLogger().info('Simulating...')
 
-    #remove duplicate
-    temp_list = []
-    for i in lanes:
-        if i not in temp_list:
-            temp_list.append(i)
-    lanes = temp_list
+        #init
+        self._step = 0
+        self._waiting_times = {}
+        old_total_wait = 0
+        old_action = -1
+        action = 0
 
-    # logger.info(f'Lanes: {lanes}')
-    state = np.zeros(len(lanes))
-    state_i = 0
-    car_count = 0
+        while self._step < self._max_steps:
+            current_state = self._get_state(action)
+            # getLogger().info(f'Current State: {current_state}')
+
+            current_total_wait = self._get_waiting_time()
+            reward = old_total_wait - current_total_wait
+
+            #traffic light phase
+            action = self._choose_action(current_state)
+
+            #different phase
+            if self._step != 0 and old_action != action:
+                self._set_yellow_phase(old_action)
+                self._simulate(self._yellow_duraiton)
+            
+            self._set_green_phase(action)
+            self._simulate(self._green_duration)
+
+            old_action = action
+            old_total_wait = current_total_wait
+
+            self._reward_episode.append(reward)
+        
+        traci.close()
+        simulation_time = round(timeit.default_timer() - start_time, 1)
+
+        return simulation_time
     
-    for index, l in enumerate(lanes):
-        car_count = traci.lane.getLastStepVehicleNumber(l)
-        # logger.info(f'Lane: {l}, Car Count:{car_count}')
-        # logger.info(f'index: {index}, lane:{l}')
-        state[state_i] = car_count
-        state_i += 1
+    def _get_state(self, action): #GET STATE FROM SUMO
+        #init
+        position_matrix = np.zeros((self._input_dim, 16))
+        velocity_matrix = np.zeros((self._input_dim, 16))
+        phase_matrix = np.zeros(4)
+        cell_length = 7
+        offset = 1
 
-    # logger.info(f'TrafficLightID: {traffic_light_list}, Lanes: {lanes}')               
-    return state
+        #phase matrix based on current active traffic light phase
+        if action < 4:
+            phase_matrix[action] = 1
+        else:
+            getLogger().debug(f'Incorrect Green phase action: {action} from getState()')
 
-'''
-Simulation
-'''
-episodes = 1
+        traffic_lights = traci.trafficlight.getIDList()
 
-for i in range(episodes):
-    run(i)
+        for tl in traffic_lights:
+            lanes = self._get_controlled_lanes(tl)
+
+            for index, l in enumerate(lanes):
+                lane_length = traci.lane.getLength(l)
+                vehicles = traci.lane.getLastStepVehicleIDs(l)
+
+                for v in vehicles:
+                    lane_pos = traci.vehicle.getLanePosition(v)
+                    target_pos = lane_length - (self._input_dim * cell_length)
+
+                    if lane_pos > target_pos: #if vehicle is close to the traffic light
+                        speed = round(traci.vehicle.getSpeed(v) / traci.lane.getMaxSpeed(l), 2)
+
+                        #([lane_id][position])
+                        index_1 = self._get_lane_id(l) * offset
+                        index_2 = int((lane_length - lane_pos) / cell_length)
+
+                        position_matrix[index_1][index_2] = 1
+                        velocity_matrix[index_1][index_2] = speed
+                
+                if index == 3 + (4 * (offset - 1)):
+                    offset += 1
+
+        return [position_matrix, velocity_matrix, phase_matrix]
+
+    def _simulate(self, steps_todo): #RUN SUMO SIMULATION
+        if (self._step + steps_todo) >= self._max_steps: 
+            steps_todo = self._max_steps - self._step
+        
+        while steps_todo > 0:
+            traci.simulationStep()  # simulate 1 step in sumo
+            self._step += 1
+            steps_todo -= 1
+            queue_length = self._get_queue_length()
+            self._queue_length_episode.append(queue_length)
+    
+    def _choose_action(self, state): #CHOOSE ACTION
+        action = np.argmax(self._AGENT.predict_one(state))
+        # getLogger().info(f'Action: {action}')
+        return action
+
+    '''
+    UTILS
+    '''  
+    def _set_yellow_phase(self, action): #CHANGE PHASE TO YELLOW
+        phase_code = action * 2 + 1
+        traci.trafficlight.setPhase("TL", phase_code)
+    
+    def _set_green_phase(self, action): #CHANGE PHASE TO GREEN
+        if action == 0:
+            traci.trafficlight.setPhase("TL", PHASE_EW_GREEN)
+        elif action == 1:
+            traci.trafficlight.setPhase("TL", PHASE_EWS_GREEN)
+        elif action == 2:
+            traci.trafficlight.setPhase("TL", PHASE_NS_GREEN)
+        elif action == 3:
+            traci.trafficlight.setPhase("TL", PHASE_NSS_GREEN)
+        else:
+            getLogger().debug(f'Incorrect Green phase action: {action}')
+    
+    def _get_waiting_time(self): #GET ALL WAITING TIME FOR ALL INCOMING LANES
+        incoming_roads = ["top_in", "right_in", "left_in", "bottom_in"]
+        car_list = traci.vehicle.getIDList()
+
+        for car_id in car_list:
+            wait_time = traci.vehicle.getAccumulatedWaitingTime(car_id)
+            road_id = traci.vehicle.getRoadID(car_id)
+            if road_id in incoming_roads:
+                self._waiting_times[car_id] = wait_time
+            else:
+                if car_id in self._waiting_times: #if car has left the intersection
+                    del self._waiting_times[car_id]
+        
+        total_waiting_time = sum(self._waiting_times.values())
+        # getLogger().info(f'Total Wait time: {total_waiting_time}')
+        return total_waiting_time
+    
+    def _get_queue_length(self): #GET QUEUE LENGTH FOR ALL INCOMING LANES
+        road_N = traci.edge.getLastStepHaltingNumber("top_in")
+        road_E = traci.edge.getLastStepHaltingNumber("right_in")
+        road_S = traci.edge.getLastStepHaltingNumber("bottom_in")
+        road_W = traci.edge.getLastStepHaltingNumber("left_in")
+        
+        queue_length = road_N + road_E + road_S + road_W
+        return queue_length
+
+    def _get_controlled_lanes(self, traffic_light_id): #GET ALL CONTROLLED LANES OF THE TRAFFIC LIGHT
+        lanes = traci.trafficlight.getControlledLanes(traffic_light_id)
+
+        #remove duplicate
+        temp_list = []
+        for i in lanes:
+            if i not in temp_list:
+                temp_list.append(i)
+        lanes = temp_list
+        return lanes
+
+    def _get_lane_id(self, lane_id): #GET LAST CHARRACTER OF A STRING
+        return int(lane_id[len(lane_id)-1])
