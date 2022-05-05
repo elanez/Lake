@@ -2,13 +2,13 @@ import datetime
 import os
 
 from agent import Agent
-from simulation import Simulation
+from train_simulation import TrainSimulation
 from logger import getLogger
-from config import import_configuration, set_model_path
+from config import import_train_config, set_model_path
 
 if __name__ == "__main__":
     getLogger().info('===== START PROGRAM =====')
-    config = import_configuration('settings.ini')
+    config = import_train_config('train_config.ini')
     path = set_model_path(config['model_name'])
 
     agent = Agent(
@@ -20,7 +20,7 @@ if __name__ == "__main__":
         config['size_max']
     )
 
-    simulation = Simulation(
+    simulation = TrainSimulation(
         agent,
         config['sumo_gui'],
         config['epochs'],

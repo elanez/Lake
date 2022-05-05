@@ -1,6 +1,6 @@
-import random
-import timeit
 import traci
+import timeit
+import random
 import numpy as np
 
 from config import set_sumo
@@ -17,7 +17,7 @@ PHASE_NS_YELLOW = 5
 PHASE_NSS_GREEN = 6
 PHASE_NSS_YELLOW = 7
 
-class Simulation:
+class TrainSimulation:
     def __init__(self, AGENT, gui, epochs, gamma, max_step, green_duration, yellow_duration, input_dim, num_cars, config_file):
         self._AGENT = AGENT
         self._sumo_cmd = set_sumo(gui, config_file)
@@ -178,12 +178,14 @@ class Simulation:
     
     def _choose_action(self, state, epsilon): #CHOOSE ACTION
         action = 0
+
         if random.random() < epsilon:
             # getLogger().info('Agent chooses to explore')
             action = random.randint(0, self._num_actions - 1) #explore
         else:
             # getLogger().info('Agent chooses to exploit')
             action = np.argmax(self._AGENT.predict_one(state)) #exploit
+        
         # getLogger().info(f'Action: {action}')
         return action
 
