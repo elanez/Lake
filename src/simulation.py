@@ -18,17 +18,19 @@ PHASE_NSS_GREEN = 6
 PHASE_NSS_YELLOW = 7
 
 class Simulation:
-    def __init__(self, AGENT, gui, epochs, gamma, max_step, input_dim, num_cars, config_file):
+    def __init__(self, AGENT, gui, epochs, gamma, max_step, green_duration, yellow_duration, input_dim, num_cars, config_file):
         self._AGENT = AGENT
-        self._sumo_cmd = set_sumo(gui, config_file) #(boolean, string)
+        self._sumo_cmd = set_sumo(gui, config_file)
         self._sumo_intersection = Routing(num_cars, max_step)
         self._input_dim = input_dim
         self._num_actions = 4
         self._step = 0
         self._max_steps = max_step
         self._epochs = epochs
-        self._gamma = gamma #discount rate
-
+        self._gamma = gamma
+        self._green_duration = green_duration
+        self._yellow_duraiton = yellow_duration
+        
     '''
     SUMO INTERACTIONS
     '''
@@ -67,10 +69,10 @@ class Simulation:
             #different phase
             if self._step != 0 and old_action != action:
                 self._set_yellow_phase(old_action)
-                self._simulate(3)
+                self._simulate(self._yellow_duraiton)
             
             self._set_green_phase(action)
-            self._simulate(30)
+            self._simulate(self._green_duration)
 
             old_state = current_state
             old_action = action
@@ -243,3 +245,4 @@ class Simulation:
 
     def _get_lane_id(self, lane_id): #GET LAST CHARRACTER OF A STRING
         return int(lane_id[len(lane_id)-1])
+    

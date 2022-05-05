@@ -26,6 +26,8 @@ def import_configuration(file): #CONFIGURE SETTINGS
     config['max_step'] = content['simulation'].getint('max_step')
     config['epochs'] = content['simulation'].getint('epochs')
     config['gamma'] = content['simulation'].getfloat('gamma')
+    config['green_duration'] = content['simulation'].getint('green_duration')
+    config['yellow_duration'] = content['simulation'].getint('yellow_duration')
 
     #routing
     config['num_cars'] = content['routing'].getint('num_cars')
@@ -52,18 +54,19 @@ def set_sumo(gui, sumocfg_filename): #CONFIGURE SUMO
 
         return [sumoBinary, "-c", os.path.join('sumo_files', sumocfg_filename)]
 
-def set_model_path(file_name): #CONFIGURE MODEL PATH
+def set_model_path(file_name): #CONFIGURE MODEL PATH AND INCREMENT FILE NAME
     model_path = os.path.join(os.getcwd(), 'models')
 
     if not os.path.exists(model_path):
         os.makedirs(model_path)
+        getLogger().info(f'Created a new directory at {model_path}')
 
     model_path = os.path.join(model_path, f'{file_name}.h5')
 
     filename, extension = os.path.splitext(model_path)
     counter = 1
 
-    while os.path.exists(model_path):
+    while os.path.exists(model_path): #If file name already exists add a number at the end
         model_path = filename + " (" + str(counter) + ")" + extension
         counter += 1
 

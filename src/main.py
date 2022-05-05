@@ -1,4 +1,5 @@
 import datetime
+import os
 
 from agent import Agent
 from simulation import Simulation
@@ -8,6 +9,7 @@ from config import import_configuration, set_model_path
 if __name__ == "__main__":
     getLogger().info('===== START PROGRAM =====')
     config = import_configuration('settings.ini')
+    path = set_model_path(config['model_name'])
 
     agent = Agent(
         config['input_dim'],
@@ -24,6 +26,8 @@ if __name__ == "__main__":
         config['epochs'],
         config['gamma'],
         config['max_step'],
+        config['green_duration'],
+        config['yellow_duration'],
         config['input_dim'],
         config['num_cars'],
         config['sumocfg_file']
@@ -42,6 +46,6 @@ if __name__ == "__main__":
     
     getLogger().info(f'SUMMARY -> Start time: {timestamp_start} End time: {datetime.datetime.now()}')
 
-    agent.save_model(set_model_path(config['model_name']))
+    agent.save_model(path)
 
     getLogger().info('====== END PROGRAM ======')
