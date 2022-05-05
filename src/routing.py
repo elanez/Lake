@@ -33,7 +33,7 @@ class Routing:
 
         with open("sumo_files/routes.rou.xml", "w") as routes:
             print('''<routes>
-    <vType accel="1.0" id="standard_car" length="5.0" minGap="2.5" maxSpeed="60" sigma="0.5" />
+    <vType accel="0.8" id="standard_car" decel="4.5" length="5.0" minGap="2.5" maxSpeed="60" sigma="0.5" />
 
     <route id="East_to_North" edges="right_in top_out"/>
     <route id="East_to_West" edges="right_in left_out"/>
@@ -48,37 +48,35 @@ class Routing:
     <route id="South_to_North" edges="bottom_in top_out"/>
     <route id="South_to_West" edges="bottom_in left_out"/>
            ''', file=routes)
-
-            depart_speed = 'max'
             
             for car_counter, step in enumerate(car_gen_steps):
                 if np.random.uniform() < 0.60: #car goes straight
                     straight = np.random.randint(0, 4) # random source and destination
                     if straight == 0:
-                        print(f'    <vehicle id="E_W_{car_counter}" type="standard_car" route="East_to_West" depart="{step}" departLane="random" departSpeed="{depart_speed}" />', file=routes)
+                        print(f'    <vehicle id="E_W_{car_counter}" type="standard_car" route="East_to_West" depart="{step}" departLane="random" />', file=routes)
                     elif straight == 1:
-                        print(f'    <vehicle id="W_E_{car_counter}" type="standard_car" route="West_to_East" depart="{step}" departLane="random" departSpeed="{depart_speed}" />', file=routes)
+                        print(f'    <vehicle id="W_E_{car_counter}" type="standard_car" route="West_to_East" depart="{step}" departLane="random" />', file=routes)
                     elif straight == 2:
-                        print(f'    <vehicle id="N_S_{car_counter}" type="standard_car" route="North_to_South" depart="{step}" departLane="random" departSpeed="{depart_speed}" />', file=routes)
+                        print(f'    <vehicle id="N_S_{car_counter}" type="standard_car" route="North_to_South" depart="{step}" departLane="random" />', file=routes)
                     else:
-                        print(f'    <vehicle id="S_N_{car_counter}" type="standard_car" route="South_to_North" depart="{step}" departLane="random" departSpeed="{depart_speed}" />', file=routes)
+                        print(f'    <vehicle id="S_N_{car_counter}" type="standard_car" route="South_to_North" depart="{step}" departLane="random"/>', file=routes)
                 else: #car turns
                     turn = np.random.randint(0, 8) # random source and destination
                     if turn == 0:
-                        print(f'    <vehicle id="E_N_{car_counter}" type="standard_car" route="East_to_North" depart="{step}" departLane="random" departSpeed="{depart_speed}" />', file=routes)
+                        print(f'    <vehicle id="E_N_{car_counter}" type="standard_car" route="East_to_North" depart="{step}" departLane="random" />', file=routes)
                     elif turn == 1:
-                        print(f'    <vehicle id="E_W_{car_counter}" type="standard_car" route="East_to_South" depart="{step}" departLane="random" departSpeed="{depart_speed}" />', file=routes)
+                        print(f'    <vehicle id="E_W_{car_counter}" type="standard_car" route="East_to_South" depart="{step}" departLane="random" />', file=routes)
                     elif turn == 2:
-                        print(f'    <vehicle id="W_N_{car_counter}" type="standard_car" route="West_to_North" depart="{step}" departLane="random" departSpeed="{depart_speed}" />', file=routes)
+                        print(f'    <vehicle id="W_N_{car_counter}" type="standard_car" route="West_to_North" depart="{step}" departLane="random" />', file=routes)
                     elif turn == 3:
-                        print(f'    <vehicle id="W_S_{car_counter}" type="standard_car" route="West_to_South" depart="{step}" departLane="random" departSpeed="{depart_speed}" />', file=routes)
+                        print(f'    <vehicle id="W_S_{car_counter}" type="standard_car" route="West_to_South" depart="{step}" departLane="random" />', file=routes)
                     elif turn == 4:
-                        print(f'    <vehicle id="N_E_{car_counter}" type="standard_car" route="North_to_East" depart="{step}" departLane="random" departSpeed="{depart_speed}" />', file=routes)
+                        print(f'    <vehicle id="N_E_{car_counter}" type="standard_car" route="North_to_East" depart="{step}" departLane="random" />', file=routes)
                     elif turn == 5:
-                        print(f'    <vehicle id="N_W_{car_counter}" type="standard_car" route="North_to_West" depart="{step}" departLane="random" departSpeed="{depart_speed}" />', file=routes)
+                        print(f'    <vehicle id="N_W_{car_counter}" type="standard_car" route="North_to_West" depart="{step}" departLane="random" />', file=routes)
                     elif turn == 6:
-                        print(f'    <vehicle id="S_E_{car_counter}" type="standard_car" route="South_to_East" depart="{step}" departLane="random" departSpeed="{depart_speed}" />', file=routes)
+                        print(f'    <vehicle id="S_E_{car_counter}" type="standard_car" route="South_to_East" depart="{step}" departLane="random" />', file=routes)
                     else:
-                        print(f'    <vehicle id="S_W_{car_counter}" type="standard_car" route="South_to_West" depart="{step}" departLane="random" departSpeed="{depart_speed}" />', file=routes)
+                        print(f'    <vehicle id="S_W_{car_counter}" type="standard_car" route="South_to_West" depart="{step}" departLane="random" />', file=routes)
 
             print('</routes>', file=routes)
