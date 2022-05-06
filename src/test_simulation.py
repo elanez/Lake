@@ -158,7 +158,7 @@ class TestSimulation():
             lanes = self._get_controlled_lanes(tl)
             for car_id in car_list:
                 wait_time = traci.vehicle.getAccumulatedWaitingTime(car_id)
-                road_id = traci.vehicle.getRoadID(car_id)        
+                road_id = traci.vehicle.getLaneID(car_id)        
                 if road_id in lanes:
                     self._waiting_times[car_id] = wait_time
                 else:

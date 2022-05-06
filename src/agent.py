@@ -53,7 +53,9 @@ class Agent:
         outputs = Dense(self._output_dim, activation='linear')(x)
 
         model = keras.Model(inputs=[input_1, input_2, input_3], outputs=outputs, name='model')
-        model.compile(loss=losses.mean_squared_error, optimizer=Adam(learning_rate=self._learning_rate))
+        model.compile(loss=losses.mean_squared_error,
+        optimizer=Adam(learning_rate=self._learning_rate),
+        metrics=['accuracy'])
 
         #test
         # model.summary()
@@ -75,7 +77,7 @@ class Agent:
         return self._model.predict(self.get_input_state(states))
 
     def train_batch(self, states, q): #TRAIN NEURAL NET
-        self._model.fit(self.get_input_state(states), q, epochs=1, verbose=0)
+        self._model.fit(self.get_input_state(states), q, epochs=1, verbose=1)
 
     def save_model(self, path): #SAVE MDOEL
         path = os.path.join(path, 'model.h5')

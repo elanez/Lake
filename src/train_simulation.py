@@ -216,14 +216,14 @@ class TrainSimulation:
             lanes = self._get_controlled_lanes(tl)
             for car_id in car_list:
                 wait_time = traci.vehicle.getAccumulatedWaitingTime(car_id)
-                road_id = traci.vehicle.getRoadID(car_id)        
+                road_id = traci.vehicle.getLaneID(car_id)        
                 if road_id in lanes:
                     self._waiting_times[car_id] = wait_time
                 else:
                     if car_id in self._waiting_times: #if car has left the intersection
                         del self._waiting_times[car_id]
-        
         total_waiting_time = sum(self._waiting_times.values())
+        
         return total_waiting_time
     
     def _get_queue_length(self): #GET QUEUE LENGTH FOR ALL INCOMING LANES
@@ -234,7 +234,7 @@ class TrainSimulation:
             lanes = self._get_controlled_lanes(tl)
             for l in lanes:
                 queue_length = queue_length + traci.lane.getLastStepHaltingNumber(l)
-
+        
         return queue_length
 
     def _get_controlled_lanes(self, traffic_light_id): #GET ALL CONTROLLED LANES OF THE TRAFFIC LIGHT
