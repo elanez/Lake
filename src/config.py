@@ -91,8 +91,11 @@ def set_model_path(path_name): #CONFIGURE MODEL PATH AND INCREMENT FILE NAME
 
     counter = 1
 
-    while os.path.exists(model_path): #If file name already exists add a number at the end
-        model_path = model_path + " (" + str(counter) + ")"
+    while os.path.exists(model_path): #If file name already exists add a number eg folder_name (1)
+        if "(" in model_path and ")" in model_path:
+            model_path = model_path.replace(str(counter-1), str(counter))
+        else:
+            model_path = model_path + " (" + str(counter) + ")"
         counter += 1
     
     os.makedirs(os.path.dirname(model_path), exist_ok=True)
