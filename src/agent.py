@@ -25,6 +25,11 @@ class Agent:
         self._size_min = size_min
         # self._size_max = size_max
         self.samples = deque(maxlen=size_max)
+
+        #DATA
+        self._loss_history = []
+        self._acc_history = []
+        self._epochs = 0
         
     '''
     INITIALIZE MODEL
@@ -77,7 +82,10 @@ class Agent:
         return self._model.predict(self.get_input_state(states))
 
     def train_batch(self, states, q): #TRAIN NEURAL NET
-        self._model.fit(self.get_input_state(states), q, epochs=1, verbose=1)
+        history = self._model.fit(self.get_input_state(states), q, epochs=1, verbose=0)
+        self._loss_history.append(history.history['loss'])
+        self._acc_history.append(history.history['accuracy'])
+        self._epochs = self._epochs + 1
 
     def save_model(self, path): #SAVE MDOEL
         path = os.path.join(path, 'model.h5')
@@ -109,6 +117,23 @@ class Agent:
 
     def _size_now(self): #GET MEMORY LENGTH
         return len(self.samples)
+    
+    '''
+    DATA RESET
+    '''
+    def reset_data(self):
+        self._loss_history.clear()
+        self._acc_history.clear()
+        self._epochs = 0
+
+    @property
+    def loss_history(self):
+        return self._loss_history
+
+    @property
+    def acc_history(self):
+        return self._acc_history
+    
 
 '''
 LOAD AND TEST AGENT

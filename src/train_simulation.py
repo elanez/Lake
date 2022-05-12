@@ -92,6 +92,7 @@ class TrainSimulation:
         simulation_time = round(timeit.default_timer() - start_time, 1)
 
         # getLogger().info('Training ...')
+        self._AGENT.reset_data()
         start_time = timeit.default_timer()
         for _ in range(self._epochs):
             self._replay()

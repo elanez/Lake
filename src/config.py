@@ -113,3 +113,13 @@ def get_model_path(path_name):
         msg = 'Folder does not exist'
         getLogger().critical(msg)
         sys.exit(msg)
+
+
+def training_data_path(path_name):
+    path = os.path.join(path_name, 'train_data')
+    
+    if not os.path.exists(path):
+        os.makedirs(path)
+
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    return path

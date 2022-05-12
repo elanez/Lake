@@ -5,8 +5,6 @@ class Plot:
     def __init__(self, path, dpi):
         self._path = path
         self._dpi = dpi
-    #def __init__(self, dpi):
-        #self._dpi = dpi
 
     def plot_data(self, data, filename, xlabel, ylabel):
         """
@@ -15,7 +13,7 @@ class Plot:
         #min_val = min(data)
         #max_val = max(data)
 
-        plt.title("Rewards per Episode")
+        # plt.title("Rewards per Episode")
 
         plt.rcParams.update({'font.size': 12})  # set bigger font size
 

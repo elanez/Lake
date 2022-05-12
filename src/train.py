@@ -3,13 +3,10 @@ import os
 
 from shutil import copyfile
 
-from matplotlib.pyplot import plot
-
 from agent import Agent
 from train_simulation import TrainSimulation
 from logger import getLogger
-from config import import_train_config, set_model_path
-#Plotting 
+from config import import_train_config, set_model_path, training_data_path
 from plot import Plot
 
 if __name__ == "__main__":
@@ -43,6 +40,11 @@ if __name__ == "__main__":
         path,
         100
     )
+
+    train_plot = Plot(
+        training_data_path(path),
+        100
+    )
     
     episode = 0
     total_episodes = config['total_episodes']
@@ -52,6 +54,11 @@ if __name__ == "__main__":
         getLogger().info(f'Episode {episode+1} of {total_episodes}:')
         epsilon = 1 - (episode / total_episodes) #epsilon-greedy policy
         simulation_time, training_time = simulation.run(episode, epsilon)
+        
+        if agent.loss_history and agent.acc_history and episode > int(total_episodes*9/10):
+            train_plot.plot_data(data=agent.loss_history,  filename=f'Loss_Episode_{episode+1}', xlabel='Epoch', ylabel='Loss')
+            train_plot.plot_data(data=agent.acc_history,  filename=f'Acc_Episode_{episode+1}', xlabel='Accuracy', ylabel='Loss')
+
         getLogger().info(f'Simulation time: {simulation_time} - Training time: {training_time} - Total: {round(simulation_time+training_time, 1)}')
         episode += 1
     
