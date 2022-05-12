@@ -7,6 +7,8 @@ from agent import Agent
 from train_simulation import TrainSimulation
 from logger import getLogger
 from config import import_train_config, set_model_path
+#Plotting 
+from visualization import Visualization
 
 if __name__ == "__main__":
     getLogger().info('===== START PROGRAM =====')
@@ -33,6 +35,11 @@ if __name__ == "__main__":
         config['num_cars'],
         config['sumocfg_file']
     )
+
+    plotter = Visualization(
+        folder =  'results' ,#folder,
+        dpi = 100
+    )
     
     episode = 0
     total_episodes = config['total_episodes']
@@ -44,6 +51,7 @@ if __name__ == "__main__":
         simulation_time, training_time = simulation.run(episode, epsilon)
         getLogger().info(f'Simulation time: {simulation_time} - Training time: {training_time} - Total: {round(simulation_time+training_time, 1)}')
         episode += 1
+        print(f"Episode: {episode} --> Epsilon: {epsilon}")
     
     getLogger().info(f'SUMMARY -> Start time: {timestamp_start} End time: {datetime.datetime.now()}')
 
@@ -52,3 +60,6 @@ if __name__ == "__main__":
     copyfile(src='train_settings.ini', dst=os.path.join(path, 'train_settings.ini'))
 
     getLogger().info('====== END PROGRAM ======')
+
+    #save reward store to plot data
+    plotter.save_data_and_plot(data=simulation.reward_store, filename='rewards', xlabel="Episode", ylabel="Rewards")

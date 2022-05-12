@@ -30,6 +30,8 @@ class TrainSimulation:
         self._gamma = gamma
         self._green_duration = green_duration
         self._yellow_duration = yellow_duration
+
+        self._reward_store = []
         
     '''
     SUMO INTERACTIONS
@@ -80,6 +82,8 @@ class TrainSimulation:
 
             if reward < 0:
                 self._sum_reward += reward
+            
+        self._save_episode_reward() #Save value of reward
 
         getLogger().info(f'Total reward: {self._sum_reward} - Epsilon: {round(epsilon, 2)}')
         traci.close()
@@ -91,6 +95,7 @@ class TrainSimulation:
             self._replay()
         training_time = round(timeit.default_timer() - start_time, 1)
 
+        #return simulation_time, training_time , self._sum_reward
         return simulation_time, training_time
     
     def _get_state(self, action): #GET STATE FROM SUMO
@@ -251,3 +256,10 @@ class TrainSimulation:
     def _get_lane_id(self, lane_id): #GET LAST CHARRACTER OF A STRING
         return int(lane_id[len(lane_id)-1])
     
+
+    def _save_episode_reward(self):
+        self._reward_store.append(self._sum_reward)
+
+    @property
+    def reward_store(self):
+        return self._reward_store
