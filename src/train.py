@@ -3,16 +3,19 @@ import os
 
 from shutil import copyfile
 
+from matplotlib.pyplot import plot
+
 from agent import Agent
 from train_simulation import TrainSimulation
 from logger import getLogger
 from config import import_train_config, set_model_path
 #Plotting 
-from visualization import Visualization
+from plot import Plot
 
 if __name__ == "__main__":
     getLogger().info('===== START PROGRAM =====')
     config = import_train_config('train_settings.ini')
+    path = set_model_path(config['model_folder'])
 
     agent = Agent(
         config['input_dim'],
@@ -36,9 +39,9 @@ if __name__ == "__main__":
         config['sumocfg_file']
     )
 
-    plotter = Visualization(
-        folder =  'results' ,#folder,
-        dpi = 100
+    plot = Plot(
+        path,
+        100
     )
     
     episode = 0
@@ -51,15 +54,15 @@ if __name__ == "__main__":
         simulation_time, training_time = simulation.run(episode, epsilon)
         getLogger().info(f'Simulation time: {simulation_time} - Training time: {training_time} - Total: {round(simulation_time+training_time, 1)}')
         episode += 1
-        print(f"Episode: {episode} --> Epsilon: {epsilon}")
     
     getLogger().info(f'SUMMARY -> Start time: {timestamp_start} End time: {datetime.datetime.now()}')
 
-    path = set_model_path(config['model_folder'])
     agent.save_model(path)
     copyfile(src='train_settings.ini', dst=os.path.join(path, 'train_settings.ini'))
 
     getLogger().info('====== END PROGRAM ======')
 
     #save reward store to plot data
-    plotter.save_data_and_plot(data=simulation.reward_store, filename='rewards', xlabel="Episode", ylabel="Rewards")
+    plot.plot_data(data=simulation.reward_store, filename='reward', xlabel='Episode', ylabel='Cumulative negative reward')
+    plot.plot_data(data=simulation.cumulative_wait_store, filename='delay', xlabel='Episode', ylabel='Cumulative delay (s)')
+    plot.plot_data(data=simulation.avg_queue_length_store, filename='queue', xlabel='Episode', ylabel='Average queue length (vehicles)')

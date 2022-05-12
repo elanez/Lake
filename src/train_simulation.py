@@ -32,6 +32,8 @@ class TrainSimulation:
         self._yellow_duration = yellow_duration
 
         self._reward_store = []
+        self._cumulative_wait_store = []
+        self._avg_queue_length_store = []
         
     '''
     SUMO INTERACTIONS
@@ -83,7 +85,7 @@ class TrainSimulation:
             if reward < 0:
                 self._sum_reward += reward
             
-        self._save_episode_reward() #Save value of reward
+        self._save_stats() #Save
 
         getLogger().info(f'Total reward: {self._sum_reward} - Epsilon: {round(epsilon, 2)}')
         traci.close()
@@ -256,10 +258,19 @@ class TrainSimulation:
     def _get_lane_id(self, lane_id): #GET LAST CHARRACTER OF A STRING
         return int(lane_id[len(lane_id)-1])
     
-
-    def _save_episode_reward(self):
+    def _save_stats(self):
         self._reward_store.append(self._sum_reward)
+        self._cumulative_wait_store.append(self._sum_waiting_time)  # total number of seconds waited by cars in this episode
+        self._avg_queue_length_store.append(self._sum_queue_length / self._max_steps) 
 
     @property
     def reward_store(self):
         return self._reward_store
+    
+    @property
+    def cumulative_wait_store(self):
+        return self._cumulative_wait_store
+
+    @property
+    def avg_queue_length_store(self):
+        return self._avg_queue_length_store
