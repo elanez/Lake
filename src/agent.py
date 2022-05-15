@@ -16,6 +16,7 @@ from logger import getLogger
 
 class Agent:
     def __init__(self, input_dim, output_dim, batch_size, learning_rate, size_min, size_max):
+        self._input_dim = input_dim
         self._output_dim = output_dim
         self._batch_size = batch_size
         self._learning_rate = learning_rate
@@ -72,8 +73,8 @@ class Agent:
     TRAINING ARC
     '''
     def predict_one(self, state): #PREDICT ACTION: SINGLE STATE  
-        input_1 = np.reshape(state[0], (1, 16, 16, 1))
-        input_2 = np.reshape(state[1], (1, 16, 16, 1))
+        input_1 = np.reshape(state[0], (1, self._input_dim, 16, 1))
+        input_2 = np.reshape(state[1], (1, self._input_dim, 16, 1))
         input_3 = np.reshape(state[2], (1, 4, 1))
 
         return self._model.predict([input_1, input_2, input_3])

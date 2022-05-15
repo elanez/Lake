@@ -131,9 +131,9 @@ class TrainSimulation:
                     if lane_pos > target_pos: #if vehicle is close to the traffic light
                         speed = round(traci.vehicle.getSpeed(v) / traci.lane.getMaxSpeed(l), 2)
 
-                        #([lane_id][position])
-                        index_1 = self._get_lane_id(l) * offset
-                        index_2 = int((lane_length - lane_pos) / cell_length)
+                        #([position][lane_id])
+                        index_1 = int((lane_length - lane_pos) / cell_length)
+                        index_2 = self._get_lane_id(l) * offset
 
                         position_matrix[index_1][index_2] = 1
                         velocity_matrix[index_1][index_2] = speed
