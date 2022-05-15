@@ -12,13 +12,14 @@ import logging
 logger = logging.getLogger('logs')
 logger.setLevel(logging.DEBUG)
 
-file_handler = logging.FileHandler('debug.log')
-file_handler.setLevel(logging.DEBUG)
+if True:
+    file_handler = logging.FileHandler('debug.log')
+    file_handler.setLevel(logging.DEBUG)
 
-formatter = logging.Formatter('%(asctime)s - %(module)s - %(levelname)s - %(message)s')
-file_handler.setFormatter(formatter)
+    formatter = logging.Formatter('%(asctime)s - %(module)s - %(levelname)s - %(message)s')
+    file_handler.setFormatter(formatter)
 
-logger.addHandler(file_handler)
+    logger.addHandler(file_handler)
 
 def getLogger():
     return logger
