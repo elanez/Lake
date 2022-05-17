@@ -115,31 +115,28 @@ class TrainSimulation:
         else:
             getLogger().debug(f'Incorrect Green phase action: {action} from getState()')
 
-        traffic_lights = traci.trafficlight.getIDList()
+        lanes = self._get_controlled_lanes('TL')
 
-        for tl in traffic_lights:
-            lanes = self._get_controlled_lanes(tl)
+        for index, l in enumerate(lanes):
+            lane_length = traci.lane.getLength(l)
+            vehicles = traci.lane.getLastStepVehicleIDs(l)
 
-            for index, l in enumerate(lanes):
-                lane_length = traci.lane.getLength(l)
-                vehicles = traci.lane.getLastStepVehicleIDs(l)
+            for v in vehicles:
+                lane_pos = traci.vehicle.getLanePosition(v)
+                target_pos = lane_length - (self._input_dim * cell_length)
 
-                for v in vehicles:
-                    lane_pos = traci.vehicle.getLanePosition(v)
-                    target_pos = lane_length - (self._input_dim * cell_length)
+                if lane_pos > target_pos: #if vehicle is close to the traffic light
+                    speed = round(traci.vehicle.getSpeed(v) / traci.lane.getMaxSpeed(l), 2)
 
-                    if lane_pos > target_pos: #if vehicle is close to the traffic light
-                        speed = round(traci.vehicle.getSpeed(v) / traci.lane.getMaxSpeed(l), 2)
+                    #([position][lane_id])
+                    index_1 = int((lane_length - lane_pos) / cell_length)
+                    index_2 = self._get_lane_id(l) * offset
 
-                        #([position][lane_id])
-                        index_1 = int((lane_length - lane_pos) / cell_length)
-                        index_2 = self._get_lane_id(l) * offset
-
-                        position_matrix[index_1][index_2] = 1
-                        velocity_matrix[index_1][index_2] = speed
-                
-                if index == 3 + (4 * (offset - 1)):
-                    offset += 1
+                    position_matrix[index_1][index_2] = 1
+                    velocity_matrix[index_1][index_2] = speed
+            
+            if index == 3 + (4 * (offset - 1)):
+                offset += 1
 
         # getLogger().info(f'Pos: {position_matrix} \n Vel: {velocity_matrix} \n Phase: {phase_matrix}')
 
@@ -217,31 +214,28 @@ class TrainSimulation:
             getLogger().debug(f'Incorrect Green phase action: {action}')
     
     def _get_waiting_time(self): #GET ALL WAITING TIME FOR ALL INCOMING LANES
-        traffic_lights = traci.trafficlight.getIDList()
         car_list = traci.vehicle.getIDList()
 
-        for tl in traffic_lights:
-            lanes = self._get_controlled_lanes(tl)
-            for car_id in car_list:
-                wait_time = traci.vehicle.getAccumulatedWaitingTime(car_id)
-                road_id = traci.vehicle.getLaneID(car_id)        
-                if road_id in lanes:
-                    self._waiting_times[car_id] = wait_time
-                else:
-                    if car_id in self._waiting_times: #if car has left the intersection
-                        del self._waiting_times[car_id]
+        lanes = self._get_controlled_lanes("TL")
+        for car_id in car_list:
+            wait_time = traci.vehicle.getAccumulatedWaitingTime(car_id)
+            road_id = traci.vehicle.getLaneID(car_id)        
+            if road_id in lanes:
+                self._waiting_times[car_id] = wait_time
+            else:
+                if car_id in self._waiting_times: #if car has left the intersection
+                    del self._waiting_times[car_id]
+
         total_waiting_time = sum(self._waiting_times.values())
         
         return total_waiting_time
     
     def _get_queue_length(self): #GET QUEUE LENGTH FOR ALL INCOMING LANES
-        traffic_lights = traci.trafficlight.getIDList()
         queue_length = 0
 
-        for tl in traffic_lights:
-            lanes = self._get_controlled_lanes(tl)
-            for l in lanes:
-                queue_length = queue_length + traci.lane.getLastStepHaltingNumber(l)
+        lanes = self._get_controlled_lanes("TL")
+        for l in lanes:
+            queue_length = queue_length + traci.lane.getLastStepHaltingNumber(l)
         
         return queue_length
 
