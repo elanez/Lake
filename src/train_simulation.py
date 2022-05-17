@@ -24,6 +24,7 @@ class TrainSimulation:
         self._sumo_intersection = Routing(num_cars, max_step)
         self._input_dim = input_dim
         self._num_actions = 4
+        self._num_lanes = 16
         self._step = 0
         self._max_steps = max_step
         self._epochs = epochs
@@ -103,8 +104,8 @@ class TrainSimulation:
     
     def _get_state(self, action): #GET STATE FROM SUMO
         #init
-        position_matrix = np.zeros((self._input_dim, 16))
-        velocity_matrix = np.zeros((self._input_dim, 16))
+        position_matrix = np.zeros((self._num_lanes, self._input_dim))
+        velocity_matrix = np.zeros((self._num_lanes, self._input_dim))
         phase_matrix = np.zeros(4)
         cell_length = 7
         offset = 1
@@ -128,9 +129,9 @@ class TrainSimulation:
                 if lane_pos > target_pos: #if vehicle is close to the traffic light
                     speed = round(traci.vehicle.getSpeed(v) / traci.lane.getMaxSpeed(l), 2)
 
-                    #([position][lane_id])
-                    index_1 = int((lane_length - lane_pos) / cell_length)
-                    index_2 = self._get_lane_id(l) * offset
+                    #([lane_id][position])
+                    index_1 = self._get_lane_id(l) * offset
+                    index_2 = int((lane_length - lane_pos) / cell_length)
 
                     position_matrix[index_1][index_2] = 1
                     velocity_matrix[index_1][index_2] = speed
