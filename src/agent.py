@@ -15,12 +15,12 @@ from keras.models import load_model
 from logger import getLogger
 
 class Agent:
-    def __init__(self, input_dim, output_dim, batch_size, learning_rate, size_min, size_max):
+    def __init__(self, input_dim, output_dim, batch_size, learning_rate, num_lanes, size_min, size_max):
         self._input_dim = input_dim
         self._output_dim = output_dim
         self._batch_size = batch_size
         self._learning_rate = learning_rate
-        self.num_lanes = 16
+        self.num_lanes = num_lanes
         self._model = self._create_model(self._input_dim) 
 
         #MEMORY
@@ -45,10 +45,10 @@ class Agent:
         else:
             getLogger().warning('=== Please install GPU version of Tf ===')
 
-        input_1 = Input(shape=(self._num_lanes, input_dim,)) #position
+        input_1 = Input(shape=(self.num_lanes, input_dim,)) #position
         x1 = Flatten()(input_1)
 
-        input_2 = Input(shape=(self._num_lanes, input_dim,)) #velocity
+        input_2 = Input(shape=(self.num_lanes, input_dim,)) #velocity
         x2 = Flatten()(input_2)
 
         input_3 = Input(shape=(4,))    #traffic light phase
@@ -141,8 +141,9 @@ class Agent:
 LOAD AND TEST AGENT
 '''
 class TestAgent():
-    def __init__(self,input_dim, model_path):
+    def __init__(self,input_dim, num_lanes, model_path):
         self._input_dim = input_dim
+        self.num_lanes = num_lanes
         self._model = self._load_model(model_path)
     
     def _load_model(self, path): #LOAD MODEL FILE
@@ -161,8 +162,8 @@ class TestAgent():
             sys.exit(error_message)
 
     def predict_one(self, state): #PREDICT ACTION: SINGLE STATE  
-        input_1 = np.reshape(state[0], (1, self._num_lanes, self._input_dim, 1))
-        input_2 = np.reshape(state[1], (1, self._num_lanes, self._input_dim, 1))
+        input_1 = np.reshape(state[0], (1, self.num_lanes, self._input_dim, 1))
+        input_2 = np.reshape(state[1], (1, self.num_lanes, self._input_dim, 1))
         input_3 = np.reshape(state[2], (1, 4, 1))
 
         return self._model.predict([input_1, input_2, input_3])

@@ -26,6 +26,7 @@ def import_train_config(file): #CONFIGURE SETTINGS FOR TRAINING
     config['total_episodes'] = content['simulation'].getint('total_episodes')
     config['sumo_gui'] = content['simulation'].getboolean('sumo_gui')
     config['max_step'] = content['simulation'].getint('max_step')
+    config['num_lanes'] = content['simulation'].getint('num_lanes')
     config['epochs'] = content['simulation'].getint('epochs')
     config['gamma'] = content['simulation'].getfloat('gamma')
     config['green_duration'] = content['simulation'].getint('green_duration')
@@ -52,6 +53,7 @@ def import_test_config(file): #CONFIGURE SETTINGS FOR TESTING
     config['episode_seed'] = content['simulation'].getint('episode_seed')
     config['sumo_gui'] = content['simulation'].getboolean('sumo_gui')
     config['max_step'] = content['simulation'].getint('max_step')
+    config['num_lanes'] = content['simulation'].getint('num_lanes')
     config['green_duration'] = content['simulation'].getint('green_duration')
     config['yellow_duration'] = content['simulation'].getint('yellow_duration')
 

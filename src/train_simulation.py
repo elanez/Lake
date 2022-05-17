@@ -24,7 +24,7 @@ class TrainSimulation:
         self._sumo_intersection = Routing(num_cars, max_step)
         self._input_dim = input_dim
         self._num_actions = 4
-        self._num_lanes = 16
+        self._num_lanes = AGENT.num_lanes
         self._step = 0
         self._max_steps = max_step
         self._epochs = epochs

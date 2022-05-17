@@ -15,6 +15,7 @@ if __name__ == "__main__":
 
     agent = TestAgent(
         config['input_dim'],
+        config['num_lanes'],
         model_path
     )
 
@@ -33,7 +34,7 @@ if __name__ == "__main__":
     simulation.run(config['episode_seed'])
     getLogger().info(f'SUMMARY -> Start time: {timestamp_start} End time: {datetime.datetime.now()}')
 
-    copyfile(src='test_settings.ini', dst=os.path.join(model_path, 'test_settings.ini'))
+    # copyfile(src='test_settings.ini', dst=os.path.join(model_path, 'test_settings.ini'))
 
     getLogger().info('====== END PROGRAM ======')
 

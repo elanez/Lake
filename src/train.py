@@ -19,6 +19,7 @@ if __name__ == "__main__":
         config['output_dim'],
         config['batch_size'],
         config['learning_rate'],
+        config['num_lanes'],
         config['size_min'],
         config['size_max']
     )
