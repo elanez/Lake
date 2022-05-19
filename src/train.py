@@ -58,7 +58,7 @@ if __name__ == "__main__":
         
         if agent.loss_history and agent.acc_history and episode > int(total_episodes*9/10):
             train_plot.plot_data(data=agent.loss_history,  filename=f'Loss_Episode_{episode+1}', xlabel='Epoch', ylabel='Loss')
-            train_plot.plot_data(data=agent.acc_history,  filename=f'Acc_Episode_{episode+1}', xlabel='Accuracy', ylabel='Loss')
+            train_plot.plot_data(data=agent.acc_history,  filename=f'Acc_Episode_{episode+1}', xlabel='Epoch', ylabel='Accuracy')
 
         getLogger().info(f'Simulation time: {simulation_time} - Training time: {training_time} - Total: {round(simulation_time+training_time, 1)}')
         episode += 1
@@ -71,6 +71,6 @@ if __name__ == "__main__":
     getLogger().info('====== END PROGRAM ======')
 
     #save reward store to plot data
-    plot.plot_data(data=simulation.reward_store, filename='reward', xlabel='Episode', ylabel='Cumulative negative reward')
+    plot.plot_data(data=simulation.reward_store, filename='reward', xlabel='Episode', ylabel='Cumulative reward')
     plot.plot_data(data=simulation.cumulative_wait_store, filename='delay', xlabel='Episode', ylabel='Cumulative delay (s)')
     plot.plot_data(data=simulation.avg_queue_length_store, filename='queue', xlabel='Episode', ylabel='Average queue length (vehicles)')
