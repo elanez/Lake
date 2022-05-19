@@ -74,8 +74,8 @@ class Agent:
     TRAINING ARC
     '''
     def predict_one(self, state): #PREDICT ACTION: SINGLE STATE  
-        input_1 = np.reshape(state[0], (1, self._num_lanes, self._input_dim, 1))
-        input_2 = np.reshape(state[1], (1, self._num_lanes, self._input_dim, 1))
+        input_1 = np.reshape(state[0], (1, self.num_lanes, self._input_dim, 1))
+        input_2 = np.reshape(state[1], (1, self.num_lanes, self._input_dim, 1))
         input_3 = np.reshape(state[2], (1, 4, 1))
 
         return self._model.predict([input_1, input_2, input_3])
