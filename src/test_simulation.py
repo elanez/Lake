@@ -7,16 +7,6 @@ from config import set_sumo
 from logger import getLogger
 from routing import Routing
 
-#PHASE CODE from SUMO
-PHASE_EW_GREEN = 0
-PHASE_EW_YELLOW = 1
-PHASE_EWS_GREEN = 2
-PHASE_EWS_YELLOW = 3
-PHASE_NS_GREEN = 4
-PHASE_NS_YELLOW = 5
-PHASE_NSS_GREEN = 6
-PHASE_NSS_YELLOW = 7
-
 class TestSimulation():
     def __init__(self, AGENT, gui, max_step, green_duration, yellow_duration, input_dim, num_cars, config_file):
         self._AGENT = AGENT
@@ -24,14 +14,16 @@ class TestSimulation():
         self._sumo_intersection = Routing(num_cars, max_step)
         self._input_dim = input_dim
         self._num_actions = 4
-        self._num_lanes = 16
+        self._num_lanes = AGENT.num_lanes
         self._step = 0
         self._max_steps = max_step
         self._green_duration = green_duration
         self._yellow_duration = yellow_duration
 
-        self._reward_episode = []
-        self._queue_length_episode = []
+        #stats
+        self._reward_store = []
+        # self._cumulative_wait_store = []
+        self._queue_length = []
     
     def run(self, episode):
         start_time = timeit.default_timer()
@@ -43,10 +35,12 @@ class TestSimulation():
         #init
         self._step = 0
         self._waiting_times = {}
-        old_total_wait = 0
         trafficlight_list = traci.trafficlight.getIDList()
-        action = np.zeros(len(trafficlight_list))
-        old_action = np.zeros(len(action))
+        trafficlight_count = len(trafficlight_list)
+        old_total_wait = np.zeros(trafficlight_count)
+        action = np.zeros(trafficlight_count)
+        old_action = np.zeros(trafficlight_count)
+        reward = np.zeros(trafficlight_count)
 
         while self._step < self._max_steps:
             for index, trafficlight_id in enumerate(trafficlight_list):
@@ -55,10 +49,10 @@ class TestSimulation():
                     if self.isGreen(traci.trafficlight.getPhase(trafficlight_id)): #GREEN PHASE
                         current_state = self._get_state(int(action[index]) , trafficlight_id)
                         action[index] = self._choose_action(current_state)
-                        getLogger().info(f'Step: {self._step} New Action: {action} Current Phase: {traci.trafficlight.getPhase(trafficlight_id)/2}')
+                        # getLogger().info(f'Step: {self._step} New Action: {action} Current Phase: {traci.trafficlight.getPhase(trafficlight_id)/2}')
 
                         current_total_wait = self._get_waiting_time(trafficlight_id)
-                        reward = old_total_wait - current_total_wait
+                        reward[index] = old_total_wait[index] - current_total_wait
 
                         #different phase
                         if self._step != 0 and old_action[index] != action[index]:
@@ -67,15 +61,15 @@ class TestSimulation():
                             self._set_green_phase(action[index] , trafficlight_id)
                         
                         old_action[index]  = action[index] 
-                        old_total_wait = current_total_wait
+                        old_total_wait[index] = current_total_wait
+
+                        self._reward_store.append(reward[index])
+                        queue_length = self._get_queue_length(trafficlight_id)
+                        self._queue_length.append(queue_length)
 
                     else: #YELLOW PHASE
                         self._set_green_phase(action[index] , trafficlight_id)
-                    
-                    # queue_length = self._get_queue_length(trafficlight_id)
-                    # self._queue_length_episode.append(queue_length)
-                    # self._reward_episode.append(reward)
-                    
+                        
             traci.simulationStep()
             self._step += 1
                 
@@ -121,7 +115,7 @@ class TestSimulation():
             if index == 3 + (4 * (offset - 1)):
                 offset += 1
 
-        getLogger().info(f'pos: {position_matrix} vel: {velocity_matrix}, phase: {phase_matrix}')
+        # getLogger().info(f'pos: {position_matrix} vel: {velocity_matrix}, phase: {phase_matrix}')
         return [position_matrix, velocity_matrix, phase_matrix]
     
     def _choose_action(self, state): #CHOOSE ACTION
@@ -137,13 +131,13 @@ class TestSimulation():
     
     def _set_green_phase(self, action, trafficlight_id): #CHANGE PHASE TO GREEN
         if action == 0:
-            traci.trafficlight.setPhase(trafficlight_id, PHASE_EW_GREEN)
+            traci.trafficlight.setPhase(trafficlight_id, action * 2)
         elif action == 1:
-            traci.trafficlight.setPhase(trafficlight_id, PHASE_EWS_GREEN)
+            traci.trafficlight.setPhase(trafficlight_id, action * 2)
         elif action == 2:
-            traci.trafficlight.setPhase(trafficlight_id, PHASE_NS_GREEN)
+            traci.trafficlight.setPhase(trafficlight_id, action * 2)
         elif action == 3:
-            traci.trafficlight.setPhase(trafficlight_id, PHASE_NSS_GREEN)
+            traci.trafficlight.setPhase(trafficlight_id, action * 2)
         else:
             getLogger().debug(f'Incorrect Green phase action: {action}')
     
@@ -191,3 +185,10 @@ class TestSimulation():
             return True
         else:
             return False
+    
+    def average_queue_length(self):
+        return round(sum(self._queue_length)/len(self._queue_length), 2)
+
+    @property
+    def reward_store(self):
+        return self._reward_store

@@ -7,16 +7,6 @@ from config import set_sumo
 from logger import getLogger
 from routing import Routing
 
-#PHASE CODE from SUMO
-PHASE_EW_GREEN = 0
-PHASE_EW_YELLOW = 1
-PHASE_EWS_GREEN = 2
-PHASE_EWS_YELLOW = 3
-PHASE_NS_GREEN = 4
-PHASE_NS_YELLOW = 5
-PHASE_NSS_GREEN = 6
-PHASE_NSS_YELLOW = 7
-
 class TrainSimulation:
     def __init__(self, AGENT, gui, epochs, gamma, max_step, green_duration, yellow_duration, input_dim, num_cars, config_file):
         self._AGENT = AGENT
@@ -32,6 +22,7 @@ class TrainSimulation:
         self._green_duration = green_duration
         self._yellow_duration = yellow_duration
 
+        #stats
         self._reward_store = []
         self._cumulative_wait_store = []
         self._avg_queue_length_store = []
@@ -204,13 +195,13 @@ class TrainSimulation:
     
     def _set_green_phase(self, action): #CHANGE PHASE TO GREEN
         if action == 0:
-            traci.trafficlight.setPhase("TL", PHASE_EW_GREEN)
+            traci.trafficlight.setPhase("TL", action * 2)
         elif action == 1:
-            traci.trafficlight.setPhase("TL", PHASE_EWS_GREEN)
+            traci.trafficlight.setPhase("TL", action * 2)
         elif action == 2:
-            traci.trafficlight.setPhase("TL", PHASE_NS_GREEN)
+            traci.trafficlight.setPhase("TL", action * 2)
         elif action == 3:
-            traci.trafficlight.setPhase("TL", PHASE_NSS_GREEN)
+            traci.trafficlight.setPhase("TL", action * 2)
         else:
             getLogger().debug(f'Incorrect Green phase action: {action}')
     
