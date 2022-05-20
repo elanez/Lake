@@ -10,7 +10,7 @@ from config import import_train_config, set_model_path, training_data_path
 from plot import Plot
 
 if __name__ == "__main__":
-    getLogger().info('===== START PROGRAM =====')
+    getLogger().info('===== START TRAIN PROGRAM =====')
     config = import_train_config('train_settings.ini')
     path = set_model_path(config['model_folder'])
 
@@ -68,7 +68,7 @@ if __name__ == "__main__":
     agent.save_model(path)
     copyfile(src='train_settings.ini', dst=os.path.join(path, 'train_settings.ini'))
 
-    getLogger().info('====== END PROGRAM ======')
+    getLogger().info('====== END TRAIN PROGRAM ======')
 
     #save reward store to plot data
     plot.plot_data(data=simulation.reward_store, filename='reward', xlabel='Episode', ylabel='Cumulative reward')

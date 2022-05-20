@@ -1,5 +1,3 @@
-from distutils import extension
-from importlib.resources import path
 import os
 import sys
 import configparser

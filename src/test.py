@@ -9,7 +9,7 @@ from logger import getLogger
 from config import import_test_config, get_model_path
 
 if __name__ == "__main__":
-    getLogger().info('===== START PROGRAM =====')
+    getLogger().info('===== START TEST PROGRAM =====')
     config = import_test_config('test_settings.ini')
     model_path,plot_path = get_model_path(config['model_folder'])
 
@@ -36,5 +36,5 @@ if __name__ == "__main__":
     getLogger().info(f'RESULT -> Ave Queue Length: {simulation.average_queue_length()}')
     # copyfile(src='test_settings.ini', dst=os.path.join(model_path, 'test_settings.ini'))
 
-    getLogger().info('====== END PROGRAM ======')
+    getLogger().info('====== END TEST PROGRAM ======')
 
