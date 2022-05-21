@@ -5,26 +5,28 @@ import numpy as np
 
 from config import set_sumo
 from logger import getLogger
+from config import import_test_config
 
 class StaticSimulation:
-    def __init__(self):
-        self._config_file = 'sumo_config.sumocfg'
-        self._sumo_cmd = set_sumo(True, self._config_file)
+    def __init__(self, gui, max_step, green_duration, yellow_duration, config_file):
+        self._sumo_cmd = set_sumo(gui, config_file)
         self._step = 0
-        self._max_steps = 5400
-        self._green_duration = 10
-        self._yellow_duration = 5
+        self._max_steps = max_step
+        self._green_duration = green_duration
+        self._yellow_duration = yellow_duration
     
          #stats
         self._reward_store = []
         self._cumulative_wait_store = []
         self._queue_length = []
+        self._wait_store = []
+        self._min_wait_time = 100
+        self._max_wait_time = 0
     
     def run(self):
         start_time = timeit.default_timer()
         traci.start(self._sumo_cmd)
         getLogger().info('Simulating...')
-
 
         self._step = 0
         self._waiting_times = {}
@@ -34,12 +36,16 @@ class StaticSimulation:
         action = np.zeros(trafficlight_count)
         old_action = np.zeros(trafficlight_count)
         reward = np.zeros(trafficlight_count)
+        ave_wait_time = 0
 
         while self._step < self._max_steps:
             for index, trafficlight_id in enumerate(trafficlight_list):
                 if self.isGreen(traci.trafficlight.getPhase(trafficlight_id)):
-                    current_total_wait = self._get_waiting_time(trafficlight_id)
+                    current_total_wait, ave_wait_time = self._get_waiting_time(trafficlight_id)
                     reward[index] = old_total_wait[index] - current_total_wait
+                    
+                    if ave_wait_time > 0:
+                        self._wait_store.append(ave_wait_time)
 
                     old_action[index]  = action[index] 
                     old_total_wait[index] = current_total_wait
@@ -58,6 +64,8 @@ class StaticSimulation:
     
     def _get_waiting_time(self, trafficlight_id): #GET ALL WAITING TIME FOR ALL INCOMING LANES
         car_list = traci.vehicle.getIDList()
+        wait_time_store = []
+        ave_wait_time = 0
 
         lanes = self._get_controlled_lanes(trafficlight_id)
         for car_id in car_list:
@@ -65,12 +73,23 @@ class StaticSimulation:
             road_id = traci.vehicle.getLaneID(car_id)        
             if road_id in lanes:
                 self._waiting_times[car_id] = wait_time
+                
+                if wait_time > self._max_wait_time:
+                    self._max_wait_time = wait_time
+                elif wait_time < self._min_wait_time and wait_time > 0:
+                    self._min_wait_time = wait_time
+
+                wait_time_store.append(wait_time)
             else:
                 if car_id in self._waiting_times: #if car has left the intersection
                     del self._waiting_times[car_id]
         
         total_waiting_time = sum(self._waiting_times.values())
-        return total_waiting_time
+
+        if wait_time_store:
+            ave_wait_time = sum(wait_time_store) / len(wait_time_store)
+
+        return total_waiting_time, ave_wait_time
     
     def _get_queue_length(self, trafficlight_id): #GET QUEUE LENGTH FOR ALL INCOMING LANES
         queue_length = 0
@@ -104,20 +123,30 @@ class StaticSimulation:
     def average_queue_length(self):
         return round(sum(self._queue_length)/len(self._queue_length), 2)
 
+    def average_waiting_time(self):
+        return round(sum(self._wait_store)/len(self._wait_store), 2), self._min_wait_time, self._max_wait_time
+
     @property
     def reward_store(self):
         return self._reward_store
 
 if __name__ == "__main__":
     getLogger().info('===== START STATIC SIMULATION =====')
+    config = import_test_config('test_settings.ini')
 
-    simulation = StaticSimulation()
+    simulation = StaticSimulation(
+        config['sumo_gui'],
+        config['max_step'],
+        config['green_duration'],
+        config['yellow_duration'],
+        config['sumocfg_file']
+    )
     simulation.run()
 
     timestamp_start = datetime.datetime.now()
 
     getLogger().info(f'SUMMARY -> Start time: {timestamp_start} End time: {datetime.datetime.now()}')
-    getLogger().info(f'RESULT -> Ave Queue Length: {simulation.average_queue_length()}')
+    getLogger().info(f'RESULT -> Ave Queue Length: {simulation.average_queue_length()} Ave Wait Time: {simulation.average_waiting_time()}')
 
     getLogger().info('====== END STATIC SIMULATION ======')
 

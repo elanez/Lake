@@ -33,7 +33,7 @@ if __name__ == "__main__":
     timestamp_start = datetime.datetime.now()
     simulation.run(config['episode_seed'])
     getLogger().info(f'SUMMARY -> Start time: {timestamp_start} End time: {datetime.datetime.now()}')
-    getLogger().info(f'RESULT -> Ave Queue Length: {simulation.average_queue_length()}')
+    getLogger().info(f'RESULT -> Ave Queue Length: {simulation.average_queue_length()} Ave Wait Time: {simulation.average_waiting_time()}')
     # copyfile(src='test_settings.ini', dst=os.path.join(model_path, 'test_settings.ini'))
 
     getLogger().info('====== END TEST PROGRAM ======')
