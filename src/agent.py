@@ -53,9 +53,11 @@ class Agent:
 
         input_3 = Input(shape=(4,))    #traffic light phase
 
+        hidden_dim = int((2 * ((2 * (self.num_lanes * input_dim)) + 4)) / 3)
+
         x = concatenate([x1, x2, input_3])
-        x = Dense(128, activation='relu')(x)
-        x = Dense(64, activation='relu')(x)
+        x = Dense(hidden_dim, activation='relu')(x)
+        x = Dense(hidden_dim, activation='relu')(x)
 
         outputs = Dense(self._output_dim, activation='linear')(x)
 
