@@ -31,7 +31,7 @@ class Routing:
 
         # getLogger().info(f'Current directory: {os.getcwd()}')
 
-        with open("sumo_files/routes.rou.xml", "w") as routes:
+        with open("sumo_files/Train_env/routes.rou.xml", "w") as routes:
             print('''<routes>
     <vType accel="0.8" id="standard_car" decel="4.5" length="5.0" minGap="2.5" maxSpeed="60" sigma="0.5" />
 
@@ -50,7 +50,7 @@ class Routing:
            ''', file=routes)
             
             for car_counter, step in enumerate(car_gen_steps):
-                if np.random.uniform() < 0.60: #car goes straight
+                if np.random.uniform() < 0.60: #car goes straight -> 60%
                     straight = np.random.randint(0, 4) # random source and destination
                     if straight == 0:
                         print(f'    <vehicle id="E_W_{car_counter}" type="standard_car" route="East_to_West" depart="{step}" departLane="random" />', file=routes)
