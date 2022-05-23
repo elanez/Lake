@@ -16,7 +16,7 @@ if __name__ == "__main__":
 
     agent = Agent(
         config['input_dim'],
-        config['output_dim'],
+        config['num_layers'],
         config['batch_size'],
         config['learning_rate'],
         config['num_lanes'],

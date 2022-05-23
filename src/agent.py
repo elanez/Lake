@@ -15,13 +15,13 @@ from keras.models import load_model
 from logger import getLogger
 
 class Agent:
-    def __init__(self, input_dim, output_dim, batch_size, learning_rate, num_lanes, size_min, size_max):
+    def __init__(self, input_dim, num_layers, batch_size, learning_rate, num_lanes, size_min, size_max):
         self._input_dim = input_dim
-        self._output_dim = output_dim
+        self._output_dim = 4
         self._batch_size = batch_size
         self._learning_rate = learning_rate
         self.num_lanes = num_lanes
-        self._model = self._create_model(self._input_dim) 
+        self._model = self._create_model(input_dim, num_layers) 
 
         #MEMORY
         self._size_min = size_min
@@ -36,7 +36,7 @@ class Agent:
     '''
     INITIALIZE MODEL
     '''
-    def _create_model(self, input_dim): #CONSTRUCT NEURAL NET
+    def _create_model(self, input_dim, num_layers): #CONSTRUCT NEURAL NET
         getLogger().info('Create model...')
 
         #Look for gpu
@@ -56,8 +56,9 @@ class Agent:
         hidden_dim = int((2 * ((2 * (self.num_lanes * input_dim)) + 4)) / 3)
 
         x = concatenate([x1, x2, input_3])
-        x = Dense(hidden_dim, activation='relu')(x)
-        x = Dense(hidden_dim, activation='relu')(x)
+
+        for _ in range(num_layers):
+            x = Dense(hidden_dim, activation='relu')(x)
 
         outputs = Dense(self._output_dim, activation='linear')(x)
 

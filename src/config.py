@@ -12,7 +12,7 @@ def import_train_config(file): #CONFIGURE SETTINGS FOR TRAINING
 
     #Agent
     config['input_dim'] = content['agent'].getint('input_dim')
-    config['output_dim'] = content['agent'].getint('output_dim')
+    config['num_layers'] = content['agent'].getint('num_layers')
     config['batch_size'] = content['agent'].getint('batch_size')
     config['learning_rate'] = content['agent'].getfloat('learning_rate')
 
