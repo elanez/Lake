@@ -1,11 +1,13 @@
+import os
 import traci
 import timeit
 import datetime
 import numpy as np
 
+from plot import Plot
 from config import set_sumo
 from logger import getLogger
-from config import import_test_config
+from config import import_test_config, get_model_path
 
 class StaticSimulation:
     def __init__(self, gui, max_step, green_duration, yellow_duration, config_file):
@@ -17,11 +19,9 @@ class StaticSimulation:
     
          #stats
         self._reward_store = []
-        self._cumulative_wait_store = []
+        self._wait_store = {}
+        self._distance_store = {}
         self._queue_length = []
-        self._wait_store = []
-        self._min_wait_time = 100
-        self._max_wait_time = 0
     
     def run(self):
         start_time = timeit.default_timer()
@@ -36,16 +36,12 @@ class StaticSimulation:
         action = np.zeros(trafficlight_count)
         old_action = np.zeros(trafficlight_count)
         reward = np.zeros(trafficlight_count)
-        ave_wait_time = 0
 
         while self._step < self._max_steps:
             for index, trafficlight_id in enumerate(trafficlight_list):
                 if self.isGreen(traci.trafficlight.getPhase(trafficlight_id)):
-                    current_total_wait, ave_wait_time = self._get_waiting_time(trafficlight_id)
+                    current_total_wait = self._get_waiting_time(trafficlight_id)
                     reward[index] = old_total_wait[index] - current_total_wait
-                    
-                    if ave_wait_time > 0:
-                        self._wait_store.append(ave_wait_time)
 
                     old_action[index]  = action[index] 
                     old_total_wait[index] = current_total_wait
@@ -54,6 +50,7 @@ class StaticSimulation:
                     queue_length = self._get_queue_length(trafficlight_id)
                     self._queue_length.append(queue_length)
 
+            self._save_stats()
             traci.simulationStep()
             self._step += 1
 
@@ -64,8 +61,6 @@ class StaticSimulation:
     
     def _get_waiting_time(self, trafficlight_id): #GET ALL WAITING TIME FOR ALL INCOMING LANES
         car_list = traci.vehicle.getIDList()
-        wait_time_store = []
-        ave_wait_time = 0
 
         lanes = self._get_controlled_lanes(trafficlight_id)
         for car_id in car_list:
@@ -73,23 +68,12 @@ class StaticSimulation:
             road_id = traci.vehicle.getLaneID(car_id)        
             if road_id in lanes:
                 self._waiting_times[car_id] = wait_time
-                
-                if wait_time > self._max_wait_time:
-                    self._max_wait_time = wait_time
-                elif wait_time < self._min_wait_time and wait_time > 0:
-                    self._min_wait_time = wait_time
-
-                wait_time_store.append(wait_time)
             else:
                 if car_id in self._waiting_times: #if car has left the intersection
                     del self._waiting_times[car_id]
         
         total_waiting_time = sum(self._waiting_times.values())
-
-        if wait_time_store:
-            ave_wait_time = sum(wait_time_store) / len(wait_time_store)
-
-        return total_waiting_time, ave_wait_time
+        return total_waiting_time
     
     def _get_queue_length(self, trafficlight_id): #GET QUEUE LENGTH FOR ALL INCOMING LANES
         queue_length = 0
@@ -99,6 +83,22 @@ class StaticSimulation:
             queue_length = queue_length + traci.lane.getLastStepHaltingNumber(l)
 
         return queue_length
+    
+    def _save_stats(self):
+        car_list = traci.vehicle.getIDList()
+
+        for car_id in car_list:
+            wait_time = traci.vehicle.getAccumulatedWaitingTime(car_id)
+            distance = traci.vehicle.getDistance(car_id)
+
+            self._wait_store[car_id] = round(wait_time, 2)
+            self._distance_store[car_id] = round(distance, 2)
+    
+    def get_stats(self):
+        wait_list = list(self._wait_store.values())
+        distance_list = list(self._distance_store.values())
+
+        return np.array(wait_list), np.array(distance_list)
 
     def _get_controlled_lanes(self, traffic_light_id): #GET ALL CONTROLLED LANES OF THE TRAFFIC LIGHT
         lanes = traci.trafficlight.getControlledLanes(traffic_light_id)
@@ -133,6 +133,7 @@ class StaticSimulation:
 if __name__ == "__main__":
     getLogger().info('===== START STATIC SIMULATION =====')
     config = import_test_config('test_settings.ini')
+    path = get_model_path(config['model_folder'])
 
     simulation = StaticSimulation(
         config['sumo_gui'],
@@ -141,12 +142,21 @@ if __name__ == "__main__":
         config['yellow_duration'],
         config['sumocfg_file']
     )
+
+    plot = Plot(
+        path,
+        100
+    )
+
     simulation.run()
-
     timestamp_start = datetime.datetime.now()
+    y, x = simulation.get_stats()
 
+    plot.scatter_plot(x, y, 'static_test', 'Distance Travelled', 'Waiting Time')
+
+    ave_wait_time = round(sum(y)/len(y), 2)
     getLogger().info(f'SUMMARY -> Start time: {timestamp_start} End time: {datetime.datetime.now()}')
-    getLogger().info(f'RESULT -> Ave Queue Length: {simulation.average_queue_length()} Ave Wait Time: {simulation.average_waiting_time()}')
+    getLogger().info(f'RESULT -> Ave Queue Length: {simulation.average_queue_length()} Ave Waiting Time: {ave_wait_time}')
 
     getLogger().info('====== END STATIC SIMULATION ======')
 

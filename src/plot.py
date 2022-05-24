@@ -1,3 +1,4 @@
+from statistics import median
 import matplotlib.pyplot as plt
 import os
 
@@ -30,3 +31,14 @@ class Plot:
         """ with open(os.path.join(self._path, 'plot_'+filename + '_data.txt'), "w") as file:
             for value in data:
                     file.write("%s\n" % value) """
+
+    def scatter_plot(self, x, y, filename, xlabel, ylabel):
+        plt.scatter(x, y, alpha = 1/5)
+        plt.ylabel(ylabel)
+        plt.xlabel(xlabel)
+        # plt.show()
+
+        fig = plt.gcf()
+
+        fig.savefig(os.path.join(self._path, f'plot_{filename}.png'), dpi=self._dpi)
+        plt.close("all")

@@ -84,7 +84,7 @@ class TrainSimulation:
         simulation_time = round(timeit.default_timer() - start_time, 1)
 
         # getLogger().info('Training ...')
-        self._AGENT.reset_data()
+        self._AGENT.reset_data() #Clear loss and accuracy data from agent
         start_time = timeit.default_timer()
         for _ in range(self._epochs):
             self._replay()

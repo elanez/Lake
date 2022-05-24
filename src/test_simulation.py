@@ -4,13 +4,11 @@ import numpy as np
 
 from config import set_sumo
 from logger import getLogger
-from routing import Routing
 
 class TestSimulation():
     def __init__(self, AGENT, gui, max_step, green_duration, yellow_duration, input_dim, num_cars, config_file):
         self._AGENT = AGENT
         self._sumo_cmd = set_sumo(gui, config_file)
-        # self._sumo_intersection = Routing(num_cars, max_step)
         self._input_dim = input_dim
         self._num_actions = 4
         self._num_lanes = AGENT.num_lanes
@@ -21,16 +19,13 @@ class TestSimulation():
 
         #stats
         self._reward_store = []
-        # self._cumulative_wait_store = []
+        self._wait_store = {}
+        self._distance_store = {}
         self._queue_length = []
-        self._wait_store = []
-        self._min_wait_time = 100
-        self._max_wait_time = 0
     
-    def run(self, episode):
+    def run(self):
         start_time = timeit.default_timer()
 
-        # self._sumo_intersection.generate_routefile(episode)
         traci.start(self._sumo_cmd)
         getLogger().info('Simulating...')
 
@@ -43,7 +38,9 @@ class TestSimulation():
         action = np.zeros(trafficlight_count)
         old_action = np.zeros(trafficlight_count)
         reward = np.zeros(trafficlight_count)
-        ave_wait_time = 0
+
+        # for tl in trafficlight_list:
+        #     getLogger().info(f'TrafficLightID: {tl} -> Controlled lanes: {self._get_controlled_lanes(tl)}')
 
         while self._step < self._max_steps:
             for index, trafficlight_id in enumerate(trafficlight_list):
@@ -52,12 +49,9 @@ class TestSimulation():
                     if self.isGreen(traci.trafficlight.getPhase(trafficlight_id)): #GREEN PHASE
                         current_state = self._get_state(int(action[index]), trafficlight_id)
                         action[index] = self._choose_action(current_state)
-                        # getLogger().info(f'Step: {self._step} TraffigcLightID: {trafficlight_id} New Action: {action[index]} Old Action: {old_action[index]}')
-                        current_total_wait, ave_wait_time = self._get_waiting_time(trafficlight_id)
+                        # getLogger().info(f'Step: {self._step} TraffigcLightID: {trafficlight_id} New Action: {action[index]} Old Action: {old_action[index]} Current Phase:{traci.trafficlight.getPhase(trafficlight_id)/2}')
+                        current_total_wait = self._get_waiting_time(trafficlight_id)
                         reward[index] = old_total_wait[index] - current_total_wait
-
-                        if ave_wait_time > 0:
-                            self._wait_store.append(ave_wait_time)
 
                         #different phase
                         if self._step != 0 and old_action[index] != action[index]:
@@ -74,7 +68,8 @@ class TestSimulation():
 
                     else: #YELLOW PHASE
                         self._set_green_phase(action[index] , trafficlight_id)
-                        
+            
+            self._save_stats()
             traci.simulationStep()
             self._step += 1
                 
@@ -149,8 +144,6 @@ class TestSimulation():
     
     def _get_waiting_time(self, trafficlight_id): #GET ALL WAITING TIME FOR ALL INCOMING LANES
         car_list = traci.vehicle.getIDList()
-        wait_time_store = []
-        ave_wait_time = 0
 
         lanes = self._get_controlled_lanes(trafficlight_id)
         for car_id in car_list:
@@ -158,23 +151,12 @@ class TestSimulation():
             road_id = traci.vehicle.getLaneID(car_id)        
             if road_id in lanes:
                 self._waiting_times[car_id] = wait_time
-                
-                if wait_time > self._max_wait_time:
-                    self._max_wait_time = wait_time
-                elif wait_time < self._min_wait_time and wait_time > 0:
-                    self._min_wait_time = wait_time
-
-                wait_time_store.append(wait_time)
             else:
                 if car_id in self._waiting_times: #if car has left the intersection
                     del self._waiting_times[car_id]
         
         total_waiting_time = sum(self._waiting_times.values())
-
-        if wait_time_store:
-            ave_wait_time = sum(wait_time_store) / len(wait_time_store)
-
-        return total_waiting_time, ave_wait_time
+        return total_waiting_time
     
     def _get_queue_length(self, trafficlight_id): #GET QUEUE LENGTH FOR ALL INCOMING LANES
         queue_length = 0
@@ -184,6 +166,22 @@ class TestSimulation():
             queue_length = queue_length + traci.lane.getLastStepHaltingNumber(l)
 
         return queue_length
+    
+    def _save_stats(self):
+        car_list = traci.vehicle.getIDList()
+
+        for car_id in car_list:
+            wait_time = traci.vehicle.getAccumulatedWaitingTime(car_id)
+            distance = traci.vehicle.getDistance(car_id)
+
+            self._wait_store[car_id] = round(wait_time, 2)
+            self._distance_store[car_id] = round(distance, 2)
+    
+    def get_stats(self):
+        wait_list = list(self._wait_store.values())
+        distance_list = list(self._distance_store.values())
+
+        return np.array(wait_list), np.array(distance_list)
 
     def _get_controlled_lanes(self, traffic_light_id): #GET ALL CONTROLLED LANES OF THE TRAFFIC LIGHT
         lanes = traci.trafficlight.getControlledLanes(traffic_light_id)

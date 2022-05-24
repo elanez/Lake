@@ -56,7 +56,7 @@ def import_test_config(file): #CONFIGURE SETTINGS FOR TESTING
     config['yellow_duration'] = content['simulation'].getint('yellow_duration')
 
     #routing
-    config['num_cars'] = content['routing'].getint('num_cars')
+    # config['num_cars'] = content['routing'].getint('num_cars')
 
     #dir
     config['sumocfg_file'] = content['dir']['sumocfg_file']
