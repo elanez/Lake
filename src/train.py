@@ -12,7 +12,7 @@ if __name__ == "__main__":
     getLogger().info('===== START TRAIN PROGRAM =====')
     config = import_train_config('train_settings.ini')
     # path = set_model_path(config['model_folder'])
-
+    
     simulation = TrainSimulation(
         config['sumo_gui'],
         config['epochs'],
@@ -22,22 +22,14 @@ if __name__ == "__main__":
         config['yellow_duration'],
         config['input_dim'],
         config['num_cars'],
-        config['sumocfg_file']
+        config['sumocfg_file'],
+        config
     )
 
     # plot = Plot(
     #     path,
     #     100
     # )
-    
-    simulation.create_model(
-        config['input_dim'],
-        config['num_layers'],
-        config['batch_size'],
-        config['learning_rate'],
-        config['size_min'],
-        config['size_max']
-    )
 
     episode = 0
     total_episodes = config['total_episodes']

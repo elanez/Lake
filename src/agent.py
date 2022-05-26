@@ -18,6 +18,7 @@ class Agent:
     def __init__(self, input_dim, output_dim, num_layers, batch_size, learning_rate, num_lanes, size_min, size_max):
         self._input_dim = input_dim
         self._output_dim = output_dim
+        self._num_layers = num_layers
         self._batch_size = batch_size
         self._learning_rate = learning_rate
         self._num_lanes = num_lanes
@@ -27,7 +28,7 @@ class Agent:
         self._size_min = size_min
         self.samples = deque(maxlen=size_max)
 
-        self._model = self._create_model(input_dim, num_layers)
+        self._model = None
         
     '''
     INITIALIZE MODEL
@@ -64,12 +65,10 @@ class Agent:
         optimizer=Adam(learning_rate=self._learning_rate),
         metrics=['accuracy'])
 
-        #test
         # model.summary()
+        self._model = model
         getLogger().info(f'Model Parameter: ID: {self.id} input_dim: {input_dim} hidden_dim: {hidden_dim} output_dim: {self._output_dim}')
         getLogger().info('Create Model - DONE')
-
-        return model
     
     '''
     TRAINING ARC
