@@ -78,19 +78,19 @@ class TrainSimulation:
                 self._sum_reward += reward
             
         self._save_stats() #Save
-
         getLogger().info(f'Total reward: {self._sum_reward} - Epsilon: {round(epsilon, 2)}')
+        getLogger().info(f'Queue Length: {self._sum_queue_length / self._max_steps} - Sum Waiting Time: {self._sum_waiting_time}')
+
         traci.close()
         simulation_time = round(timeit.default_timer() - start_time, 1)
 
-        # getLogger().info('Training ...')
         self._AGENT.reset_data() #Clear loss and accuracy data from agent
         start_time = timeit.default_timer()
+
         for _ in range(self._epochs):
             self._replay()
         training_time = round(timeit.default_timer() - start_time, 1)
 
-        #return simulation_time, training_time , self._sum_reward
         return simulation_time, training_time
     
     def _get_state(self, action): #GET STATE FROM SUMO
@@ -131,7 +131,6 @@ class TrainSimulation:
                 offset += 1
 
         # getLogger().info(f'Pos: {position_matrix} \n Vel: {velocity_matrix} \n Phase: {phase_matrix}')
-
         return [position_matrix, velocity_matrix, phase_matrix]
     
     def _replay(self): #STORE TO AGENT MEMORY
