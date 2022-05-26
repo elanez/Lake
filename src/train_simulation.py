@@ -1,36 +1,69 @@
+import sys
 import traci
 import timeit
 import random
 import numpy as np
 
+from agent import Agent
 from config import set_sumo
 from logger import getLogger
 from routing import Routing
 
 class TrainSimulation:
-    def __init__(self, AGENT, gui, epochs, gamma, max_step, green_duration, yellow_duration, input_dim, num_cars, config_file):
-        self._AGENT = AGENT
+    def __init__(self, gui, epochs, gamma, max_step, green_duration, yellow_duration, input_dim, num_cars, config_file):
+        self._AGENT = []
         self._sumo_cmd = set_sumo(gui, config_file)
         self._sumo_intersection = Routing(num_cars, max_step)
         self._input_dim = input_dim
-        self._num_actions = 4
-        self._num_lanes = AGENT.num_lanes
+        self._num_actions = 0
+        self._num_lanes = 0
         self._step = 0
         self._max_steps = max_step
         self._epochs = epochs
         self._gamma = gamma
         self._green_duration = green_duration
         self._yellow_duration = yellow_duration
+        self._config_file = config_file
 
         #stats
         self._reward_store = []
         self._cumulative_wait_store = []
         self._avg_queue_length_store = []
-        
+    
+    '''
+    AGENT MODEL
+    '''
+    def create_model(self, input_dim, num_layers, batch_size, learning_rate, size_min, size_max):
+        #SETUP SUMO
+        sumo_cmd = set_sumo('False', self._config_file)
+        sumo_cmd.append("--no-step-log")
+        traci.start(sumo_cmd)
+
+        traffic_lights = traci.trafficlight.getIDList()
+        getLogger().info(f'Number of traffic lights detected: {len(traffic_lights)} ID: {traffic_lights}')
+
+        for tl in traffic_lights:
+            lanes = self._get_controlled_lanes(tl)
+            self._num_lanes = len(lanes)
+            phases = traci.trafficlight.getAllProgramLogics(tl)
+            self._num_actions = int(len(phases[0].getPhases()) / 2)
+
+            agent = Agent(input_dim, self._num_actions, num_layers, batch_size, learning_rate, self._num_lanes, size_min, size_max)
+            self._AGENT.append(agent)
+
+        traci.close()
+
     '''
     SUMO INTERACTIONS
     '''
     def run(self, episode, epsilon): #START SIMULATION
+
+        if not self._AGENT:
+            error_message = 'Agent is null! You must create model first'
+            getLogger().error(error_message)
+            sys.exit(error_message)
+            return
+
         start_time = timeit.default_timer()
 
         self._sumo_intersection.generate_routefile(episode)
@@ -57,7 +90,7 @@ class TrainSimulation:
 
             #save data to memory
             if self._step != 0:
-                self._AGENT.add_sample((old_state, old_action, reward, current_state))
+                self._AGENT[0].add_sample((old_state, old_action, reward, current_state))
             
             #traffic light phase
             action = self._choose_action(current_state, epsilon)
@@ -84,7 +117,7 @@ class TrainSimulation:
         traci.close()
         simulation_time = round(timeit.default_timer() - start_time, 1)
 
-        self._AGENT.reset_data() #Clear loss and accuracy data from agent
+        self._AGENT[0].reset_data() #Clear loss and accuracy data from agent
         start_time = timeit.default_timer()
 
         for _ in range(self._epochs):
@@ -134,15 +167,15 @@ class TrainSimulation:
         return [position_matrix, velocity_matrix, phase_matrix]
     
     def _replay(self): #STORE TO AGENT MEMORY
-        batch = self._AGENT.get_samples(self._AGENT._batch_size)
+        batch = self._AGENT[0].get_samples(self._AGENT[0]._batch_size)
 
         if len(batch) > 0:  # if memory is full
             states = ([val[0] for val in batch])
             next_states = ([val[3] for val in batch])
 
             # prediction
-            q = self._AGENT.predict_batch(states)
-            q_next = self._AGENT.predict_batch(next_states) 
+            q = self._AGENT[0].predict_batch(states)
+            q_next = self._AGENT[0].predict_batch(next_states) 
 
             # setup training arrays
             x = []
@@ -157,7 +190,7 @@ class TrainSimulation:
                 x.append(state)
                 y[i] = current_q  # Q(state)
 
-            self._AGENT.train_batch(x, y)  # train the NN
+            self._AGENT[0].train_batch(x, y)  # train the NN
     
     def _simulate(self, steps_todo): #RUN SUMO SIMULATION
         if (self._step + steps_todo) >= self._max_steps: 
@@ -180,7 +213,7 @@ class TrainSimulation:
             action = random.randint(0, self._num_actions - 1) #explore
         else:
             # getLogger().info('Agent chooses to exploit')
-            action = np.argmax(self._AGENT.predict_one(state)) #exploit
+            action = np.argmax(self._AGENT[0].predict_one(state)) #exploit
         
         # getLogger().info(f'Action: {action}')
         return action

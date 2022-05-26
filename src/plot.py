@@ -1,4 +1,3 @@
-from statistics import median
 import matplotlib.pyplot as plt
 import os
 
