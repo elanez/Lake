@@ -22,13 +22,13 @@ class Agent:
         self._batch_size = batch_size
         self._learning_rate = learning_rate
         self._num_lanes = num_lanes
-        self.id = f'Model-{input_dim}.{num_lanes}.{output_dim}'
+        self.id = f'Modelv{input_dim}.{num_lanes}.{output_dim}'
 
         #MEMORY
         self._size_min = size_min
         self.samples = deque(maxlen=size_max)
 
-        self._model = None
+        self._model = self._create_model(input_dim, num_layers)
         
     '''
     INITIALIZE MODEL
@@ -66,9 +66,9 @@ class Agent:
         metrics=['accuracy'])
 
         # model.summary()
-        self._model = model
         getLogger().info(f'Model Parameter: ID: {self.id} input_dim: {input_dim} hidden_dim: {hidden_dim} output_dim: {self._output_dim}')
         getLogger().info('Create Model - DONE')
+        return model
     
     '''
     TRAINING ARC
