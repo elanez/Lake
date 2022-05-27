@@ -6,7 +6,7 @@ from config import set_sumo
 from logger import getLogger
 
 class TestSimulation():
-    def __init__(self, AGENT, gui, max_step, green_duration, yellow_duration, input_dim, num_cars, config_file):
+    def __init__(self, AGENT, gui, max_step, green_duration, yellow_duration, input_dim, config_file):
         self._AGENT = AGENT
         self._sumo_cmd = set_sumo(gui, config_file)
         self._input_dim = input_dim
@@ -180,7 +180,6 @@ class TestSimulation():
     def get_stats(self):
         wait_list = list(self._wait_store.values())
         distance_list = list(self._distance_store.values())
-
         return np.array(wait_list), np.array(distance_list)
 
     def _get_controlled_lanes(self, traffic_light_id): #GET ALL CONTROLLED LANES OF THE TRAFFIC LIGHT

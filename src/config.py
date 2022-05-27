@@ -107,7 +107,7 @@ def get_model_path(path_name):
 
     if os.path.isdir(model_path):
         plot_path = os.path.join(model_path, 'test_data')
-        os.makedirs(os.path.dirname(plot_path), exist_ok=True)
+        os.makedirs(plot_path, exist_ok=True)
         return model_path, plot_path
     else: 
         msg = 'Folder does not exist'
