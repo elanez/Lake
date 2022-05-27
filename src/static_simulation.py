@@ -133,7 +133,7 @@ class StaticSimulation:
 if __name__ == "__main__":
     getLogger().info('===== START STATIC SIMULATION =====')
     config = import_test_config('test_settings.ini')
-    path = get_model_path(config['model_folder'])
+    model_path, plot_path = get_model_path(config['model_folder'])
 
     simulation = StaticSimulation(
         config['sumo_gui'],
@@ -144,7 +144,7 @@ if __name__ == "__main__":
     )
 
     plot = Plot(
-        path,
+        plot_path,
         100
     )
 

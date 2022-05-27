@@ -6,12 +6,12 @@ from config import set_sumo
 from logger import getLogger
 
 class TestSimulation():
-    def __init__(self, AGENT, gui, max_step, green_duration, yellow_duration, input_dim, num_cars, config_file):
+    def __init__(self, AGENT, gui, max_step, green_duration, yellow_duration, input_dim, config_file):
         self._AGENT = AGENT
         self._sumo_cmd = set_sumo(gui, config_file)
         self._input_dim = input_dim
         self._num_actions = 4
-        self._num_lanes = AGENT.num_lanes
+        self._num_lanes = 16
         self._step = 0
         self._max_steps = max_step
         self._green_duration = green_duration
