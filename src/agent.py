@@ -22,7 +22,7 @@ class Agent:
         self._batch_size = batch_size
         self._learning_rate = learning_rate
         self._num_lanes = num_lanes
-        self.id = f'Model-{input_dim}{num_lanes}{output_dim}'
+        self.id = f'Model-{input_dim}.{num_lanes}.{output_dim}'
 
         #MEMORY
         self._size_min = size_min
