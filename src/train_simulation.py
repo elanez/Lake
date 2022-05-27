@@ -8,7 +8,7 @@ from agent import Agent
 from config import set_sumo
 from logger import getLogger
 from routing import Routing
-from template.trafficlight import TrafficLight
+from interface.trafficlight import TrafficLight
 
 class TrainSimulation:
     def __init__(self, gui, epochs, gamma, max_step, green_duration, yellow_duration, input_dim, num_cars, config_file, config_input):
