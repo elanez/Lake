@@ -2,11 +2,9 @@ import datetime
 import os
 
 from shutil import copyfile
-
 from train_simulation import TrainSimulation
 from logger import getLogger
 from config import import_train_config, set_model_path, set_path
-from plot import Plot
 
 if __name__ == "__main__":
     getLogger().info('===== START TRAIN PROGRAM =====')
@@ -38,13 +36,12 @@ if __name__ == "__main__":
         episode += 1
     
     getLogger().info(f'SUMMARY -> Start time: {timestamp_start} End time: {datetime.datetime.now()}')
-    
     model_path = set_model_path(config['model_folder'])
+
     for tl in simulation.traffic_light_list: #save model and plot data
         tl.agent.save_model(model_path)
         plot_path = set_path(config['model_folder'], tl.agent.id)
         tl.agent.plot_data(plot_path, 100, tl)
 
-    # copyfile(src='train_settings.ini', dst=os.path.join(path, 'train_settings.ini'))
-
+    copyfile(src='train_settings.ini', dst=os.path.join(model_path, 'train_settings.ini'))
     getLogger().info('====== END TRAIN PROGRAM ======')

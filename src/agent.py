@@ -18,11 +18,11 @@ from logger import getLogger
 class Agent:
     def __init__(self, input_dim, output_dim, num_layers, batch_size, learning_rate, num_lanes, size_min, size_max):
         self._input_dim = input_dim
-        self._output_dim = output_dim
+        self.output_dim = output_dim
         self._num_layers = num_layers
         self._batch_size = batch_size
         self._learning_rate = learning_rate
-        self._num_lanes = num_lanes
+        self.num_lanes = num_lanes
         self.id = f'model_{input_dim}.{num_lanes}.{output_dim}'
 
         #MEMORY
@@ -43,15 +43,15 @@ class Agent:
         else:
             getLogger().warning('=== Please install GPU version of Tf ===')
 
-        input_1 = Input(shape=(self._num_lanes, input_dim,)) #position
+        input_1 = Input(shape=(self.num_lanes, input_dim,)) #position
         x1 = Flatten()(input_1)
 
-        input_2 = Input(shape=(self._num_lanes, input_dim,)) #velocity
+        input_2 = Input(shape=(self.num_lanes, input_dim,)) #velocity
         x2 = Flatten()(input_2)
 
         input_3 = Input(shape=(4,))    #traffic light phase
 
-        input_dim = ((2 * (self._num_lanes * input_dim)) + 4)
+        input_dim = ((2 * (self.num_lanes * input_dim)) + 4)
         hidden_dim = int((2 * input_dim) / 3)
 
         x = concatenate([x1, x2, input_3])
@@ -59,7 +59,7 @@ class Agent:
         for _ in range(num_layers):
             x = Dense(hidden_dim, activation='relu')(x)
 
-        outputs = Dense(self._output_dim, activation='linear')(x)
+        outputs = Dense(self.output_dim, activation='linear')(x)
 
         model = keras.Model(inputs=[input_1, input_2, input_3], outputs=outputs, name='model')
         model.compile(loss=losses.mean_squared_error,
@@ -67,7 +67,7 @@ class Agent:
         metrics=['accuracy'])
 
         # model.summary()
-        getLogger().info(f'Model Parameter: ID: {self.id} input_dim: {input_dim} hidden_dim: {hidden_dim} output_dim: {self._output_dim}')
+        getLogger().info(f'Model Parameter: ID: {self.id} input_dim: {input_dim} hidden_dim: {hidden_dim} output_dim: {self.output_dim}')
         getLogger().info('Create Model - DONE')
         return model
     
@@ -75,8 +75,8 @@ class Agent:
     TRAINING ARC
     '''
     def predict_one(self, state): #PREDICT ACTION: SINGLE STATE  
-        input_1 = np.reshape(state[0], (1, self._num_lanes, self._input_dim, 1))
-        input_2 = np.reshape(state[1], (1, self._num_lanes, self._input_dim, 1))
+        input_1 = np.reshape(state[0], (1, self.num_lanes, self._input_dim, 1))
+        input_2 = np.reshape(state[1], (1, self.num_lanes, self._input_dim, 1))
         input_3 = np.reshape(state[2], (1, 4, 1))
 
         return self._model.predict([input_1, input_2, input_3])
@@ -137,7 +137,7 @@ LOAD AND TEST AGENT
 class TestAgent():
     def __init__(self,input_dim, num_lanes, model_path):
         self._input_dim = input_dim
-        self._num_lanes = num_lanes
+        self.num_lanes = num_lanes
         self._model = self._load_model(model_path)
     
     def _load_model(self, path): #LOAD MODEL FILE
@@ -156,8 +156,8 @@ class TestAgent():
             sys.exit(error_message)
 
     def predict_one(self, state): #PREDICT ACTION: SINGLE STATE  
-        input_1 = np.reshape(state[0], (1, self._num_lanes, self._input_dim, 1))
-        input_2 = np.reshape(state[1], (1, self._num_lanes, self._input_dim, 1))
+        input_1 = np.reshape(state[0], (1, self.num_lanes, self._input_dim, 1))
+        input_2 = np.reshape(state[1], (1, self.num_lanes, self._input_dim, 1))
         input_3 = np.reshape(state[2], (1, 4, 1))
 
         return self._model.predict([input_1, input_2, input_3])

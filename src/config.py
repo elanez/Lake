@@ -24,7 +24,6 @@ def import_train_config(file): #CONFIGURE SETTINGS FOR TRAINING
     config['total_episodes'] = content['simulation'].getint('total_episodes')
     config['sumo_gui'] = content['simulation'].getboolean('sumo_gui')
     config['max_step'] = content['simulation'].getint('max_step')
-    config['num_lanes'] = content['simulation'].getint('num_lanes')
     config['epochs'] = content['simulation'].getint('epochs')
     config['gamma'] = content['simulation'].getfloat('gamma')
     config['green_duration'] = content['simulation'].getint('green_duration')
@@ -51,7 +50,6 @@ def import_test_config(file): #CONFIGURE SETTINGS FOR TESTING
     config['episode_seed'] = content['simulation'].getint('episode_seed')
     config['sumo_gui'] = content['simulation'].getboolean('sumo_gui')
     config['max_step'] = content['simulation'].getint('max_step')
-    config['num_lanes'] = content['simulation'].getint('num_lanes')
     config['green_duration'] = content['simulation'].getint('green_duration')
     config['yellow_duration'] = content['simulation'].getint('yellow_duration')
 
@@ -88,7 +86,6 @@ def set_model_path(path_name): #CONFIGURE MODEL PATH AND INCREMENT FILE NAME
         getLogger().info(f'Created a new directory at {model_path}')
 
     model_path = os.path.join(model_path, path_name)
-
     counter = 1
 
     while os.path.exists(model_path): #If file name already exists add a number eg folder_name (1)
@@ -99,11 +96,11 @@ def set_model_path(path_name): #CONFIGURE MODEL PATH AND INCREMENT FILE NAME
         counter += 1
 
     os.makedirs(os.path.dirname(model_path), exist_ok=True)
-
     return model_path
 
 def get_model_path(path_name):
     model_path = os.path.join(os.getcwd(),'models', path_name)
+    getLogger().info(f'Model at {model_path}')
 
     if os.path.isdir(model_path):
         plot_path = os.path.join(model_path, 'test_data')
@@ -116,6 +113,7 @@ def get_model_path(path_name):
 
 def set_path(path_name, folder_name):
     path = os.path.join(os.getcwd(), 'models', path_name)
+    
     if os.path.isdir(path):
         path = os.path.join(path, folder_name)
         os.makedirs(path, exist_ok=True)
