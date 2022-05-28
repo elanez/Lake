@@ -6,6 +6,7 @@ import random
 import numpy as np
 import tensorflow as tf
 
+from plot import Plot
 from collections import deque
 from tensorflow import keras
 from tensorflow.keras.optimizers import Adam
@@ -22,7 +23,7 @@ class Agent:
         self._batch_size = batch_size
         self._learning_rate = learning_rate
         self._num_lanes = num_lanes
-        self.id = f'Modelv{input_dim}.{num_lanes}.{output_dim}'
+        self.id = f'model_{input_dim}.{num_lanes}.{output_dim}'
 
         #MEMORY
         self._size_min = size_min
@@ -87,9 +88,15 @@ class Agent:
         self._model.fit(self.get_input_state(states), q, epochs=1, verbose=0)
 
     def save_model(self, path): #SAVE MDOEL
-        path = os.path.join(path, self.id, '.h5')
+        path = os.path.join(path, f'{self.id}.h5')
         self._model.save(path)
         getLogger().info(f'Saved model to {path}')
+    
+    def plot_data(self, path, dpi, tl):
+        plot = Plot(path, dpi)
+        plot.plot_data(data=tl.reward_store, filename='reward', xlabel='Episode', ylabel='Cumulative reward')
+        plot.plot_data(data=tl.cumulative_wait_store, filename='delay', xlabel='Episode', ylabel='Cumulative delay (s)')
+        plot.plot_data(data=tl.avg_queue_length_store, filename='queue', xlabel='Episode', ylabel='Average queue length (vehicles)')
     
     def get_input_state(self, states):
         input_1 = np.array([val[0] for val in states])

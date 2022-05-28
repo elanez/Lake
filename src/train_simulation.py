@@ -1,4 +1,3 @@
-import sys
 import traci
 import timeit
 import random
@@ -99,12 +98,12 @@ class TrainSimulation:
         traci.close()
         simulation_time = round(timeit.default_timer() - start_time, 1)
         training_time = 0
+        getLogger().info(f'Epsilon: {round(epsilon, 2)}')
 
         for tl in self._trafficlight_list:
             #Save episode stats
             tl.save_stats(self._max_steps)
-            getLogger().info(f'Epsilon: {round(epsilon, 2)} Total nagative reward: {tl.sum_reward}')
-            getLogger().info(f'Queue Length: {round(tl.sum_queue_length / self._max_steps, 2)} Sum Waiting Time: {tl.sum_waiting_time}')
+            getLogger().info(f'Queue Length: {round(tl.sum_queue_length / self._max_steps, 2)} Sum Waiting Time: {tl.sum_waiting_time}  Total nagative reward: {tl.sum_reward}')
             tl.reset_data()
 
             start_time = timeit.default_timer()
@@ -280,13 +279,6 @@ class TrainSimulation:
         return int(lane_id[len(lane_id)-1])
 
     @property
-    def reward_store(self):
-        return self._reward_store
-    
-    @property
-    def cumulative_wait_store(self):
-        return self._cumulative_wait_store
-
-    @property
-    def avg_queue_length_store(self):
-        return self._avg_queue_length_store
+    def traffic_light_list(self):
+        return self._trafficlight_list
+        

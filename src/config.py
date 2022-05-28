@@ -85,7 +85,7 @@ def set_model_path(path_name): #CONFIGURE MODEL PATH AND INCREMENT FILE NAME
 
     if not os.path.exists(model_path):
         os.makedirs(model_path)
-        getLogger().info('Created a new directory at {model_path}')
+        getLogger().info(f'Created a new directory at {model_path}')
 
     model_path = os.path.join(model_path, path_name)
 
@@ -97,7 +97,7 @@ def set_model_path(path_name): #CONFIGURE MODEL PATH AND INCREMENT FILE NAME
         else:
             model_path = model_path + " (" + str(counter) + ")"
         counter += 1
-    
+
     os.makedirs(os.path.dirname(model_path), exist_ok=True)
 
     return model_path
@@ -109,6 +109,18 @@ def get_model_path(path_name):
         plot_path = os.path.join(model_path, 'test_data')
         os.makedirs(plot_path, exist_ok=True)
         return model_path, plot_path
+    else: 
+        msg = 'Folder does not exist'
+        getLogger().critical(msg)
+        sys.exit(msg)
+
+def set_path(path_name, folder_name):
+    path = os.path.join(os.getcwd(), 'models', path_name)
+    if os.path.isdir(path):
+        path = os.path.join(path, folder_name)
+        os.makedirs(path, exist_ok=True)
+        getLogger().info(f'Created a new directory at {path}')
+        return path
     else: 
         msg = 'Folder does not exist'
         getLogger().critical(msg)
