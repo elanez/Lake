@@ -5,7 +5,7 @@ from plot import Plot
 from agent import TestAgent
 from test_simulation import TestSimulation
 from logger import getLogger
-from config import import_test_config, get_model_path
+from tools import import_test_config, get_model_path
 
 if __name__ == "__main__":
     getLogger().info('===== START TEST PROGRAM =====')

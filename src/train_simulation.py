@@ -1,46 +1,48 @@
-from matplotlib.pyplot import step
 import traci
+import sumolib
 import timeit
 import random
 import numpy as np
 
 from agent import Agent
-from config import set_sumo
+from tools import set_sumo
 from logger import getLogger
 from routing import Routing
 from interface.trafficlight import TrafficLight
 
 class TrainSimulation:
-    def __init__(self, gui, epochs, gamma, max_step, green_duration, yellow_duration, input_dim, num_cars, config_file, config_input):
-        self._sumo_cmd = set_sumo(gui, config_file)
-        self._sumo_intersection = Routing(num_cars, max_step)
-        self._input_dim = input_dim
-        self._max_steps = max_step
-        self._epochs = epochs
-        self._gamma = gamma
-        self._green_duration = green_duration
-        self._yellow_duration = yellow_duration
-        self._config_file = config_file
-        self._config_input = config_input
-
-        self._trafficlight_list = []
+    def __init__(self, agent, config):
+        self._agent = agent
+        self._config_file = config['sumocfg_file']
+        self._sumo_cmd = set_sumo(config['sumo_gui'], self._config_file)
+        self._sumo_intersection = Routing(config['num_cars'], config['max_step'])
+        self._green_duration = config['green_duration']
+        self._yellow_duration = config['yellow_duration']
+        self._input_dim = config['input_dim']
+        self._output_dim = config['output_dim']
+        self._max_steps = config['max_step']
+        self._epochs = config['epochs']
+        self._gamma = config['gamma']
+        
+        self.configure_model(config['num_lanes'])
     
+    '''
+    AGENT MODEL
+    '''
+    def configure_model(self, num_lanes):
+        self._trafficlight_list = []
+        path = 'sumo_files/Train_env/environment.net.xml'
+        net = sumolib.net.readNet(path)
+        traffic_lights = net.getTrafficLights()
+        for tl in traffic_lights:
+            self._trafficlight_list.append(TrafficLight(tl.getID(),num_lanes,self._agent))
+
     '''
     SUMO INTERACTIONS
     '''
     def run(self, episode, epsilon): #START SIMULATION
         self._sumo_intersection.generate_routefile(episode)
         traci.start(self._sumo_cmd)
-
-        if not self._trafficlight_list: #create model
-            self.configure_model(
-                self._config_input['input_dim'],
-                self._config_input['num_layers'],
-                self._config_input['batch_size'],
-                self._config_input['learning_rate'],
-                self._config_input['size_min'],
-                self._config_input['size_max']
-            )
 
         start_time = timeit.default_timer()
         getLogger().info('Simulating...')
@@ -50,7 +52,10 @@ class TrainSimulation:
         self._waiting_times = {}
         self._sum_reward = 0
         self._sum_queue_length = 0
-        self._sum_waiting_time = 0            
+        self._sum_waiting_time = 0
+
+        if self._step == 0:
+            self._trafficlight_list[0].lanes = self._get_controlled_lanes(self._trafficlight_list[0].id)         
 
         while self._step < self._max_steps:
             for tl in self._trafficlight_list:
@@ -156,7 +161,7 @@ class TrainSimulation:
 
             # setup training arrays
             x = []
-            y = np.zeros((len(batch), agent.output_dim))
+            y = np.zeros((len(batch), self._output_dim))
 
             for i, b in enumerate(batch):
                 state, action, reward, _ = b[0], b[1], b[2], b[3]
@@ -171,28 +176,12 @@ class TrainSimulation:
     def _choose_action(self, state, epsilon, agent): #CHOOSE ACTION
         action = 0
         if random.random() < epsilon:
-            action = random.randint(0, agent.output_dim - 1) #explore
+            action = random.randint(0, self._output_dim - 1) #explore
         else:
             action = np.argmax(agent.predict_one(state)) #exploit
         # getLogger().info(f'Action: {action}')
         return action
-
-    '''
-    AGENT MODEL
-    '''
-    def configure_model(self, input_dim, num_layers, batch_size, learning_rate, size_min, size_max):
-        traffic_lights = traci.trafficlight.getIDList()
-        getLogger().info(f'Number of traffic lights detected: {len(traffic_lights)} ID: {traffic_lights}')
-
-        for tl in traffic_lights:
-            lanes = self._get_controlled_lanes(tl)
-            phases = traci.trafficlight.getAllProgramLogics(tl)
-            num_lanes = len(lanes)
-            output_dim = int(len(phases[0].getPhases()) / 2)
-
-            agent = Agent(input_dim, output_dim, num_layers, batch_size, learning_rate, num_lanes, size_min, size_max)
-            self._trafficlight_list.append(TrafficLight(tl, lanes, agent))
-
+        
     '''
     UTILS
     '''  
@@ -214,7 +203,6 @@ class TrainSimulation:
     
     def _get_waiting_time(self, lanes): #GET ALL WAITING TIME FOR ALL INCOMING LANES
         car_list = traci.vehicle.getIDList()
-
         for car_id in car_list:
             wait_time = traci.vehicle.getAccumulatedWaitingTime(car_id)
             road_id = traci.vehicle.getLaneID(car_id)        
@@ -250,4 +238,3 @@ class TrainSimulation:
     @property
     def traffic_light_list(self):
         return self._trafficlight_list
-        

@@ -27,9 +27,10 @@ class Plot:
         fig.savefig(os.path.join(self._path, f'plot_{filename}.png'), dpi=self._dpi)
         plt.close("all")
 
-        """ with open(os.path.join(self._path, 'plot_'+filename + '_data.txt'), "w") as file:
+        #Save data to .txt file
+        with open(os.path.join(self._path,  f'plot_{filename}_data.txt'), "w") as file:
             for value in data:
-                    file.write("%s\n" % value) """
+                    file.write("%s\n" % value)
 
     def scatter_plot(self, x, y, filename, xlabel, ylabel):
         plt.scatter(x, y, alpha = 1/5)
@@ -41,3 +42,8 @@ class Plot:
 
         fig.savefig(os.path.join(self._path, f'plot_{filename}.png'), dpi=self._dpi)
         plt.close("all")
+
+        #Save data to .txt file
+        with open(os.path.join(self._path,  f'plot_{filename}_data.txt'), "w") as file:
+            for value in data:
+                    file.write("%s\n" % value)

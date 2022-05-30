@@ -16,20 +16,20 @@ from keras.models import load_model
 from logger import getLogger
 
 class Agent:
-    def __init__(self, input_dim, output_dim, num_layers, batch_size, learning_rate, num_lanes, size_min, size_max):
-        self._input_dim = input_dim
-        self.output_dim = output_dim
-        self._num_layers = num_layers
-        self._batch_size = batch_size
-        self._learning_rate = learning_rate
-        self.num_lanes = num_lanes
-        self.id = f'model_{input_dim}.{num_lanes}.{output_dim}'
+    def __init__(self, config):
+        self._input_dim = config['input_dim']
+        self._output_dim = config['output_dim']
+        self._num_layers = config['num_layers']
+        self._batch_size = config['batch_size']
+        self._learning_rate = config['learning_rate']
+        self.num_lanes = config['num_lanes']
+        self.id = f'model_{self._input_dim}.{self.num_lanes}.{self._output_dim}'
 
         #MEMORY
-        self._size_min = size_min
-        self.samples = deque(maxlen=size_max)
+        self._size_min = config['size_min']
+        self.samples = deque(maxlen=config['size_max'])
 
-        self._model = self._create_model(input_dim, num_layers)
+        self._model = self._create_model(self._input_dim , self._num_layers)
         
     '''
     INITIALIZE MODEL
@@ -59,7 +59,7 @@ class Agent:
         for _ in range(num_layers):
             x = Dense(hidden_dim, activation='relu')(x)
 
-        outputs = Dense(self.output_dim, activation='linear')(x)
+        outputs = Dense(self._output_dim, activation='linear')(x)
 
         model = keras.Model(inputs=[input_1, input_2, input_3], outputs=outputs, name='model')
         model.compile(loss=losses.mean_squared_error,
@@ -67,7 +67,7 @@ class Agent:
         metrics=['accuracy'])
 
         # model.summary()
-        getLogger().info(f'Model Parameter: ID: {self.id} input_dim: {input_dim} hidden_dim: {hidden_dim} output_dim: {self.output_dim}')
+        getLogger().info(f'Model Parameter: ID: {self.id} input_dim: {input_dim} hidden_dim: {hidden_dim} output_dim: {self._output_dim}')
         getLogger().info('Create Model - DONE')
         return model
     

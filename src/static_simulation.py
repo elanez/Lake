@@ -5,9 +5,9 @@ import datetime
 import numpy as np
 
 from plot import Plot
-from config import set_sumo
+from tools import set_sumo
 from logger import getLogger
-from config import import_test_config, get_model_path
+from tools import import_test_config, get_model_path
 
 class StaticSimulation:
     def __init__(self, gui, max_step, green_duration, yellow_duration, config_file):

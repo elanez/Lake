@@ -2,6 +2,9 @@ import os
 import sys
 import configparser
 
+from matplotlib.pyplot import connect
+import sumolib
+
 from logger import getLogger
 from sumolib import checkBinary
 
@@ -12,7 +15,9 @@ def import_train_config(file): #CONFIGURE SETTINGS FOR TRAINING
 
     #Agent
     config['input_dim'] = content['agent'].getint('input_dim')
+    config['output_dim'] = content['agent'].getint('output_dim')
     config['num_layers'] = content['agent'].getint('num_layers')
+    config['num_lanes'] = content['agent'].getint('num_lanes')
     config['batch_size'] = content['agent'].getint('batch_size')
     config['learning_rate'] = content['agent'].getfloat('learning_rate')
 
@@ -53,9 +58,6 @@ def import_test_config(file): #CONFIGURE SETTINGS FOR TESTING
     config['green_duration'] = content['simulation'].getint('green_duration')
     config['yellow_duration'] = content['simulation'].getint('yellow_duration')
 
-    #routing
-    # config['num_cars'] = content['routing'].getint('num_cars')
-
     #dir
     config['sumocfg_file'] = content['dir']['sumocfg_file']
     config['model_folder'] = content['dir']['model_folder']
@@ -70,56 +72,65 @@ def set_sumo(gui, sumocfg_filename): #CONFIGURE SUMO
             error_message = "please declare environment variable 'SUMO_HOME'"
             getLogger().critical(error_message)
             sys.exit(error_message)
-        
         if gui == True:
             sumoBinary = checkBinary('sumo-gui')
         else:
             sumoBinary = checkBinary('sumo')
-
         return [sumoBinary, "-c", os.path.join('sumo_files', sumocfg_filename)]
 
-def set_model_path(path_name): #CONFIGURE MODEL PATH AND INCREMENT FILE NAME
-    model_path = os.path.join(os.getcwd(), 'models')
-
-    if not os.path.exists(model_path):
-        os.makedirs(model_path)
-        getLogger().info(f'Created a new directory at {model_path}')
-
-    model_path = os.path.join(model_path, path_name)
+def set_path(path_name, folder_name): #Create folder path with incrementing folder name value
+    path = os.path.join(path_name, folder_name)
     counter = 1
-
-    while os.path.exists(model_path): #If file name already exists add a number eg folder_name (1)
-        if "(" in model_path and ")" in model_path:
-            model_path = model_path.replace(str(counter-1), str(counter))
+    while os.path.exists(path): #If file name already exists add a number eg folder_name (1)
+        if "(" in path and ")" in path:
+            path = path.replace(str(counter-1), str(counter))
         else:
-            model_path = model_path + " (" + str(counter) + ")"
+            path = path + " (" + str(counter) + ")"
         counter += 1
+    os.makedirs(path, exist_ok=True)
+    return path
 
-    os.makedirs(os.path.dirname(model_path), exist_ok=True)
-    return model_path
-
-def get_model_path(path_name):
-    model_path = os.path.join(os.getcwd(),'models', path_name)
-    getLogger().info(f'Model at {model_path}')
-
-    if os.path.isdir(model_path):
-        plot_path = os.path.join(model_path, 'test_data')
-        os.makedirs(plot_path, exist_ok=True)
-        return model_path, plot_path
-    else: 
-        msg = 'Folder does not exist'
-        getLogger().critical(msg)
-        sys.exit(msg)
-
-def set_path(path_name, folder_name):
-    path = os.path.join(os.getcwd(), 'models', path_name)
-    
-    if os.path.isdir(path):
-        path = os.path.join(path, folder_name)
-        os.makedirs(path, exist_ok=True)
-        getLogger().info(f'Created a new directory at {path}')
+def get_path(folder_name):
+    path = os.path.join(os.getcwd(), folder_name)
+    if os.path.exists(path):
         return path
-    else: 
-        msg = 'Folder does not exist'
-        getLogger().critical(msg)
+    else:
+        msg = 'Path does not exist'
+        getLogger().error(msg)
         sys.exit(msg)
+
+def configure_train_settings():
+    net_path = 'sumo_files/Train_env/environment.net.xml'
+    net = sumolib.net.readNet(net_path)
+    # edges = net.getEdges()
+    nodes = net.getNodes()
+    traffic_lights = net.getTrafficLights()
+    # tls = net.getTLS(traffic_lights[0].getID())
+
+    for tl in traffic_lights:
+        tls = net.getTLS(tl.getID())
+        # logic = tls.getAllProgramLogics()
+        edges = tls.getEdges()
+        print(edges)
+
+        #get num of lanes
+        num_lanes = 0
+        for e in edges:
+            num_lanes += e.getLaneNumber()
+        print(f'num_lanes: {num_lanes}')
+
+    origin = []
+    destination = []
+    
+    for n in nodes:
+        incoming = n.getIncoming()
+        outgoing = n.getOutgoing()
+        # print(f'ID: {n.getID()} Incoming: {len(incoming)} Outgoing: {len(outgoing)}')
+        if len(incoming) == 1 and len(outgoing) == 1:
+            origin.append(outgoing)
+            destination.append(incoming)
+    print(f'Origin: {origin}')
+    print(f'Destination: {destination}')
+
+# #TEST
+# configure_train_settings()

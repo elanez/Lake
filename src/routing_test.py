@@ -1,4 +1,3 @@
-from ssl import VERIFY_CRL_CHECK_LEAF
 import numpy as np
 import math
 
@@ -57,10 +56,13 @@ class Routing:
         vehicle_type = ["standard_car"]
         depart_lane = ["random"]
 
+        #Route file location
+        path = "sumo_files/Train_env/routes.rou.xml"
+
         # saving as routes_test.rou.xml 
-        with open("sumo_files/Train_env/routes_test.rou.xml", "w") as routes:
+        with open(path, "w") as routes:
                 print('''<routes> 
-       <Type accel="0.8" id="standard_car" decel="4.5" length="5.0" minGap="2.5" maxSpeed="60" sigma="0.5" />
+       <Type accel="0.8" id="standard_car" decel="4.5" length="5.0" minGap="2.5" maxSpeed="16.6667" sigma="0.5" />
                 ''', file=routes)
                 i = 1
                 current_index = 0
@@ -89,17 +91,13 @@ class Routing:
                                 straight = np.random.randint(0, 4) # random source and destination
                                 for s in straight_conditions:
                                         if(s == straight):
-                                               print(f'if straight == {s}', file=routes) ## JUST TO CHECK IF CONDITION IS RIGHT DELETE THIS IF CORRECT 
+                                        #        print(f'if straight == {s}', file=routes) ## JUST TO CHECK IF CONDITION IS RIGHT DELETE THIS IF CORRECT 
                                                print(f'    <vehicle id="{straight_vehicle_id[straight_conditions.index(s)]}{car_counter}" type="{vehicle_type[0]}" route="{straight_routes[straight_conditions.index(s)]}" depart="{step}" departLane="{depart_lane[0]}" />', file=routes)
                         else: #car turns
                                 turn = np.random.randint(0, 8) # random source and destination
                                 for t in turn_conditions:
                                         if(t == turn):
-                                                print(f'if turn == {t}', file=routes) ## JUST TO CHECK IF CONDITION IS RIGHT DELETE THIS IF CORRECT 
+                                                # print(f'if turn == {t}', file=routes) ## JUST TO CHECK IF CONDITION IS RIGHT DELETE THIS IF CORRECT 
                                                 print(f'    <vehicle id="{turn_vehicle_id[turn_conditions.index(t)]}{car_counter}" type="{vehicle_type[0]}" route="{turn_routes[turn_conditions.index(t)]}" depart="{step}" departLane="{depart_lane[0]}" />', file=routes)
 
                 print('</routes>', file=routes)
-test = Routing(1000, 5400)
-test.generate_routefile(10) 
-          
-

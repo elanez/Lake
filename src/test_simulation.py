@@ -4,9 +4,9 @@ import timeit
 import random
 import numpy as np
 
-from config import get_model_path
+from tools import get_model_path
 from agent import TestAgent
-from config import set_sumo
+from tools import set_sumo
 from logger import getLogger
 from routing import Routing
 from interface.trafficlight import TrafficLight

@@ -1,27 +1,24 @@
-import datetime
 import os
+import datetime
 
 from shutil import copyfile
+from agent import Agent
 from train_simulation import TrainSimulation
 from logger import getLogger
-from config import import_train_config, set_model_path, set_path
+from tools import import_train_config, set_path
 
 if __name__ == "__main__":
-    getLogger().info('===== START TRAIN PROGRAM =====')
+    getLogger().info('===== START TRAIN PROGRAM =====') 
+
+    #Check and create models folder
+    model_path = os.path.join(os.getcwd(), 'models')
+    if not os.path.exists(model_path):
+        os.makedirs(model_path)
+        getLogger().info(f'Created a new model directory: {model_path}')
+
     config = import_train_config('train_settings.ini')
-    
-    simulation = TrainSimulation(
-        config['sumo_gui'],
-        config['epochs'],
-        config['gamma'],
-        config['max_step'],
-        config['green_duration'],
-        config['yellow_duration'],
-        config['input_dim'],
-        config['num_cars'],
-        config['sumocfg_file'],
-        config
-    )
+    agent = Agent(config)
+    simulation = TrainSimulation(agent, config)
 
     episode = 0
     total_episodes = config['total_episodes']
@@ -36,12 +33,10 @@ if __name__ == "__main__":
         episode += 1
     
     getLogger().info(f'SUMMARY -> Start time: {timestamp_start} End time: {datetime.datetime.now()}')
-    model_path = set_model_path(config['model_folder'])
-
+    model_path = set_path(model_path, config['model_folder'])
     for tl in simulation.traffic_light_list: #save model and plot data
         tl.agent.save_model(model_path)
-        plot_path = set_path(config['model_folder'], tl.agent.id)
-        tl.agent.plot_data(plot_path, 100, tl)
-
+        plot_path = set_path(model_path, tl.agent.id)
+        tl.agent.plot_data(plot_path, 90, tl)
     copyfile(src='train_settings.ini', dst=os.path.join(model_path, 'train_settings.ini'))
     getLogger().info('====== END TRAIN PROGRAM ======')
