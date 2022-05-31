@@ -1,3 +1,5 @@
+from importlib.metadata import files
+from re import I
 import numpy as np
 import math
 
@@ -29,54 +31,55 @@ class Routing:
         # round every value to int
         car_gen_steps = np.rint(car_gen_steps)
 
+        '''
+        INSERT EDGES HERE
+        Format:
+            4 directions: [Noth, East, South, West]
+            3 directions: [East, North/South, West] or [North, East/West, South]
+        '''
+        path = 'sumo_files/Train_env/routes.rou.xml' #path to routes
+        edge_in = ['top_in', 'right_in', 'bottom_in', 'left_in'] #incoming
+        edge_out = ['top_out', 'right_out', 'bottom_out', 'left_out'] #outgoing
+        routes = []
+        vehicle_type = "standard_car"
+
         # getLogger().info(f'Current directory: {os.getcwd()}')
-
-        with open("sumo_files/Train_env/routes.rou.xml", "w") as routes:
+        with open(path, "w") as file:
             print('''<routes>
-    <vType accel="0.8" id="standard_car" decel="4.5" length="5.0" minGap="2.5" maxSpeed="60" sigma="0.5" />
+    <vType accel="0.8" id="standard_car" decel="4.5" length="5.0" minGap="2.5" maxSpeed="16.67" sigma="0.5" />
+    ''', file=file)
 
-    <route id="East_to_North" edges="right_in top_out"/>
-    <route id="East_to_West" edges="right_in left_out"/>
-    <route id="East_to_South" edges="right_in bottom_out"/>
-    <route id="West_to_North" edges="left_in top_out"/>
-    <route id="West_to_East" edges="left_in right_out"/>
-    <route id="West_to_South" edges="left_in bottom_out"/>
-    <route id="North_to_East" edges="top_in right_out"/>
-    <route id="North_to_South" edges="top_in bottom_out"/>
-    <route id="North_to_West" edges="top_in left_out"/>
-    <route id="South_to_East" edges="bottom_in right_out"/>
-    <route id="South_to_North" edges="bottom_in top_out"/>
-    <route id="South_to_West" edges="bottom_in left_out"/>
-           ''', file=routes)
+            '''
+            ROUTE CREATION
+            '''
+            for i, e_in in enumerate(edge_in):
+               for j, e_out in enumerate(edge_out):
+                    if i == j:
+                       continue
+                    else:
+                        print(f'    <route id="{e_in}_to_{e_out}" edges="{e_in} {e_out}"/>', file=file)
+                        routes.append(f'{e_in}_to_{e_out}')
             
+            '''
+            VEHICLE CREATION
+            '''
+
+            #Split routes into straight and turn
+            route_straight = []
+            route_turn = []
+            counter = 0
+            for i, route in enumerate(routes):
+                if i == 1 + (3 * counter):
+                    route_straight.append(route)
+                    counter += 1
+                else:
+                    route_turn.append(route)
+
             for car_counter, step in enumerate(car_gen_steps):
                 if np.random.uniform() < 0.60: #car goes straight -> 60%
-                    straight = np.random.randint(0, 4) # random source and destination
-                    if straight == 0:
-                        print(f'    <vehicle id="E_W_{car_counter}" type="standard_car" route="East_to_West" depart="{step}" departLane="random" />', file=routes)
-                    elif straight == 1:
-                        print(f'    <vehicle id="W_E_{car_counter}" type="standard_car" route="West_to_East" depart="{step}" departLane="random" />', file=routes)
-                    elif straight == 2:
-                        print(f'    <vehicle id="N_S_{car_counter}" type="standard_car" route="North_to_South" depart="{step}" departLane="random" />', file=routes)
-                    else:
-                        print(f'    <vehicle id="S_N_{car_counter}" type="standard_car" route="South_to_North" depart="{step}" departLane="random"/>', file=routes)
+                    i = np.random.randint(0, len(route_straight)) # random source and destination
+                    print(f'    <vehicles id="{route_straight[i]}_{car_counter}" type="{vehicle_type}" route="{route_straight[i]}" depart="{step}" departLane="random" />', file=file)
                 else: #car turns
-                    turn = np.random.randint(0, 8) # random source and destination
-                    if turn == 0:
-                        print(f'    <vehicle id="E_N_{car_counter}" type="standard_car" route="East_to_North" depart="{step}" departLane="random" />', file=routes)
-                    elif turn == 1:
-                        print(f'    <vehicle id="E_W_{car_counter}" type="standard_car" route="East_to_South" depart="{step}" departLane="random" />', file=routes)
-                    elif turn == 2:
-                        print(f'    <vehicle id="W_N_{car_counter}" type="standard_car" route="West_to_North" depart="{step}" departLane="random" />', file=routes)
-                    elif turn == 3:
-                        print(f'    <vehicle id="W_S_{car_counter}" type="standard_car" route="West_to_South" depart="{step}" departLane="random" />', file=routes)
-                    elif turn == 4:
-                        print(f'    <vehicle id="N_E_{car_counter}" type="standard_car" route="North_to_East" depart="{step}" departLane="random" />', file=routes)
-                    elif turn == 5:
-                        print(f'    <vehicle id="N_W_{car_counter}" type="standard_car" route="North_to_West" depart="{step}" departLane="random" />', file=routes)
-                    elif turn == 6:
-                        print(f'    <vehicle id="S_E_{car_counter}" type="standard_car" route="South_to_East" depart="{step}" departLane="random" />', file=routes)
-                    else:
-                        print(f'    <vehicle id="S_W_{car_counter}" type="standard_car" route="South_to_West" depart="{step}" departLane="random" />', file=routes)
-
-            print('</routes>', file=routes)
+                    i = np.random.randint(0, len(route_turn)) # random source and destination
+                    print(f'    <vehicle id="{route_turn[i]}_{car_counter}" type="{vehicle_type}" route="{route_turn[i]}" depart="{step}" departLane="random" />', file=file)
+            print('</routes>', file=file)

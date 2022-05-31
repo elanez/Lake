@@ -3,7 +3,6 @@ import math
 
 from logger import getLogger
 
-
 class Routing:
     def __init__(self, n_cars, max_steps):
         self._n_cars = n_cars #number of cars per episode
@@ -53,7 +52,7 @@ class Routing:
         route_edges = []
 
         # saved the vehicle type and departLane to an array (if we need to add vehicles / depart lanes )
-        vehicle_type = ["standard_car"]
+        vehicle_type = "standard_car"
         depart_lane = ["random"]
 
         #Route file location
@@ -62,7 +61,7 @@ class Routing:
         # saving as routes_test.rou.xml 
         with open(path, "w") as routes:
                 print('''<routes> 
-       <Type accel="0.8" id="standard_car" decel="4.5" length="5.0" minGap="2.5" maxSpeed="16.6667" sigma="0.5" />
+    <Type accel="0.8" id="standard_car" decel="4.5" length="5.0" minGap="2.5" maxSpeed="16.67" sigma="0.5" />
                 ''', file=routes)
                 i = 1
                 current_index = 0
@@ -83,7 +82,7 @@ class Routing:
                                         else:
                                                 turn_routes.append(f'{direction[current_index]}_to_{direction[new_index]}')
                                                 turn_vehicle_id.append(f'{direction[current_index][0]}_{direction[new_index][0]}_')
-                                        print(f'''       <route id="{route_id[route_index-1]}" edges="{route_edges[route_index-1]}" />''', file=routes)
+                                        print(f'''    <route id="{route_id[route_index-1]}" edges="{route_edges[route_index-1]}" />''', file=routes)
                         i += 1
 
                 for car_counter, step in enumerate(car_gen_steps):
@@ -92,12 +91,12 @@ class Routing:
                                 for s in straight_conditions:
                                         if(s == straight):
                                         #        print(f'if straight == {s}', file=routes) ## JUST TO CHECK IF CONDITION IS RIGHT DELETE THIS IF CORRECT 
-                                               print(f'    <vehicle id="{straight_vehicle_id[straight_conditions.index(s)]}{car_counter}" type="{vehicle_type[0]}" route="{straight_routes[straight_conditions.index(s)]}" depart="{step}" departLane="{depart_lane[0]}" />', file=routes)
+                                               print(f'    <vehicle id="{straight_vehicle_id[straight_conditions.index(s)]}{car_counter}" type="{vehicle_type}" route="{straight_routes[straight_conditions.index(s)]}" depart="{step}" departLane="{depart_lane[0]}" />', file=routes)
                         else: #car turns
                                 turn = np.random.randint(0, 8) # random source and destination
                                 for t in turn_conditions:
                                         if(t == turn):
                                                 # print(f'if turn == {t}', file=routes) ## JUST TO CHECK IF CONDITION IS RIGHT DELETE THIS IF CORRECT 
-                                                print(f'    <vehicle id="{turn_vehicle_id[turn_conditions.index(t)]}{car_counter}" type="{vehicle_type[0]}" route="{turn_routes[turn_conditions.index(t)]}" depart="{step}" departLane="{depart_lane[0]}" />', file=routes)
+                                                print(f'    <vehicle id="{turn_vehicle_id[turn_conditions.index(t)]}{car_counter}" type="{vehicle_type}" route="{turn_routes[turn_conditions.index(t)]}" depart="{step}" departLane="{depart_lane[0]}" />', file=routes)
 
                 print('</routes>', file=routes)
