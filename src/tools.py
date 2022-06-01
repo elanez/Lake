@@ -5,6 +5,7 @@ import sumolib
 
 from logger import getLogger
 from sumolib import checkBinary
+from interface.route import Route
 
 def import_train_config(file): #CONFIGURE SETTINGS FOR TRAINING
     content = configparser.ConfigParser()
@@ -97,38 +98,39 @@ def get_path(folder_name):
         getLogger().error(msg)
         sys.exit(msg)
 
-def configure_train_settings():
-    net_path = 'sumo_files/Train_env/environment.net.xml'
+def configure_train_settings(net_path):
     net = sumolib.net.readNet(net_path)
-    # edges = net.getEdges()
-    nodes = net.getNodes()
+    routes = []
     traffic_lights = net.getTrafficLights()
-    # tls = net.getTLS(traffic_lights[0].getID())
 
     for tl in traffic_lights:
         tls = net.getTLS(tl.getID())
-        # logic = tls.getAllProgramLogics()
-        edges = tls.getEdges()
-        print(edges)
+        # edges = tls.getEdges()
+        connections = tls.getConnections()
+        for c in connections: #create routes
+            edge_in = c[0].getEdge()
+            edge_out = c[1].getEdge()
+            id = f'{edge_in.getID()}_to_{edge_out.getID()}'
+            if not contains(routes, lambda x: x.id == id):
+                if edge_in.getFromNode().getCoord()[0] == edge_out.getToNode().getCoord()[0] or edge_in.getFromNode().getCoord()[1] == edge_out.getToNode().getCoord()[1]:
+                    type = 'straight'
+                else:
+                    type = 'turn'
+                temp = Route(id , edge_in, edge_out, type)
+                routes.append(temp)
+        # #get num of lanes
+        # num_lanes = 0
+        # for e in edges:
+        #     num_lanes += e.getLaneNumber()
+        # print(f'num_lanes: {num_lanes}')
+    return traffic_lights, routes
 
-        #get num of lanes
-        num_lanes = 0
-        for e in edges:
-            num_lanes += e.getLaneNumber()
-        print(f'num_lanes: {num_lanes}')
+   
+def contains(list, filter):
+    for x in list:
+        if filter(x):
+            return True
+    return False
 
-    origin = []
-    destination = []
-    
-    for n in nodes:
-        incoming = n.getIncoming()
-        outgoing = n.getOutgoing()
-        # print(f'ID: {n.getID()} Incoming: {len(incoming)} Outgoing: {len(outgoing)}')
-        if len(incoming) == 1 and len(outgoing) == 1:
-            origin.append(outgoing)
-            destination.append(incoming)
-    print(f'Origin: {origin}')
-    print(f'Destination: {destination}')
-
-# #TEST
-# configure_train_settings()
+#TEST
+# configure_train_settings('sumo_files/1TL/1TL.net.xml')

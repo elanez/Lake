@@ -2,7 +2,6 @@ import os
 import datetime
 
 from shutil import copyfile
-from agent import Agent
 from train_simulation import TrainSimulation
 from logger import getLogger
 from tools import import_train_config, set_path
@@ -17,8 +16,7 @@ if __name__ == "__main__":
         getLogger().info(f'Created a new model directory: {model_path}')
 
     config = import_train_config('train_settings.ini')
-    agent = Agent(config)
-    simulation = TrainSimulation(agent, config)
+    simulation = TrainSimulation(config)
 
     episode = 0
     total_episodes = config['total_episodes']

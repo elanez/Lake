@@ -1,14 +1,16 @@
 import os
+import sys
 import numpy as np
 import math
 
 from logger import getLogger
 
 class Routing:
-    def __init__(self, n_cars, max_steps, net_file):
+    def __init__(self, n_cars, max_steps, net_file, routes):
         self._n_cars = n_cars #number of cars per episode
         self._max_steps = max_steps
         self._route_file = os.path.join('sumo_files', f'{net_file}.rou.xml')
+        self._routes = routes
     
     def generate_routefile(self, seed):
         # getLogger().info('Generate route file...')
@@ -39,7 +41,6 @@ class Routing:
         '''
         edge_in = ['top_in', 'right_in', 'bottom_in', 'left_in'] #incoming
         edge_out = ['top_out', 'right_out', 'bottom_out', 'left_out'] #outgoing
-        routes = []
         route_straight = []
         route_turn = []
         vehicle_type = "standard_car"
@@ -53,14 +54,10 @@ class Routing:
             '''
             ROUTE CREATION
             <route id="{edge_incoming}_to_{edge_outgoing}" edges="{edge_incoming} {edge_outgoing}"/>
+            bottom left top right
             '''
-            for i, e_in in enumerate(edge_in):
-               for j, e_out in enumerate(edge_out):
-                    if i == j:
-                       continue
-                    else:
-                        print(f'    <route id="{e_in}_to_{e_out}" edges="{e_in} {e_out}"/>', file=file)
-                        routes.append(f'{e_in}_to_{e_out}')
+            for routes in self._routes:
+                print(f'    <route id="{routes.id}" edges="{routes.edge_in.getID()} {routes.edge_out.getID()}" />', file=file)
             
             '''
             VEHICLE CREATION
@@ -68,12 +65,14 @@ class Routing:
             '''
             #Split routes into straight and turn
             counter = 0
-            for i, route in enumerate(routes):
-                if i == 1 + (3 * counter):
-                    route_straight.append(route)
-                    counter += 1
+            for route in self._routes:
+                if route.type == 'straight':
+                    route_straight.append(route.id)
+                elif route.type == 'turn':
+                    route_turn.append(route.id)
                 else:
-                    route_turn.append(route)
+                    sys.error('Type_error')
+
 
             for car_counter, step in enumerate(car_gen_steps):
                 if np.random.uniform() < 0.60: #car goes straight -> 60%

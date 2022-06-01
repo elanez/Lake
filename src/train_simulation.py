@@ -1,20 +1,20 @@
+import os
 import traci
 import sumolib
 import timeit
 import random
 import numpy as np
 
-from tools import set_sumo
+from agent import Agent
+from tools import configure_train_settings, set_sumo
 from logger import getLogger
 from routing import Routing
 from interface.trafficlight import TrafficLight
 
 class TrainSimulation:
-    def __init__(self, agent, config):
-        self._agent = agent
+    def __init__(self, config):
         self._config_file = config['sumo_file']
         self._sumo_cmd = set_sumo(config['sumo_gui'], self._config_file)
-        self._sumo_intersection = Routing(config['num_cars'], config['max_step'], config['sumo_file'])
         self._green_duration = config['green_duration']
         self._yellow_duration = config['yellow_duration']
         self._input_dim = config['input_dim']
@@ -23,18 +23,21 @@ class TrainSimulation:
         self._epochs = config['epochs']
         self._gamma = config['gamma']
         
-        self.configure_model(config['num_lanes'], config['sumo_file'])
+        self.configure_model(config)
     
     '''
     AGENT MODEL
     '''
-    def configure_model(self, num_lanes, net_file):
+    def configure_model(self, config):
         self._trafficlight_list = []
-        path = os.path.join('sumo_files', f'{net_file}.net.xml')
-        net = sumolib.net.readNet(path)
-        traffic_lights = net.getTrafficLights()
-        for tl in traffic_lights:
-            self._trafficlight_list.append(TrafficLight(tl.getID(),num_lanes,self._agent))
+        net_path = config['sumo_file']
+        net_path = os.path.join('sumo_files', f'{net_path}.net.xml')
+        trafficlights, routes = configure_train_settings(net_path)
+        for tl in trafficlights:
+            agent = Agent(config)
+            self._trafficlight_list.append(TrafficLight(tl.getID(), agent))
+
+        self._sumo_intersection = Routing(config['num_cars'], config['max_step'], config['sumo_file'], routes)
 
     '''
     SUMO INTERACTIONS
@@ -48,16 +51,12 @@ class TrainSimulation:
 
         #init
         self._step = 0
-        self._waiting_times = {}
-        self._sum_reward = 0
-        self._sum_queue_length = 0
-        self._sum_waiting_time = 0
-
-        if self._step == 0:
-            self._trafficlight_list[0].lanes = self._get_controlled_lanes(self._trafficlight_list[0].id)         
+        self._waiting_times = {}   
 
         while self._step < self._max_steps:
             for tl in self._trafficlight_list:
+                if tl.lanes == None:
+                    tl.lanes = self._get_controlled_lanes(tl.id)
                 if traci.trafficlight.getNextSwitch(tl.id) - traci.simulation.getTime()  <= 0:
                     if self.isGreen(traci.trafficlight.getPhase(tl.id)):
                         current_state = self._get_state(tl)
