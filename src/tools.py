@@ -1,8 +1,6 @@
 import os
 import sys
 import configparser
-
-from matplotlib.pyplot import connect
 import sumolib
 
 from logger import getLogger
@@ -38,7 +36,7 @@ def import_train_config(file): #CONFIGURE SETTINGS FOR TRAINING
     config['num_cars'] = content['routing'].getint('num_cars')
 
     #dir
-    config['sumocfg_file'] = content['dir']['sumocfg_file']
+    config['sumo_file'] = content['dir']['sumo_file']
     config['model_folder'] = content['dir']['model_folder']
 
     return config
@@ -76,7 +74,7 @@ def set_sumo(gui, sumocfg_filename): #CONFIGURE SUMO
             sumoBinary = checkBinary('sumo-gui')
         else:
             sumoBinary = checkBinary('sumo')
-        return [sumoBinary, "-c", os.path.join('sumo_files', sumocfg_filename)]
+        return [sumoBinary, "-c", os.path.join('sumo_files', f'{sumocfg_filename}.sumocfg')]
 
 def set_path(path_name, folder_name): #Create folder path with incrementing folder name value
     path = os.path.join(path_name, folder_name)

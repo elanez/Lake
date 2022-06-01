@@ -1,14 +1,14 @@
-from importlib.metadata import files
-from re import I
+import os
 import numpy as np
 import math
 
 from logger import getLogger
 
 class Routing:
-    def __init__(self, n_cars, max_steps):
+    def __init__(self, n_cars, max_steps, net_file):
         self._n_cars = n_cars #number of cars per episode
         self._max_steps = max_steps
+        self._route_file = os.path.join('sumo_files', f'{net_file}.rou.xml')
     
     def generate_routefile(self, seed):
         # getLogger().info('Generate route file...')
@@ -37,20 +37,22 @@ class Routing:
             4 directions: [Noth, East, South, West]
             3 directions: [East, North/South, West] or [North, East/West, South]
         '''
-        path = 'sumo_files/Train_env/routes.rou.xml' #path to routes
         edge_in = ['top_in', 'right_in', 'bottom_in', 'left_in'] #incoming
         edge_out = ['top_out', 'right_out', 'bottom_out', 'left_out'] #outgoing
         routes = []
+        route_straight = []
+        route_turn = []
         vehicle_type = "standard_car"
 
         # getLogger().info(f'Current directory: {os.getcwd()}')
-        with open(path, "w") as file:
+        with open(self._route_file, "w") as file:
             print('''<routes>
     <vType accel="0.8" id="standard_car" decel="4.5" length="5.0" minGap="2.5" maxSpeed="16.67" sigma="0.5" />
     ''', file=file)
 
             '''
             ROUTE CREATION
+            <route id="{edge_incoming}_to_{edge_outgoing}" edges="{edge_incoming} {edge_outgoing}"/>
             '''
             for i, e_in in enumerate(edge_in):
                for j, e_out in enumerate(edge_out):
@@ -62,11 +64,9 @@ class Routing:
             
             '''
             VEHICLE CREATION
+            <vehicles id="{route_id}_{car_counter}" type="{vehicle_type}" route="{route_id}" depart="{step}" departLane="random" />
             '''
-
             #Split routes into straight and turn
-            route_straight = []
-            route_turn = []
             counter = 0
             for i, route in enumerate(routes):
                 if i == 1 + (3 * counter):

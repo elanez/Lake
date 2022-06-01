@@ -4,7 +4,6 @@ import timeit
 import random
 import numpy as np
 
-from agent import Agent
 from tools import set_sumo
 from logger import getLogger
 from routing import Routing
@@ -13,9 +12,9 @@ from interface.trafficlight import TrafficLight
 class TrainSimulation:
     def __init__(self, agent, config):
         self._agent = agent
-        self._config_file = config['sumocfg_file']
+        self._config_file = config['sumo_file']
         self._sumo_cmd = set_sumo(config['sumo_gui'], self._config_file)
-        self._sumo_intersection = Routing(config['num_cars'], config['max_step'])
+        self._sumo_intersection = Routing(config['num_cars'], config['max_step'], config['sumo_file'])
         self._green_duration = config['green_duration']
         self._yellow_duration = config['yellow_duration']
         self._input_dim = config['input_dim']
@@ -24,14 +23,14 @@ class TrainSimulation:
         self._epochs = config['epochs']
         self._gamma = config['gamma']
         
-        self.configure_model(config['num_lanes'])
+        self.configure_model(config['num_lanes'], config['sumo_file'])
     
     '''
     AGENT MODEL
     '''
-    def configure_model(self, num_lanes):
+    def configure_model(self, num_lanes, net_file):
         self._trafficlight_list = []
-        path = 'sumo_files/Train_env/environment.net.xml'
+        path = os.path.join('sumo_files', f'{net_file}.net.xml')
         net = sumolib.net.readNet(path)
         traffic_lights = net.getTrafficLights()
         for tl in traffic_lights:
