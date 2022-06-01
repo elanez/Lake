@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-05-30 14:55:17 by Eclipse SUMO netedit Version 1.13.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="C:\Users\Lance\Desktop\Roxas%20Blvd%20Scratch\Roxas.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="C:\Users\Lance\Desktop\Roxas%20Blvd%20Scratch\Roxas.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <tlLogic id="J31" type="static" programID="0" offset="0">
+        <phase duration="10" state="GGGGrrrrrGGGrrrr"/>
+        <phase duration="5" state="yyyyrrrrryyyrrrr"/>
+        <phase duration="10" state="rrrrrrrrrrrrGGGG"/>
+        <phase duration="5" state="rrrrrrrrrrrryyyy"/>
+        <phase duration="10" state="rrrrGGGGGrrrrrrr"/>
+        <phase duration="5" state="rrrryyyyyrrrrrrr"/>
+    </tlLogic>
+</additional>
