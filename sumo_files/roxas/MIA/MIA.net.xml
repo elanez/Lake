@@ -4,11 +4,11 @@
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\Lance\Desktop\All\MIA\MIA.net.xml"/>
+        <sumo-net-file value="MIA.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\Lance\Desktop\All\MIA\MIA.net.xml"/>
+        <output-file value="MIA.net.xml"/>
     </output>
 
     <processing>

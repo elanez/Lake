@@ -6,7 +6,8 @@
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
-        <net-file value="../Pedro%20Gil/PG.net.xml"/>
+        <net-file value="PG.net.xml"/>
+        <route-file value="PG.rou.xml"/>
     </input>
 
 </configuration>

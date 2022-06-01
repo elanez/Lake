@@ -6,7 +6,8 @@
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
-        <net-file value="../Vito%20Cruz/VC.net.xml"/>
+        <net-file value="VC.net.xml"/>
+        <route-file value="VC.rou.xml"/>
     </input>
 
 </configuration>

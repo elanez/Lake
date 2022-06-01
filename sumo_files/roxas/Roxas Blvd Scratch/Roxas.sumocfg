@@ -6,8 +6,8 @@
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
-        <net-file value="C:\Users\Lance\Desktop\All\Roxas Blvd Scratch\Roxas.net.xml"/>
-        <route-files value="C:\Users\Lance\Desktop\All\Roxas Blvd Scratch\Roxas.rou.xml"/>
+        <net-file value="Roxas.net.xml"/>
+        <route-files value="Roxas.rou.xml"/>
     </input>
 
 </configuration>

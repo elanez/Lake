@@ -6,7 +6,8 @@
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
-        <net-file value="../United%20Nation/UN.net.xml"/>
+        <net-file value="UN.net.xml"/>
+        <route-file value="UN.rou.xml"/>
     </input>
 
 </configuration>

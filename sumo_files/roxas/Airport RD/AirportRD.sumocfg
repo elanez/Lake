@@ -6,7 +6,8 @@
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
-        <net-file value="../Airport%20RD/Airport.net.xml"/>
+        <net-file value="Airport.net.xml"/>
+        <route-file value="Airport.rou.xml"/>
     </input>
 
 </configuration>
