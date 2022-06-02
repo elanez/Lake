@@ -235,10 +235,10 @@ class TrainSimulation:
         return queue_length
     
     def isGreen(self, phase): #IF PHASE IS GREEN
-        if 'G' in phase:
-            return True
-        else:
+        if 'y' in phase:
             return False
+        else:
+            return True
         
     def _get_controlled_lanes(self, traffic_light_id): #GET ALL CONTROLLED LANES OF THE TRAFFIC LIGHT
         lanes = traci.trafficlight.getControlledLanes(traffic_light_id)

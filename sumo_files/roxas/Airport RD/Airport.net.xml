@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-05-30 17:59:43 by Eclipse SUMO netedit Version 1.13.0
+<!-- generated on 2022-06-02 18:13:23 by Eclipse SUMO netedit Version 1.10.0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -48,10 +48,10 @@
         <lane id=":J0_0_4" index="4" speed="16.67" length="11.32" shape="-104.80,-196.00 -104.30,-199.39 -103.20,-201.60 -102.10,-203.81 -101.60,-207.20"/>
     </edge>
     <edge id=":J0_5" function="internal">
-        <lane id=":J0_5_0" index="0" speed="11.35" length="1.49" shape="-101.60,-196.00 -100.73,-197.21"/>
+        <lane id=":J0_5_0" index="0" speed="11.35" length="2.75" shape="-101.60,-196.00 -100.00,-198.24"/>
     </edge>
     <edge id=":J0_14" function="internal">
-        <lane id=":J0_14_0" index="0" speed="11.35" length="28.12" shape="-100.73,-197.21 -99.85,-198.45 -94.60,-200.20 -85.85,-201.25 -73.60,-201.60"/>
+        <lane id=":J0_14_0" index="0" speed="11.35" length="26.86" shape="-100.00,-198.24 -99.85,-198.45 -94.60,-200.20 -85.85,-201.25 -73.60,-201.60"/>
     </edge>
     <edge id=":J0_6" function="internal">
         <lane id=":J0_6_0" index="0" speed="6.51" length="9.03" shape="-79.20,-207.20 -78.85,-204.75 -77.80,-203.00 -76.05,-201.95 -73.60,-201.60"/>
@@ -167,7 +167,7 @@
 
     <tlLogic id="J1" type="static" programID="0" offset="0">
         <phase duration="10" state="GGGGrrGrrrrrrrrrrrrrrGGGGGGG"/>
-        <phase duration="5"  state="yyyyyyyyyyrrrrrrrrrrryyyyyyy"/>
+        <phase duration="5"  state="yyyyrryrrrrrrrrrrrrrryyyyyyy"/>
         <phase duration="10" state="rrrrrrrrrrGGGGGGGGGGGrrrrrrr"/>
         <phase duration="5"  state="rrrrrrrrrryyyyyyyyyyyrrrrrrr"/>
         <phase duration="10" state="rrrrGGrGGGrrrrrrrrrrrrrrrrrr"/>
@@ -248,7 +248,7 @@
     <junction id="J5" type="dead_end" x="500.00" y="-200.00" incLanes="E4_0" intLanes="" shape="500.00,-203.20 500.00,-200.00"/>
     <junction id="J8" type="dead_end" x="3000.00" y="-1400.00" incLanes="" intLanes="" shape="3000.00,-1400.00"/>
 
-    <junction id=":J0_14_0" type="internal" x="-100.73" y="-197.21" incLanes=":J0_5_0 -E3_0 -E3_1 -E3_2 -E3_3 -E3_4 -E3_5 -E3_6" intLanes=":J0_6_0 :J0_7_0 :J0_7_1 :J0_7_2 :J0_7_3 :J0_7_4 :J0_7_5 :J0_7_6"/>
+    <junction id=":J0_14_0" type="internal" x="-100.00" y="-198.24" incLanes=":J0_5_0 -E3_0 -E3_1 -E3_2 -E3_3 -E3_4 -E3_5 -E3_6" intLanes=":J0_6_0 :J0_7_0 :J0_7_1 :J0_7_2 :J0_7_3 :J0_7_4 :J0_7_5 :J0_7_6"/>
 
     <connection from="-E0" to="E3" fromLane="0" toLane="0" via=":J0_0_0" dir="s" state="M"/>
     <connection from="-E0" to="E3" fromLane="1" toLane="1" via=":J0_0_1" dir="s" state="M"/>
