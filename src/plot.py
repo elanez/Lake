@@ -56,17 +56,5 @@ class Plot:
 
         fig = plt.gcf()
         plt.show()
-        fig.savefig(os.path.join(self._path, f'plot_{filename}.png'), dpi=self._dpi)
-
-#x1 = [5,7,8,7,2,17,2,9,4,11,12,9,6] #random sample data
-#y1 = [99,86,87,88,111,86,103,87,94,78,77,85,86] #random sample data
-
-#x2 = [1,2,8,7,2,17,2,9,4,11,12,9,6,23,12,1,2,3,53,6,5,3,3,4] #random sample data
-#y2 = [5,7,8,7,2,17,2,9,4,11,12,9,6,32,12,45,2,1,2,3,1,2,3,1] #random sample data
-
-#test = Plot('sumo_files/plots/', 100) # Plot instance
-#test.scatter_plot(x1, y1, 'test', 'the x axis', 'the y axis') #testing scatter plot (one scatter plot)
-#test.compare_plot('compare', x1,y1,x2,y2,'the x axis', 'the y axis') #testing compare plot (two scatter plots)
-
-
+        # fig.savefig(os.path.join(self._path, f'plot_{filename}.png'), dpi=self._dpi)
 

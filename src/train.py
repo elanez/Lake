@@ -32,9 +32,11 @@ if __name__ == "__main__":
     
     getLogger().info(f'SUMMARY -> Start time: {timestamp_start} End time: {datetime.datetime.now()}')
     model_path = set_path(model_path, config['model_folder'])
+
     for tl in simulation.traffic_light_list: #save model and plot data
-        tl.agent.save_model(model_path)
-        plot_path = set_path(model_path, tl.agent.id)
+        plot_path = set_path(model_path, tl.id)
+        tl.agent.save_model(plot_path)
         tl.agent.plot_data(plot_path, 90, tl)
+
     copyfile(src='train_settings.ini', dst=os.path.join(model_path, 'train_settings.ini'))
     getLogger().info('====== END TRAIN PROGRAM ======')

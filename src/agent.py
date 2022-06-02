@@ -135,15 +135,14 @@ class Agent:
 LOAD AND TEST AGENT
 '''
 class TestAgent():
-    def __init__(self,input_dim, num_lanes, model_path):
+    def __init__(self, id, input_dim, num_lanes, model_path):
+        self.id = id
         self._input_dim = input_dim
         self.num_lanes = num_lanes
         self._model = self._load_model(model_path)
     
     def _load_model(self, path): #LOAD MODEL FILE
         getLogger().info('Load Model...')
-
-        path = os.path.join(path, 'model.h5')
         getLogger().info(f'Model at: {path}')
         
         if os.path.isfile(path):

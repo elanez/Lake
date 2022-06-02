@@ -18,6 +18,7 @@ class TrafficLight:
         self.old_state = -1
         self.old_total_wait = 0
         self.reward = 0
+        self.car_present = []
         self.sum_reward = 0
         self.sum_waiting_time = 0
         self.sum_queue_length = 0

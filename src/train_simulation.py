@@ -72,7 +72,17 @@ class TrainSimulation:
                     if self.isGreen(traci.trafficlight.getRedYellowGreenState(tl.id)): #GREEN PHASE   
                         current_state = self._get_state(tl)
                         current_total_wait = self._get_waiting_time(tl.lanes)
-                        tl.reward = tl.old_total_wait - current_total_wait
+
+                        #calculate reward
+                        cars_passed = self._get_car_passtrough(tl.car_present, self._get_cars_in_lane(tl.lanes))
+                        tl.car_present = self._get_cars_in_lane(tl.lanes)
+                        queue_length = self._get_queue_length(tl.lanes)
+                        if queue_length != 0:
+                            plus_reward = cars_passed / queue_length
+                        else:
+                            plus_reward = cars_passed
+                        tl.reward = tl.old_total_wait - current_total_wait + (plus_reward * (self._green_duration + self._yellow_duration))
+                        
 
                         #save data to memory
                         if self._step != 0:
@@ -147,12 +157,10 @@ class TrainSimulation:
                 if lane_pos > target_pos: #if vehicle is close to the traffic light
                     speed = round(traci.vehicle.getSpeed(v) / traci.lane.getMaxSpeed(l), 2)
 
-                    #([lane_id][position])
-                    index_1 = index
-                    index_2 = int((lane_length - lane_pos) / cell_length)
-
-                    position_matrix[index_1][index_2] = 1
-                    velocity_matrix[index_1][index_2] = speed
+                    #([lane][position])
+                    index_1 = int((lane_length - lane_pos) / cell_length)
+                    position_matrix[index][index_1] = 1
+                    velocity_matrix[index][index_1] = speed
 
         # getLogger().info(f'Pos: {position_matrix} \n Vel: {velocity_matrix} \n Phase: {phase_matrix}')
         return [position_matrix, velocity_matrix, phase_matrix]
@@ -233,6 +241,21 @@ class TrainSimulation:
         for l in lanes:
             queue_length = queue_length + traci.lane.getLastStepHaltingNumber(l)
         return queue_length
+    
+    def _get_cars_in_lane(self, lanes):
+        cars = []
+        for l in lanes:
+            cars.append(traci.lane.getLastStepVehicleIDs(l))
+        return cars
+    
+    def _get_car_passtrough(self, old, current):
+        count = 0
+        for o in old:
+            if o in current:
+                continue
+            else:
+                count += 1
+        return count
     
     def isGreen(self, phase): #IF PHASE IS GREEN
         if 'y' in phase:
