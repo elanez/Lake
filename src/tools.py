@@ -49,14 +49,13 @@ def import_test_config(file): #CONFIGURE SETTINGS FOR TESTING
     config['input_dim'] = content['agent'].getint('input_dim')
 
     #simulation
-    config['episode_seed'] = content['simulation'].getint('episode_seed')
     config['sumo_gui'] = content['simulation'].getboolean('sumo_gui')
     config['max_step'] = content['simulation'].getint('max_step')
     config['green_duration'] = content['simulation'].getint('green_duration')
     config['yellow_duration'] = content['simulation'].getint('yellow_duration')
 
     #dir
-    config['sumocfg_file'] = content['dir']['sumocfg_file']
+    config['sumo_file'] = content['dir']['sumo_file']
     config['model_folder'] = content['dir']['model_folder']
 
     return config
@@ -87,12 +86,12 @@ def set_path(path_name, folder_name): #Create folder path with incrementing fold
     os.makedirs(path, exist_ok=True)
     return path
 
-def get_path(folder_name):
-    path = os.path.join(os.getcwd(), folder_name)
+def get_model_path(folder_name):
+    path = os.path.join(os.getcwd(), 'models', folder_name)
     if os.path.exists(path):
         return path
     else:
-        msg = 'Path does not exist'
+        msg = f'{path} does not exist'
         getLogger().error(msg)
         sys.exit(msg)
 
