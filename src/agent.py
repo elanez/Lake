@@ -16,13 +16,13 @@ from keras.models import load_model
 from logger import getLogger
 
 class Agent:
-    def __init__(self, config):
+    def __init__(self, config, output_dim, num_lanes):
         self._input_dim = config['input_dim']
-        self._output_dim = config['output_dim']
+        self._output_dim = output_dim
         self._num_layers = config['num_layers']
         self._batch_size = config['batch_size']
         self._learning_rate = config['learning_rate']
-        self.num_lanes = config['num_lanes']
+        self.num_lanes = num_lanes
         self.id = f'model_{self._input_dim}.{self.num_lanes}.{self._output_dim}'
 
         #MEMORY

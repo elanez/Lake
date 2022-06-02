@@ -14,9 +14,7 @@ def import_train_config(file): #CONFIGURE SETTINGS FOR TRAINING
 
     #Agent
     config['input_dim'] = content['agent'].getint('input_dim')
-    config['output_dim'] = content['agent'].getint('output_dim')
     config['num_layers'] = content['agent'].getint('num_layers')
-    config['num_lanes'] = content['agent'].getint('num_lanes')
     config['batch_size'] = content['agent'].getint('batch_size')
     config['learning_rate'] = content['agent'].getfloat('learning_rate')
 
@@ -98,39 +96,40 @@ def get_path(folder_name):
         getLogger().error(msg)
         sys.exit(msg)
 
-def configure_train_settings(net_path):
-    net = sumolib.net.readNet(net_path)
-    routes = []
+def get_trafficlightID(net_path):
+    if  not os.path.exists(net_path):
+        msg = f'{net_path} does not exists'
+        getLogger().error(msg)
+        sys.exit(msg)
+    net = sumolib.net.readNet(net_path) 
     traffic_lights = net.getTrafficLights()
+    return traffic_lights
 
-    for tl in traffic_lights:
-        tls = net.getTLS(tl.getID())
-        # edges = tls.getEdges()
-        connections = tls.getConnections()
-        for c in connections: #create routes
-            edge_in = c[0].getEdge()
-            edge_out = c[1].getEdge()
-            id = f'{edge_in.getID()}_to_{edge_out.getID()}'
-            if not contains(routes, lambda x: x.id == id):
-                if edge_in.getFromNode().getCoord()[0] == edge_out.getToNode().getCoord()[0] or edge_in.getFromNode().getCoord()[1] == edge_out.getToNode().getCoord()[1]:
-                    type = 'straight'
-                else:
-                    type = 'turn'
-                temp = Route(id , edge_in, edge_out, type)
-                routes.append(temp)
-        # #get num of lanes
-        # num_lanes = 0
-        # for e in edges:
-        #     num_lanes += e.getLaneNumber()
-        # print(f'num_lanes: {num_lanes}')
-    return traffic_lights, routes
+def create_routes(tl):     
+    routes = []
+    connections = tl.getConnections()
+    for c in connections: #create routes
+        edge_in = c[0].getEdge()
+        edge_out = c[1].getEdge()
+        id = f'{edge_in.getID()}_to_{edge_out.getID()}'
+        if not contains(routes, lambda x: x.id == id):
+            if edge_in.getFromNode().getCoord()[0] == edge_out.getToNode().getCoord()[0] or edge_in.getFromNode().getCoord()[1] == edge_out.getToNode().getCoord()[1]:
+                route_type = 'straight'
+            else:
+                route_type = 'turn'
+            temp = Route(id , edge_in, edge_out, route_type)
+            routes.append(temp)
+    return routes
 
-   
+def get_num_lanes(tl):
+    edges = tl.getEdges()
+    num_lanes = 0
+    for e in edges: #get num of lanes
+        num_lanes += e.getLaneNumber()
+    return num_lanes
+
 def contains(list, filter):
     for x in list:
         if filter(x):
             return True
     return False
-
-#TEST
-# configure_train_settings('sumo_files/1TL/1TL.net.xml')

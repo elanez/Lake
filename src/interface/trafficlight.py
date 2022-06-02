@@ -1,9 +1,11 @@
 class TrafficLight:
-    def __init__(self, id, agent):
+    def __init__(self, id, agent, lanes, phases, action_dim):
         self.id = id
         self.agent = agent
+        self.lanes = lanes
+        self.phases = phases
+        self.action_dim = action_dim
         self.reset_data()
-        self.lanes = None
 
         #STATS
         self.reward_store = []
