@@ -7,7 +7,7 @@
 
     <input>
         <net-file value="PG.net.xml"/>
-        <route-file value="PG.rou.xml"/>
+        <route-files value="PG.rou.xml"/>
     </input>
 
 </configuration>

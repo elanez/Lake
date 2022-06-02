@@ -7,7 +7,7 @@
 
     <input>
         <net-file value="Quirino.net.xml"/>
-        <route-file value="Quirino.rou.xml"/>
+        <route-files value="Quirino.rou.xml"/>
     </input>
 
 </configuration>

@@ -216,12 +216,12 @@
     </edge>
 
     <tlLogic id="J9" type="static" programID="0" offset="0">
-        <phase duration="38" state="rrrrrrrrGGGGGGGgrrrrrrrrGGGGGGGgg"/>
-        <phase duration="3"  state="rrrrrrrryyyyyyyyrrrrrrrryyyyyyyyy"/>
-        <phase duration="37" state="GGGGGgggrrrrrrrrGGGGGGggrrrrrrrrr"/>
-        <phase duration="3"  state="yyyyygggrrrrrrrryyyyyyggrrrrrrrrr"/>
-        <phase duration="6"  state="rrrrrGGGrrrrrrrrrrrrrrGGrrrrrrrrr"/>
-        <phase duration="3"  state="rrrrryyyrrrrrrrrrrrrrryyrrrrrrrrr"/>
+        <phase duration="10" state="rrrrrrrrGGGGGGGgrrrrrrrrGGGGGGGgg"/>
+        <phase duration="5"  state="rrrrrrrryyyyyyyyrrrrrrrryyyyyyyyy"/>
+        <phase duration="10" state="GGGGGgggrrrrrrrrGGGGGGggrrrrrrrrr"/>
+        <phase duration="5"  state="yyyyygggrrrrrrrryyyyyyggrrrrrrrrr"/>
+        <phase duration="10"  state="rrrrrGGGrrrrrrrrrrrrrrGGrrrrrrrrr"/>
+        <phase duration="5"  state="rrrrryyyrrrrrrrrrrrrrryyrrrrrrrrr"/>
     </tlLogic>
 
     <junction id="J10" type="dead_end" x="-3100.00" y="-1400.00" incLanes="" intLanes="" shape="-3100.00,-1400.00"/>

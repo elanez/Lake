@@ -7,7 +7,7 @@
 
     <input>
         <net-file value="VC.net.xml"/>
-        <route-file value="VC.rou.xml"/>
+        <route-files value="VC.rou.xml"/>
     </input>
 
 </configuration>

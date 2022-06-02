@@ -7,7 +7,7 @@
 
     <input>
         <net-file value="UN.net.xml"/>
-        <route-file value="UN.rou.xml"/>
+        <route-files value="UN.rou.xml"/>
     </input>
 
 </configuration>

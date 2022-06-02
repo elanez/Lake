@@ -7,7 +7,7 @@
 
     <input>
         <net-file value="Airport.net.xml"/>
-        <route-file value="Airport.rou.xml"/>
+        <route-files value="Airport.rou.xml"/>
     </input>
 
 </configuration>
