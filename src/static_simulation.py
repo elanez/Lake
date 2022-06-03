@@ -5,9 +5,9 @@ import datetime
 import numpy as np
 
 from plot import Plot
-from config import set_sumo
+from tools import set_sumo
 from logger import getLogger
-from config import import_test_config, get_model_path
+from tools import import_test_config
 
 class StaticSimulation:
     def __init__(self, gui, max_step, green_duration, yellow_duration, config_file):
@@ -17,12 +17,20 @@ class StaticSimulation:
         self._green_duration = green_duration
         self._yellow_duration = yellow_duration
     
-         #stats
+        #stats
         self._reward_store = []
         self._wait_store = {}
         self._distance_store = {}
         self._queue_length = []
     
+    # def configure_model(self):
+    #     self._trafficlight_list = []
+    #     path = os.path.join('sumo_files', f'{net_file}.net.xml')
+    #     net = sumolib.net.readNet(path)
+    #     traffic_lights = net.getTrafficLights()
+    #     for tl in traffic_lights:
+    #         self._trafficlight_list.append(TrafficLight(tl.getID(),num_lanes,None))
+
     def run(self):
         start_time = timeit.default_timer()
         traci.start(self._sumo_cmd)
@@ -39,6 +47,14 @@ class StaticSimulation:
 
         while self._step < self._max_steps:
             for index, trafficlight_id in enumerate(trafficlight_list):
+                if self._step == 0:
+                    logic = traci.trafficlight.getAllProgramLogics(trafficlight_id)
+                    phase = logic[0].getPhases()
+                    print(phase[0].state)
+                    traci.trafficlight.setRedYellowGreenState(trafficlight_id, 'rrrrrrrrrrrrrrrrrrrrrrrr')
+                    traci.trafficlight.setPhaseDuration(trafficlight_id, 3)
+                    # ryg = traci.trafficlight.getRedYellowGreenState(trafficlight_id)
+                    # print(ryg)
                 if self.isGreen(traci.trafficlight.getPhase(trafficlight_id)):
                     current_total_wait = self._get_waiting_time(trafficlight_id)
                     reward[index] = old_total_wait[index] - current_total_wait
@@ -49,7 +65,7 @@ class StaticSimulation:
                     self._reward_store.append(reward[index])
                     queue_length = self._get_queue_length(trafficlight_id)
                     self._queue_length.append(queue_length)
-
+                # print(traci.trafficlight.getNextSwitch(trafficlight_id) - traci.simulation.getTime())
             self._save_stats()
             traci.simulationStep()
             self._step += 1
@@ -133,26 +149,26 @@ class StaticSimulation:
 if __name__ == "__main__":
     getLogger().info('===== START STATIC SIMULATION =====')
     config = import_test_config('test_settings.ini')
-    model_path, plot_path = get_model_path(config['model_folder'])
+    # model_path, plot_path = get_path(config['model_folder'])
 
     simulation = StaticSimulation(
-        config['sumo_gui'],
+        False,
         config['max_step'],
         config['green_duration'],
         config['yellow_duration'],
         config['sumocfg_file']
     )
 
-    plot = Plot(
-        plot_path,
-        100
-    )
+    # plot = Plot(
+    #     plot_path,
+    #     100
+    # )
 
     simulation.run()
     timestamp_start = datetime.datetime.now()
     y, x = simulation.get_stats()
 
-    plot.scatter_plot(x, y, 'static_test', 'Distance Travelled', 'Waiting Time')
+    # plot.scatter_plot(x, y, 'static_test', 'Distance Travelled', 'Waiting Time')
 
     ave_wait_time = round(sum(y)/len(y), 2)
     getLogger().info(f'SUMMARY -> Start time: {timestamp_start} End time: {datetime.datetime.now()}')

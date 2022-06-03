@@ -11,8 +11,9 @@ import logging
 
 logger = logging.getLogger('logs')
 logger.setLevel(logging.DEBUG)
+log_files = True
 
-if True:
+if log_files:
     file_handler = logging.FileHandler('debug.log')
     file_handler.setLevel(logging.DEBUG)
 

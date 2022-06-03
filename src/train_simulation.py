@@ -1,115 +1,152 @@
+import os
+import sys
 import traci
 import timeit
 import random
 import numpy as np
 
-from config import set_sumo
-from logger import getLogger
+from agent import Agent
 from routing import Routing
+from logger import getLogger
+from tools import get_trafficlightID, set_sumo, create_routes, get_num_lanes
+from interface.trafficlight import TrafficLight
 
 class TrainSimulation:
-    def __init__(self, AGENT, gui, epochs, gamma, max_step, green_duration, yellow_duration, input_dim, num_cars, config_file):
-        self._AGENT = AGENT
-        self._sumo_cmd = set_sumo(gui, config_file)
-        self._sumo_intersection = Routing(num_cars, max_step)
-        self._input_dim = input_dim
-        self._num_actions = 4
-        self._num_lanes = AGENT.num_lanes
-        self._step = 0
-        self._max_steps = max_step
-        self._epochs = epochs
-        self._gamma = gamma
-        self._green_duration = green_duration
-        self._yellow_duration = yellow_duration
-
-        #stats
-        self._reward_store = []
-        self._cumulative_wait_store = []
-        self._avg_queue_length_store = []
+    def __init__(self, config):
+        self._config = config
+        self._sumo_file = config['sumo_file']
+        self._sumo_cmd = set_sumo(config['sumo_gui'], self._sumo_file)
+        self._green_duration = config['green_duration']
+        self._yellow_duration = config['yellow_duration']
+        self._input_dim = config['input_dim']
+        self._max_steps = config['max_step']
+        self._epochs = config['epochs']
+        self._gamma = config['gamma']
+        self._configure_settings(config)
+        self._trafficlight_list = []
+        
+    '''
+    AGENT MODEL AND ROUTING
+    '''
+    def _configure_settings(self, config):
+        net_path = config['sumo_file']
+        net_path = os.path.join('sumo_files', f'{net_path}.net.xml')
+        trafficlights =  get_trafficlightID(net_path)
+        self._sumo_intersection = Routing(config['num_cars'], config['max_step'], config['sumo_file'], create_routes(trafficlights[0]))
+    
+    def _configure_model(self, net_path):
+        net_path = os.path.join('sumo_files', f'{net_path}.net.xml')
+        trafficlights =  get_trafficlightID(net_path)
+        for tl in trafficlights:
+            num_lanes = get_num_lanes(tl)
+            logic = traci.trafficlight.getAllProgramLogics(tl.getID())
+            tls_program = logic[0].getPhases()
+            output_dim = int(len(tls_program) / 2)
+            agent = Agent(self._config, output_dim, num_lanes)
+            lanes = self._get_controlled_lanes(tl.getID())
+            phases = []
+            for i in range(0, len(tls_program), 2):
+                phases.append(tls_program[i].state)
+            self._trafficlight_list.append(TrafficLight(tl.getID(), agent, lanes, phases, output_dim))
         
     '''
     SUMO INTERACTIONS
     '''
     def run(self, episode, epsilon): #START SIMULATION
-        start_time = timeit.default_timer()
-
         self._sumo_intersection.generate_routefile(episode)
         traci.start(self._sumo_cmd)
+
+        start_time = timeit.default_timer()
         getLogger().info('Simulating...')
 
         #init
         self._step = 0
-        self._waiting_times = {}
-        self._sum_reward = 0
-        self._sum_queue_length = 0
-        self._sum_waiting_time = 0
-        action = 0
-        old_total_wait = 0
-        old_state = -1
-        old_action = -1
+        self._waiting_times = {}   
+
+        if not self._trafficlight_list:
+            self._configure_model(self._sumo_file)
 
         while self._step < self._max_steps:
-            current_state = self._get_state(action)
-            # getLogger().info(f'Current State: {current_state}')
+            for tl in self._trafficlight_list:
+                if traci.trafficlight.getNextSwitch(tl.id) - traci.simulation.getTime()  <= 0: # If trafficlight duration reaches zero
+                    if self.isGreen(traci.trafficlight.getRedYellowGreenState(tl.id)): #GREEN PHASE   
+                        current_state = self._get_state(tl)
+                        current_total_wait = self._get_waiting_time(tl.lanes)
 
-            current_total_wait = self._get_waiting_time()
-            reward = old_total_wait - current_total_wait
+                        #calculate reward
+                        cars_passed = self._get_car_passtrough(tl.car_present, self._get_cars_in_lane(tl.lanes))
+                        tl.car_present = self._get_cars_in_lane(tl.lanes)
+                        queue_length = self._get_queue_length(tl.lanes)
+                        if queue_length != 0:
+                            plus_reward = cars_passed / queue_length
+                        else:
+                            plus_reward = cars_passed
+                        tl.reward = tl.old_total_wait - current_total_wait + (plus_reward * (self._green_duration + self._yellow_duration))
+                        
 
-            #save data to memory
-            if self._step != 0:
-                self._AGENT.add_sample((old_state, old_action, reward, current_state))
-            
-            #traffic light phase
-            action = self._choose_action(current_state, epsilon)
+                        #save data to memory
+                        if self._step != 0:
+                            tl.agent.add_sample((tl.old_state, tl.old_action, tl.reward, current_state))
+                
+                        #traffic light phase
+                        tl.action = self._choose_action(current_state, epsilon, tl)
 
-            #different phase
-            if self._step != 0 and old_action != action:
-                self._set_yellow_phase(old_action)
-                self._simulate(self._yellow_duration)
-            
-            self._set_green_phase(action)
-            self._simulate(self._green_duration)
+                        #different phase
+                        if self._step != 0 and tl.old_action != tl.action:
+                            self._set_yellow_phase(tl)
+                        else:
+                            self._set_green_phase(tl)
 
-            old_state = current_state
-            old_action = action
-            old_total_wait = current_total_wait
+                        tl.old_state = current_state
+                        tl.old_action = tl.action
+                        tl.old_total_wait = current_total_wait
 
-            if reward < 0:
-                self._sum_reward += reward
-            
-        self._save_stats() #Save
-        getLogger().info(f'Total reward: {self._sum_reward} - Epsilon: {round(epsilon, 2)}')
-        getLogger().info(f'Queue Length: {self._sum_queue_length / self._max_steps} - Sum Waiting Time: {self._sum_waiting_time}')
+                        if tl.reward < 0:
+                            tl.sum_reward += tl.reward
+                    else: #YELLOW PHASE
+                        self._set_green_phase(tl)
+                elif self._step == 0:
+                    tl.old_state =  self._get_state(tl)
+                    
+                queue_length = self._get_queue_length(tl.lanes)
+                tl.sum_queue_length += queue_length
+                tl.sum_waiting_time += queue_length
+
+            traci.simulationStep()
+            self._step += 1     
 
         traci.close()
         simulation_time = round(timeit.default_timer() - start_time, 1)
+        training_time = 0
+        getLogger().info(f'Epsilon: {round(epsilon, 2)}')
 
-        self._AGENT.reset_data() #Clear loss and accuracy data from agent
-        start_time = timeit.default_timer()
+        for tl in self._trafficlight_list:
+            #Save episode stats
+            tl.save_stats(self._max_steps)
+            getLogger().info(f'Queue Length: {round(tl.sum_queue_length / self._max_steps, 2)} Sum Waiting Time: {tl.sum_waiting_time}  Total nagative reward: {tl.sum_reward}')
+            tl.reset_data()
 
-        for _ in range(self._epochs):
-            self._replay()
-        training_time = round(timeit.default_timer() - start_time, 1)
+            start_time = timeit.default_timer()
+            for _ in range(self._epochs):
+                self._replay(tl)
+            training_time = round(timeit.default_timer() - start_time, 1)
 
         return simulation_time, training_time
     
-    def _get_state(self, action): #GET STATE FROM SUMO
+    def _get_state(self, tl): #GET STATE FROM SUMO
         #init
-        position_matrix = np.zeros((self._num_lanes, self._input_dim))
-        velocity_matrix = np.zeros((self._num_lanes, self._input_dim))
+        position_matrix = np.zeros((tl.agent.num_lanes, self._input_dim))
+        velocity_matrix = np.zeros((tl.agent.num_lanes, self._input_dim))
         phase_matrix = np.zeros(4)
         cell_length = 7
-        offset = 1
 
         #phase matrix based on current active traffic light phase
-        if action < 4:
-            phase_matrix[action] = 1
+        if tl.action < 4:
+            phase_matrix[tl.action] = 1
         else:
-            getLogger().debug(f'Incorrect Green phase action: {action} from getState()')
+            getLogger().debug(f'Incorrect Green phase action: {tl.action} from getState()')
 
-        lanes = self._get_controlled_lanes('TL')
-
-        for index, l in enumerate(lanes):
+        for index, l in enumerate(tl.lanes):
             lane_length = traci.lane.getLength(l)
             vehicles = traci.lane.getLastStepVehicleIDs(l)
 
@@ -120,34 +157,28 @@ class TrainSimulation:
                 if lane_pos > target_pos: #if vehicle is close to the traffic light
                     speed = round(traci.vehicle.getSpeed(v) / traci.lane.getMaxSpeed(l), 2)
 
-                    #([lane_id][position])
-                    index_1 = self._get_lane_id(l) * offset
-                    index_2 = int((lane_length - lane_pos) / cell_length)
-
-                    position_matrix[index_1][index_2] = 1
-                    velocity_matrix[index_1][index_2] = speed
-            
-            if index == 3 + (4 * (offset - 1)):
-                offset += 1
+                    #([lane][position])
+                    index_1 = int((lane_length - lane_pos) / cell_length)
+                    position_matrix[index][index_1] = 1
+                    velocity_matrix[index][index_1] = speed
 
         # getLogger().info(f'Pos: {position_matrix} \n Vel: {velocity_matrix} \n Phase: {phase_matrix}')
         return [position_matrix, velocity_matrix, phase_matrix]
     
-    def _replay(self): #STORE TO AGENT MEMORY
-        batch = self._AGENT.get_samples(self._AGENT._batch_size)
+    def _replay(self, tl): #STORE TO AGENT MEMORY
+        batch = tl.agent.get_samples(tl.agent._batch_size)
 
         if len(batch) > 0:  # if memory is full
             states = ([val[0] for val in batch])
             next_states = ([val[3] for val in batch])
 
             # prediction
-            q = self._AGENT.predict_batch(states)
-            q_next = self._AGENT.predict_batch(next_states) 
+            q = tl.agent.predict_batch(states)
+            q_next = tl.agent.predict_batch(next_states) 
 
             # setup training arrays
             x = []
-            y = np.zeros((len(batch), self._num_actions))
-            # getLogger().info(f'x shape: {x.shape}, y shape: {y.shape}')
+            y = np.zeros((len(batch), tl.action_dim))
 
             for i, b in enumerate(batch):
                 state, action, reward, _ = b[0], b[1], b[2], b[3]
@@ -157,57 +188,43 @@ class TrainSimulation:
                 x.append(state)
                 y[i] = current_q  # Q(state)
 
-            self._AGENT.train_batch(x, y)  # train the NN
+            tl.agent.train_batch(x, y)  # train the NN            
     
-    def _simulate(self, steps_todo): #RUN SUMO SIMULATION
-        if (self._step + steps_todo) >= self._max_steps: 
-            steps_todo = self._max_steps - self._step
-        
-        while steps_todo > 0:
-            traci.simulationStep()  # simulate 1 step in sumo
-            self._step += 1
-            steps_todo -= 1
-            queue_length = self._get_queue_length()
-            self._sum_queue_length += queue_length
-            self._sum_waiting_time += queue_length 
-        
-    
-    def _choose_action(self, state, epsilon): #CHOOSE ACTION
+    def _choose_action(self, state, epsilon, tl): #CHOOSE ACTION
         action = 0
-
         if random.random() < epsilon:
-            # getLogger().info('Agent chooses to explore')
-            action = random.randint(0, self._num_actions - 1) #explore
+            action = random.randint(0, tl.action_dim - 1) #explore
         else:
-            # getLogger().info('Agent chooses to exploit')
-            action = np.argmax(self._AGENT.predict_one(state)) #exploit
-        
-        # getLogger().info(f'Action: {action}')
+            action = np.argmax(tl.agent.predict_one(state)) #exploit
         return action
-
+        
     '''
     UTILS
     '''  
-    def _set_yellow_phase(self, action): #CHANGE PHASE TO YELLOW
-        phase_code = action * 2 + 1
-        traci.trafficlight.setPhase("TL", phase_code)
+    def _set_yellow_phase(self, tl): #CHANGE PHASE TO YELLOW
+        current_phase = traci.trafficlight.getRedYellowGreenState(tl.id)
+        result_phase = tl.phases[tl.action]
+        next_phase = []
+        for x, y in zip(current_phase, result_phase):
+            if x == 'G' and y =='r':
+                next_phase.append('y')
+            else:
+                next_phase.append(x)
+        next_phase = "".join(next_phase)
+        traci.trafficlight.setRedYellowGreenState(tl.id, next_phase)
+        traci.trafficlight.setPhaseDuration(tl.id, self._yellow_duration)
     
-    def _set_green_phase(self, action): #CHANGE PHASE TO GREEN
-        if action == 0:
-            traci.trafficlight.setPhase("TL", action * 2)
-        elif action == 1:
-            traci.trafficlight.setPhase("TL", action * 2)
-        elif action == 2:
-            traci.trafficlight.setPhase("TL", action * 2)
-        elif action == 3:
-            traci.trafficlight.setPhase("TL", action * 2)
+    def _set_green_phase(self, tl): #CHANGE PHASE TO GREEN
+        if tl.action < len(tl.lanes):
+            traci.trafficlight.setRedYellowGreenState(tl.id, tl.phases[tl.action])
         else:
-            getLogger().debug(f'Incorrect Green phase action: {action}')
+            msg = f'Incorrect trafficlight action: {tl.action} of {len(tl.phases)}'
+            getLogger().error(msg)
+            sys.error(msg)
+        traci.trafficlight.setPhaseDuration(tl.id, self._green_duration)
     
-    def _get_waiting_time(self): #GET ALL WAITING TIME FOR ALL INCOMING LANES
+    def _get_waiting_time(self, lanes): #GET ALL WAITING TIME FOR ALL INCOMING LANES
         car_list = traci.vehicle.getIDList()
-
-        lanes = self._get_controlled_lanes("TL")
         for car_id in car_list:
             wait_time = traci.vehicle.getAccumulatedWaitingTime(car_id)
             road_id = traci.vehicle.getLaneID(car_id)        
@@ -216,47 +233,45 @@ class TrainSimulation:
             else:
                 if car_id in self._waiting_times: #if car has left the intersection
                     del self._waiting_times[car_id]
-
         total_waiting_time = sum(self._waiting_times.values())
-        
         return total_waiting_time
     
-    def _get_queue_length(self): #GET QUEUE LENGTH FOR ALL INCOMING LANES
+    def _get_queue_length(self, lanes): #GET QUEUE LENGTH FOR ALL INCOMING LANES
         queue_length = 0
-
-        lanes = self._get_controlled_lanes("TL")
         for l in lanes:
             queue_length = queue_length + traci.lane.getLastStepHaltingNumber(l)
-        
         return queue_length
-
+    
+    def _get_cars_in_lane(self, lanes):
+        cars = []
+        for l in lanes:
+            cars.append(traci.lane.getLastStepVehicleIDs(l))
+        return cars
+    
+    def _get_car_passtrough(self, old, current):
+        count = 0
+        for o in old:
+            if o in current:
+                continue
+            else:
+                count += 1
+        return count
+    
+    def isGreen(self, phase): #IF PHASE IS GREEN
+        if 'y' in phase:
+            return False
+        else:
+            return True
+        
     def _get_controlled_lanes(self, traffic_light_id): #GET ALL CONTROLLED LANES OF THE TRAFFIC LIGHT
         lanes = traci.trafficlight.getControlledLanes(traffic_light_id)
-
-        #remove duplicate
         temp_list = []
-        for i in lanes:
+        for i in lanes: #remove duplicate
             if i not in temp_list:
                 temp_list.append(i)
         lanes = temp_list
         return lanes
 
-    def _get_lane_id(self, lane_id): #GET LAST CHARRACTER OF A STRING
-        return int(lane_id[len(lane_id)-1])
-    
-    def _save_stats(self):
-        self._reward_store.append(self._sum_reward)
-        self._cumulative_wait_store.append(self._sum_waiting_time)  # total number of seconds waited by cars in this episode
-        self._avg_queue_length_store.append(self._sum_queue_length / self._max_steps) 
-
     @property
-    def reward_store(self):
-        return self._reward_store
-    
-    @property
-    def cumulative_wait_store(self):
-        return self._cumulative_wait_store
-
-    @property
-    def avg_queue_length_store(self):
-        return self._avg_queue_length_store
+    def traffic_light_list(self):
+        return self._trafficlight_list

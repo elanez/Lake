@@ -1,6 +1,6 @@
-from statistics import median
 import matplotlib.pyplot as plt
 import os
+
 
 class Plot:
     def __init__(self, path, dpi):
@@ -28,17 +28,33 @@ class Plot:
         fig.savefig(os.path.join(self._path, f'plot_{filename}.png'), dpi=self._dpi)
         plt.close("all")
 
-        """ with open(os.path.join(self._path, 'plot_'+filename + '_data.txt'), "w") as file:
+        #Save data to .txt file
+        with open(os.path.join(self._path,  f'plot_{filename}_data.txt'), "w") as file:
             for value in data:
-                    file.write("%s\n" % value) """
+                    file.write("%s\n" % value)
 
     def scatter_plot(self, x, y, filename, xlabel, ylabel):
         plt.scatter(x, y, alpha = 1/5)
         plt.ylabel(ylabel)
         plt.xlabel(xlabel)
-        # plt.show()
-
+       
         fig = plt.gcf()
-
+        plt.show()
         fig.savefig(os.path.join(self._path, f'plot_{filename}.png'), dpi=self._dpi)
         plt.close("all")
+
+        #Save data to .txt file
+        #with open(os.path.join(self._path,  f'plot_{filename}_data.txt'), "w") as file:
+            #for value in data:
+                    #file.write("%s\n" % value)
+
+    def compare_plot(self, filename, x1, y1, x2, y2, xlabel, ylabel):
+        plt.scatter(x1, y1, c='b', alpha = 1/5)
+        plt.scatter(x2, y2, c='r', alpha = 1/5)
+        plt.ylabel(ylabel)
+        plt.xlabel(xlabel)
+
+        fig = plt.gcf()
+        plt.show()
+        # fig.savefig(os.path.join(self._path, f'plot_{filename}.png'), dpi=self._dpi)
+
