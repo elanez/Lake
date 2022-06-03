@@ -56,7 +56,6 @@ class Routing:
             '''
             #Split routes into straight and turn
             for route in self._routes:
-                getLogger().info(f'routes: {route.type}')
                 if route.type == 'straight':
                     route_straight.append(route.id)
                 elif route.type == 'turn':
