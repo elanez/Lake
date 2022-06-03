@@ -40,7 +40,7 @@ class Plot:
        
         fig = plt.gcf()
         plt.show()
-        fig.savefig(os.path.join(self._path, f'plot_{filename}.png'), dpi=self._dpi)
+        fig.savefig(os.path.join(self._path, f'test_{filename}.png'), dpi=self._dpi)
         plt.close("all")
 
         #Save data to .txt file

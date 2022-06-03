@@ -83,7 +83,6 @@ class TrainSimulation:
                             plus_reward = cars_passed
                         tl.reward = tl.old_total_wait - current_total_wait + (plus_reward * (self._green_duration + self._yellow_duration))
                         
-
                         #save data to memory
                         if self._step != 0:
                             tl.agent.add_sample((tl.old_state, tl.old_action, tl.reward, current_state))

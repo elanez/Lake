@@ -1,9 +1,7 @@
 import os
 import sys
-from turtle import distance
 import traci
 import timeit
-import random
 import numpy as np
 
 from agent import TestAgent
@@ -235,8 +233,10 @@ class TestSimulation:
     def _save_vehicle_stats(self):
         car_list = traci.vehicle.getIDList()
         for car_id in car_list:
-            self._wait_time[car_id] = traci.vehicle.getAccumulatedWaitingTime(car_id)
-            self._distance[car_id] = traci.vehicle.getDistance(car_id)
+            distance = traci.vehicle.getDistance(car_id)
+            if distance != 0:
+                self._wait_time[car_id] = traci.vehicle.getAccumulatedWaitingTime(car_id)
+                self._distance[car_id] = distance
 
     def get_vehicle_stats(self):
         return list(self._wait_time.values()), list(self._distance.values())

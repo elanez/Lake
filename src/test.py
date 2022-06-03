@@ -24,5 +24,6 @@ if __name__ == "__main__":
     scatter.scatter_plot(distance, wait_time, 'vehicle_data', 'Distance', 'Wait Time')
 
     getLogger().info(f'SUMMARY -> Start time: {timestamp_start} End time: {datetime.datetime.now()}')
+    getLogger().info(f'Average wait time: {sum(wait_time)/len(wait_time)}')
     getLogger().info('====== END TEST PROGRAM ======')
 
