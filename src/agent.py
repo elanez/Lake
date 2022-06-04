@@ -49,7 +49,7 @@ class Agent:
         input_2 = Input(shape=(self.num_lanes, input_dim,)) #velocity
         x2 = Flatten()(input_2)
 
-        input_3 = Input(shape=(4,))    #traffic light phase
+        input_3 = Input(shape=(self._output_dim,))    #traffic light phase
 
         input_dim = ((2 * (self.num_lanes * input_dim)) + 4)
         hidden_dim = int((2 * input_dim) / 3)
