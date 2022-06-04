@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-06-04 11:19:39 by Eclipse SUMO netedit Version 1.13.0
+<!-- generated on 2022-06-04 13:59:11 by Eclipse SUMO netedit Version 1.10.0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -147,10 +147,10 @@
         <lane id=":J0_0_4" index="4" speed="16.67" length="11.32" shape="-104.80,-196.00 -104.30,-199.39 -103.20,-201.60 -102.10,-203.81 -101.60,-207.20"/>
     </edge>
     <edge id=":J0_5" function="internal">
-        <lane id=":J0_5_0" index="0" speed="11.35" length="1.49" shape="-101.60,-196.00 -100.73,-197.21"/>
+        <lane id=":J0_5_0" index="0" speed="11.35" length="2.75" shape="-101.60,-196.00 -100.00,-198.24"/>
     </edge>
     <edge id=":J0_14" function="internal">
-        <lane id=":J0_14_0" index="0" speed="11.35" length="28.12" shape="-100.73,-197.21 -99.85,-198.45 -94.60,-200.20 -85.85,-201.25 -73.60,-201.60"/>
+        <lane id=":J0_14_0" index="0" speed="11.35" length="26.86" shape="-100.00,-198.24 -99.85,-198.45 -94.60,-200.20 -85.85,-201.25 -73.60,-201.60"/>
     </edge>
     <edge id=":J0_6" function="internal">
         <lane id=":J0_6_0" index="0" speed="6.51" length="9.03" shape="-79.20,-207.20 -78.85,-204.75 -77.80,-203.00 -76.05,-201.95 -73.60,-201.60"/>
@@ -325,8 +325,14 @@
         <lane id=":MIA_1_3" index="3" speed="16.67" length="37.55" shape="-108.00,-1383.17 -107.00,-1394.18 -104.80,-1401.58 -102.60,-1408.99 -101.60,-1420.00"/>
     </edge>
     <edge id=":MIA_5" function="internal">
-        <lane id=":MIA_5_0" index="0" speed="12.72" length="37.48" shape="-104.80,-1383.16 -103.25,-1392.63 -98.60,-1399.39 -90.85,-1403.45 -80.00,-1404.80"/>
-        <lane id=":MIA_5_1" index="1" speed="11.84" length="32.33" shape="-101.60,-1383.15 -100.25,-1391.22 -96.20,-1396.99 -89.45,-1400.45 -80.00,-1401.60"/>
+        <lane id=":MIA_5_0" index="0" speed="12.72" length="17.47" shape="-104.80,-1383.16 -103.25,-1392.63 -98.79,-1399.12"/>
+        <lane id=":MIA_5_1" index="1" speed="11.84" length="9.29" shape="-101.60,-1383.15 -100.25,-1391.22 -99.61,-1392.13"/>
+    </edge>
+    <edge id=":MIA_26" function="internal">
+        <lane id=":MIA_26_0" index="0" speed="12.72" length="20.01" shape="-98.79,-1399.12 -98.60,-1399.39 -90.85,-1403.45 -80.00,-1404.80"/>
+    </edge>
+    <edge id=":MIA_27" function="internal">
+        <lane id=":MIA_27_0" index="0" speed="11.84" length="23.04" shape="-99.61,-1392.13 -96.20,-1396.99 -89.45,-1400.45 -80.00,-1401.60"/>
     </edge>
     <edge id=":MIA_7" function="internal">
         <lane id=":MIA_7_0" index="0" speed="15.28" length="46.59" shape="-80.00,-1395.34 -88.66,-1394.29 -99.45,-1392.04 -112.12,-1389.81 -126.40,-1388.80"/>
@@ -335,21 +341,33 @@
         <lane id=":MIA_7_3" index="3" speed="15.28" length="46.59" shape="-80.00,-1398.54 -126.40,-1398.40"/>
     </edge>
     <edge id=":MIA_11" function="internal">
-        <lane id=":MIA_11_0" index="0" speed="12.68" length="37.41" shape="-80.00,-1398.54 -90.85,-1399.81 -98.60,-1403.82 -103.25,-1410.55 -104.80,-1420.00"/>
-        <lane id=":MIA_11_1" index="1" speed="12.24" length="34.78" shape="-80.00,-1398.54 -89.45,-1399.82 -96.20,-1403.83 -100.25,-1410.55 -101.60,-1420.00"/>
+        <lane id=":MIA_11_0" index="0" speed="12.68" length="13.26" shape="-80.00,-1398.54 -90.85,-1399.81 -92.93,-1400.89"/>
+        <lane id=":MIA_11_1" index="1" speed="12.24" length="11.37" shape="-80.00,-1398.54 -89.45,-1399.82 -91.02,-1400.76"/>
+    </edge>
+    <edge id=":MIA_28" function="internal">
+        <lane id=":MIA_28_0" index="0" speed="12.68" length="24.14" shape="-92.93,-1400.89 -98.60,-1403.82 -103.25,-1410.55 -104.80,-1420.00"/>
+    </edge>
+    <edge id=":MIA_29" function="internal">
+        <lane id=":MIA_29_0" index="0" speed="12.24" length="23.41" shape="-91.02,-1400.76 -96.20,-1403.83 -100.25,-1410.55 -101.60,-1420.00"/>
     </edge>
     <edge id=":MIA_13" function="internal">
         <lane id=":MIA_13_0" index="0" speed="7.33" length="11.73" shape="-85.60,-1420.00 -85.25,-1416.15 -84.20,-1413.40 -82.45,-1411.75 -80.00,-1411.20"/>
     </edge>
     <edge id=":MIA_14" function="internal">
-        <lane id=":MIA_14_0" index="0" speed="15.28" length="37.05" shape="-85.60,-1420.00 -86.10,-1409.03 -87.20,-1401.56 -88.32,-1394.09 -88.84,-1383.12"/>
-        <lane id=":MIA_14_1" index="1" speed="15.28" length="37.05" shape="-88.80,-1420.00 -89.30,-1409.03 -90.40,-1401.56 -91.52,-1394.09 -92.04,-1383.13"/>
-        <lane id=":MIA_14_2" index="2" speed="15.28" length="37.05" shape="-92.00,-1420.00 -92.50,-1409.04 -93.60,-1401.57 -94.72,-1394.10 -95.24,-1383.14"/>
-        <lane id=":MIA_14_3" index="3" speed="15.28" length="37.05" shape="-95.20,-1420.00 -95.70,-1409.04 -96.80,-1401.57 -97.92,-1394.11 -98.44,-1383.14"/>
+        <lane id=":MIA_14_0" index="0" speed="15.28" length="37.01" shape="-88.80,-1420.00 -88.84,-1383.12"/>
+        <lane id=":MIA_14_1" index="1" speed="15.28" length="37.01" shape="-88.80,-1420.00 -89.30,-1409.03 -90.40,-1401.56 -91.52,-1394.09 -92.04,-1383.13"/>
+        <lane id=":MIA_14_2" index="2" speed="15.28" length="37.01" shape="-92.00,-1420.00 -92.50,-1409.04 -93.60,-1401.57 -94.72,-1394.10 -95.24,-1383.14"/>
+        <lane id=":MIA_14_3" index="3" speed="15.28" length="37.01" shape="-95.20,-1420.00 -95.70,-1409.04 -96.80,-1401.57 -97.92,-1394.11 -98.44,-1383.14"/>
     </edge>
     <edge id=":MIA_18" function="internal">
-        <lane id=":MIA_18_0" index="0" speed="13.54" length="42.61" shape="-98.40,-1420.00 -100.15,-1409.15 -105.40,-1401.40 -114.15,-1396.75 -126.40,-1395.20"/>
-        <lane id=":MIA_18_1" index="1" speed="13.15" length="40.13" shape="-98.40,-1420.00 -100.15,-1410.55 -105.40,-1403.80 -114.15,-1399.75 -126.40,-1398.40"/>
+        <lane id=":MIA_18_0" index="0" speed="13.54" length="13.32" shape="-98.40,-1420.00 -100.15,-1409.15 -101.45,-1407.22"/>
+        <lane id=":MIA_18_1" index="1" speed="13.15" length="10.90" shape="-98.40,-1420.00 -100.15,-1410.55 -100.94,-1409.53"/>
+    </edge>
+    <edge id=":MIA_30" function="internal">
+        <lane id=":MIA_30_0" index="0" speed="13.54" length="29.29" shape="-101.45,-1407.22 -105.40,-1401.40 -114.15,-1396.75 -126.40,-1395.20"/>
+    </edge>
+    <edge id=":MIA_31" function="internal">
+        <lane id=":MIA_31_0" index="0" speed="13.15" length="29.22" shape="-100.94,-1409.53 -105.40,-1403.80 -114.15,-1399.75 -126.40,-1398.40"/>
     </edge>
     <edge id=":MIA_20" function="internal">
         <lane id=":MIA_20_0" index="0" speed="8.83" length="17.50" shape="-126.40,-1414.40 -119.75,-1414.75 -115.00,-1415.80 -112.15,-1417.55 -111.20,-1420.00"/>
@@ -360,8 +378,14 @@
         <lane id=":MIA_21_2" index="2" speed="16.67" length="46.51" shape="-126.40,-1404.80 -80.00,-1401.60"/>
     </edge>
     <edge id=":MIA_24" function="internal">
-        <lane id=":MIA_24_0" index="0" speed="13.21" length="40.55" shape="-126.40,-1401.60 -112.75,-1400.45 -103.01,-1396.98 -97.17,-1391.21 -95.24,-1383.14"/>
-        <lane id=":MIA_24_1" index="1" speed="12.76" length="37.75" shape="-126.40,-1401.60 -114.15,-1400.45 -105.41,-1396.99 -100.17,-1391.22 -98.44,-1383.14"/>
+        <lane id=":MIA_24_0" index="0" speed="13.21" length="14.90" shape="-126.40,-1401.60 -112.75,-1400.45 -111.62,-1400.04"/>
+        <lane id=":MIA_24_1" index="1" speed="12.76" length="13.41" shape="-126.40,-1401.60 -114.15,-1400.45 -113.12,-1400.04"/>
+    </edge>
+    <edge id=":MIA_32" function="internal">
+        <lane id=":MIA_32_0" index="0" speed="13.21" length="25.65" shape="-111.62,-1400.04 -103.01,-1396.98 -97.17,-1391.21 -95.24,-1383.14"/>
+    </edge>
+    <edge id=":MIA_33" function="internal">
+        <lane id=":MIA_33_0" index="0" speed="12.76" length="24.34" shape="-113.12,-1400.04 -105.41,-1396.99 -100.17,-1391.22 -98.44,-1383.14"/>
     </edge>
     <edge id=":PG_0" function="internal">
         <lane id=":PG_0_0" index="0" speed="16.67" length="21.12" shape="-114.40,24204.00 -113.90,24197.79 -112.80,24193.60 -111.70,24189.41 -111.20,24183.20"/>
@@ -893,16 +917,14 @@
         <phase duration="5"  state="rrrrrrrrrrrrrrrrrrrrrryyyyyyyy"/>
     </tlLogic>
     <tlLogic id="MIA" type="static" programID="0" offset="0">
-        <phase duration="10" state="rGGGGrrrrrrrrrGGGGrrrrrrrrr"/>
-        <phase duration="5"  state="ryyyyrrrrrrrrrGGGGrrrrrrrrr"/>
-        <phase duration="10" state="rrrrrrrrrrrrrrGGGGGGGGrrrrr"/>
-        <phase duration="5"  state="rrrrrrrrrrrrrryyyyyyyyrrrrr"/>
-        <phase duration="10" state="GrrrrrrrrrrrrrrrrrrrrrGGGgg"/>
-        <phase duration="5"  state="yrrrrrrrrrrrrrrrrrrrrryyyyy"/>
-        <phase duration="10" state="rrrrrrrGGGGGGGrrrrrrrrrrrrr"/>
-        <phase duration="5"  state="rrrrrrryyyyyyyrrrrrrrrrrrrr"/>
-        <phase duration="10" state="rGGGGGGrrrrrrrrrrrrrrrrrrrr"/>
-        <phase duration="5"  state="ryyyyyyrrrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="31" state="GGGGGggrrrrrrGGGGGggrrrrrr"/>
+        <phase duration="4"  state="yyyyyggrrrrrryyyyyggrrrrrr"/>
+        <phase duration="6"  state="rrrrrGGrrrrrrrrrrrGGrrrrrr"/>
+        <phase duration="4"  state="rrrrryyrrrrrrrrrrryyrrrrrr"/>
+        <phase duration="31" state="rrrrrrrGGGGggrrrrrrrGGGGgg"/>
+        <phase duration="4"  state="rrrrrrryyyyggrrrrrrryyyygg"/>
+        <phase duration="6"  state="rrrrrrrrrrrGGrrrrrrrrrrrGG"/>
+        <phase duration="4"  state="rrrrrrrrrrryyrrrrrrrrrrryy"/>
     </tlLogic>
     <tlLogic id="PG" type="static" programID="0" offset="0">
         <phase duration="10" state="GGGGrrrrGGGGGG"/>
@@ -1160,33 +1182,33 @@
         <request index="28" response="000000001111111001111111111111" foes="000000001111111001111111111111" cont="0"/>
         <request index="29" response="000000001111111001111111111111" foes="000000001111111001111111111111" cont="0"/>
     </junction>
-    <junction id="MIA" type="traffic_light" x="-100.00" y="-1400.00" incLanes="E5_0 E5_1 E5_2 E5_3 E5_4 E5_5 E5_6 E15_0 E15_1 -E10_0 -E10_1 -E10_2 -E10_3 -E10_4 E9_0 E9_1 E9_2 E9_3 E9_4" intLanes=":MIA_0_0 :MIA_1_0 :MIA_1_1 :MIA_1_2 :MIA_1_3 :MIA_5_0 :MIA_5_1 :MIA_7_0 :MIA_7_1 :MIA_7_2 :MIA_7_3 :MIA_11_0 :MIA_11_1 :MIA_13_0 :MIA_14_0 :MIA_14_1 :MIA_14_2 :MIA_14_3 :MIA_18_0 :MIA_18_1 :MIA_20_0 :MIA_21_0 :MIA_21_1 :MIA_21_2 :MIA_24_0 :MIA_24_1" shape="-122.40,-1383.20 -87.24,-1383.12 -87.03,-1386.35 -86.42,-1388.99 -85.42,-1391.06 -84.01,-1392.53 -82.21,-1393.43 -80.00,-1393.74 -80.00,-1412.80 -82.22,-1413.60 -83.00,-1414.60 -83.56,-1416.00 -83.89,-1417.80 -84.00,-1420.00 -112.80,-1420.00 -114.31,-1417.78 -116.20,-1417.00 -118.84,-1416.44 -122.24,-1416.11 -126.40,-1416.00 -126.40,-1387.20 -124.18,-1386.76 -123.40,-1386.20 -122.84,-1385.42 -122.51,-1384.42">
+    <junction id="MIA" type="traffic_light" x="-100.00" y="-1400.00" incLanes="E5_0 E5_1 E5_2 E5_3 E5_4 E5_5 E5_6 E15_0 E15_1 -E10_0 -E10_1 -E10_2 -E10_3 -E10_4 E9_0 E9_1 E9_2 E9_3 E9_4" intLanes=":MIA_0_0 :MIA_1_0 :MIA_1_1 :MIA_1_2 :MIA_1_3 :MIA_26_0 :MIA_27_0 :MIA_7_0 :MIA_7_1 :MIA_7_2 :MIA_7_3 :MIA_28_0 :MIA_29_0 :MIA_13_0 :MIA_14_0 :MIA_14_1 :MIA_14_2 :MIA_14_3 :MIA_30_0 :MIA_31_0 :MIA_20_0 :MIA_21_0 :MIA_21_1 :MIA_21_2 :MIA_32_0 :MIA_33_0" shape="-122.40,-1383.20 -87.24,-1383.12 -87.03,-1386.35 -86.42,-1388.99 -85.42,-1391.06 -84.01,-1392.53 -82.21,-1393.43 -80.00,-1393.74 -80.00,-1412.80 -82.22,-1413.60 -83.00,-1414.60 -83.56,-1416.00 -83.89,-1417.80 -84.00,-1420.00 -112.80,-1420.00 -114.31,-1417.78 -116.20,-1417.00 -118.84,-1416.44 -122.24,-1416.11 -126.40,-1416.00 -126.40,-1387.20 -124.18,-1386.76 -123.40,-1386.20 -122.84,-1385.42 -122.51,-1384.42">
         <request index="0"  response="00000000000000000000000000" foes="00000000000000011110000000" cont="0"/>
-        <request index="1"  response="00000000000000000000000000" foes="11111111000001111110000000" cont="0"/>
-        <request index="2"  response="00000000000000000000000000" foes="11111111000001111110000000" cont="0"/>
-        <request index="3"  response="00000000000000000000000000" foes="11111111000001111110000000" cont="0"/>
-        <request index="4"  response="00000000000000000000000000" foes="11111111000001111110000000" cont="0"/>
-        <request index="5"  response="00000000111100000000000000" foes="11111000111101111110000000" cont="0"/>
-        <request index="6"  response="00000000111100000000000000" foes="11111000111101111110000000" cont="0"/>
+        <request index="1"  response="11000000000001100000000000" foes="11111111000001111110000000" cont="0"/>
+        <request index="2"  response="11000000000001100000000000" foes="11111111000001111110000000" cont="0"/>
+        <request index="3"  response="11000000000001100000000000" foes="11111111000001111110000000" cont="0"/>
+        <request index="4"  response="11000000000001100000000000" foes="11111111000001111110000000" cont="0"/>
+        <request index="5"  response="11000000111101100000000000" foes="11111000111101111110000000" cont="1"/>
+        <request index="6"  response="11000000111101100000000000" foes="11111000111101111110000000" cont="1"/>
         <request index="7"  response="00000011111100000001111111" foes="11000011111100000001111111" cont="0"/>
         <request index="8"  response="00000011111100000001111111" foes="11000011111100000001111111" cont="0"/>
         <request index="9"  response="00000011111100000001111111" foes="11000011111100000001111111" cont="0"/>
         <request index="10" response="00000011111100000001111111" foes="11000011111100000001111111" cont="0"/>
-        <request index="11" response="00111011111100000001111110" foes="00111011111100000001111110" cont="0"/>
-        <request index="12" response="00111011111100000001111110" foes="00111011111100000001111110" cont="0"/>
+        <request index="11" response="00111011111100000001111110" foes="00111011111100000001111110" cont="1"/>
+        <request index="12" response="00111011111100000001111110" foes="00111011111100000001111110" cont="1"/>
         <request index="13" response="00000000000000000000000000" foes="00000000000000000000000000" cont="0"/>
-        <request index="14" response="00000000000000000000000000" foes="11111000000001111111100000" cont="0"/>
-        <request index="15" response="00000000000000000000000000" foes="11111000000001111111100000" cont="0"/>
-        <request index="16" response="00000000000000000000000000" foes="11111000000001111111100000" cont="0"/>
-        <request index="17" response="00000000000000000000000000" foes="11111000000001111111100000" cont="0"/>
-        <request index="18" response="00000000000000000000011110" foes="11111000000001111110011110" cont="0"/>
-        <request index="19" response="00000000000000000000011110" foes="11111000000001111110011110" cont="0"/>
+        <request index="14" response="11000000000001100000000000" foes="11111000000001111111100000" cont="0"/>
+        <request index="15" response="11000000000001100000000000" foes="11111000000001111111100000" cont="0"/>
+        <request index="16" response="11000000000001100000000000" foes="11111000000001111111100000" cont="0"/>
+        <request index="17" response="11000000000001100000000000" foes="11111000000001111111100000" cont="0"/>
+        <request index="18" response="11000000000001100000011110" foes="11111000000001111110011110" cont="1"/>
+        <request index="19" response="11000000000001100000011110" foes="11111000000001111110011110" cont="1"/>
         <request index="20" response="00000000000000000000011110" foes="00000000000000000000011110" cont="0"/>
         <request index="21" response="00000011111100000001111110" foes="00000011111101100001111110" cont="0"/>
         <request index="22" response="00000011111100000001111110" foes="00000011111101100001111110" cont="0"/>
         <request index="23" response="00000011111100000001111110" foes="00000011111101100001111110" cont="0"/>
-        <request index="24" response="00000011111100011111111110" foes="00000011111100011111111110" cont="0"/>
-        <request index="25" response="00000011111100011111111110" foes="00000011111100011111111110" cont="0"/>
+        <request index="24" response="00000011111100011111111110" foes="00000011111100011111111110" cont="1"/>
+        <request index="25" response="00000011111100011111111110" foes="00000011111100011111111110" cont="1"/>
     </junction>
     <junction id="PG" type="traffic_light" x="-100.00" y="24200.00" incLanes="-E37_0 -E37_1 -E37_2 -E37_3 -E37_4 E34_0 E34_1 E34_2 E34_3" intLanes=":PG_0_0 :PG_0_1 :PG_0_2 :PG_0_3 :PG_4_0 :PG_4_1 :PG_4_2 :PG_4_3 :PG_8_0 :PG_8_1 :PG_10_0 :PG_10_1 :PG_10_2 :PG_10_3" shape="-116.00,24204.00 -87.20,24204.00 -86.76,24201.78 -86.20,24201.00 -85.42,24200.44 -84.42,24200.11 -83.20,24200.00 -83.20,24187.20 -85.42,24186.76 -86.20,24186.20 -86.76,24185.42 -87.09,24184.42 -87.20,24183.20 -112.80,24183.20 -113.04,24187.66 -113.63,24190.93 -115.17,24196.27 -115.76,24199.54">
         <request index="0"  response="00000000000000" foes="00000000000000" cont="0"/>
@@ -1272,7 +1294,15 @@
         <request index="19" response="00000011110001111111" foes="00000011110001111111" cont="0"/>
     </junction>
 
-    <junction id=":J0_14_0" type="internal" x="-100.73" y="-197.21" incLanes=":J0_5_0 -E3_0 -E3_1 -E3_2 -E3_3 -E3_4 -E3_5 -E3_6" intLanes=":J0_6_0 :J0_7_0 :J0_7_1 :J0_7_2 :J0_7_3 :J0_7_4 :J0_7_5 :J0_7_6"/>
+    <junction id=":J0_14_0" type="internal" x="-100.00" y="-198.24" incLanes=":J0_5_0 -E3_0 -E3_1 -E3_2 -E3_3 -E3_4 -E3_5 -E3_6" intLanes=":J0_6_0 :J0_7_0 :J0_7_1 :J0_7_2 :J0_7_3 :J0_7_4 :J0_7_5 :J0_7_6"/>
+    <junction id=":MIA_26_0" type="internal" x="-98.79" y="-1399.12" incLanes=":MIA_5_0 -E10_0 -E10_1 -E10_2 -E10_3" intLanes=":MIA_7_0 :MIA_7_1 :MIA_7_2 :MIA_7_3 :MIA_11_0 :MIA_11_1 :MIA_13_0 :MIA_14_0 :MIA_14_1 :MIA_14_2 :MIA_14_3 :MIA_21_0 :MIA_21_1 :MIA_21_2 :MIA_24_0 :MIA_24_1"/>
+    <junction id=":MIA_27_0" type="internal" x="-99.61" y="-1392.13" incLanes=":MIA_5_1 -E10_0 -E10_1 -E10_2 -E10_3" intLanes=":MIA_7_0 :MIA_7_1 :MIA_7_2 :MIA_7_3 :MIA_11_0 :MIA_11_1 :MIA_13_0 :MIA_14_0 :MIA_14_1 :MIA_14_2 :MIA_14_3 :MIA_21_0 :MIA_21_1 :MIA_21_2 :MIA_24_0 :MIA_24_1"/>
+    <junction id=":MIA_28_0" type="internal" x="-92.93" y="-1400.89" incLanes=":MIA_11_0 E9_0 E9_1 E9_2 E9_3" intLanes=":MIA_1_0 :MIA_1_1 :MIA_1_2 :MIA_1_3 :MIA_5_0 :MIA_5_1 :MIA_14_0 :MIA_14_1 :MIA_14_2 :MIA_14_3 :MIA_18_0 :MIA_18_1 :MIA_20_0 :MIA_21_0 :MIA_21_1 :MIA_21_2"/>
+    <junction id=":MIA_29_0" type="internal" x="-91.02" y="-1400.76" incLanes=":MIA_11_1 E9_0 E9_1 E9_2 E9_3" intLanes=":MIA_1_0 :MIA_1_1 :MIA_1_2 :MIA_1_3 :MIA_5_0 :MIA_5_1 :MIA_14_0 :MIA_14_1 :MIA_14_2 :MIA_14_3 :MIA_18_0 :MIA_18_1 :MIA_20_0 :MIA_21_0 :MIA_21_1 :MIA_21_2"/>
+    <junction id=":MIA_30_0" type="internal" x="-101.45" y="-1407.22" incLanes=":MIA_18_0 E5_0 E5_1 E5_2 E5_3 E5_4" intLanes=":MIA_0_0 :MIA_1_0 :MIA_1_1 :MIA_1_2 :MIA_1_3 :MIA_7_0 :MIA_7_1 :MIA_7_2 :MIA_7_3 :MIA_11_0 :MIA_11_1 :MIA_21_0 :MIA_21_1 :MIA_21_2 :MIA_24_0 :MIA_24_1"/>
+    <junction id=":MIA_31_0" type="internal" x="-100.94" y="-1409.53" incLanes=":MIA_18_1 E5_0 E5_1 E5_2 E5_3 E5_4" intLanes=":MIA_0_0 :MIA_1_0 :MIA_1_1 :MIA_1_2 :MIA_1_3 :MIA_7_0 :MIA_7_1 :MIA_7_2 :MIA_7_3 :MIA_11_0 :MIA_11_1 :MIA_21_0 :MIA_21_1 :MIA_21_2 :MIA_24_0 :MIA_24_1"/>
+    <junction id=":MIA_32_0" type="internal" x="-111.62" y="-1400.04" incLanes=":MIA_24_0 E15_0 E15_1" intLanes=":MIA_1_0 :MIA_1_1 :MIA_1_2 :MIA_1_3 :MIA_5_0 :MIA_5_1 :MIA_7_0 :MIA_7_1 :MIA_7_2 :MIA_7_3 :MIA_14_0 :MIA_14_1 :MIA_14_2 :MIA_14_3 :MIA_18_0 :MIA_18_1"/>
+    <junction id=":MIA_33_0" type="internal" x="-113.12" y="-1400.04" incLanes=":MIA_24_1 E15_0 E15_1" intLanes=":MIA_1_0 :MIA_1_1 :MIA_1_2 :MIA_1_3 :MIA_5_0 :MIA_5_1 :MIA_7_0 :MIA_7_1 :MIA_7_2 :MIA_7_3 :MIA_14_0 :MIA_14_1 :MIA_14_2 :MIA_14_3 :MIA_18_0 :MIA_18_1"/>
 
     <connection from="-E0" to="E3" fromLane="0" toLane="0" via=":J0_0_0" dir="s" state="M"/>
     <connection from="-E0" to="E3" fromLane="1" toLane="1" via=":J0_0_1" dir="s" state="M"/>
@@ -1281,7 +1311,7 @@
     <connection from="-E0" to="E3" fromLane="3" toLane="4" via=":J0_0_4" dir="s" state="M"/>
     <connection from="-E0" to="E4" fromLane="4" toLane="0" via=":J0_5_0" dir="l" state="m"/>
     <connection from="-E10" to="E6" fromLane="0" toLane="0" via=":MIA_13_0" tl="MIA" linkIndex="13" dir="r" state="O"/>
-    <connection from="-E10" to="E12" fromLane="0" toLane="0" via=":MIA_14_0" tl="MIA" linkIndex="14" dir="s" state="O"/>
+    <connection from="-E10" to="E12" fromLane="1" toLane="0" via=":MIA_14_0" tl="MIA" linkIndex="14" dir="s" state="O"/>
     <connection from="-E10" to="E12" fromLane="1" toLane="1" via=":MIA_14_1" tl="MIA" linkIndex="15" dir="s" state="O"/>
     <connection from="-E10" to="E12" fromLane="2" toLane="2" via=":MIA_14_2" tl="MIA" linkIndex="16" dir="s" state="O"/>
     <connection from="-E10" to="E12" fromLane="3" toLane="3" via=":MIA_14_3" tl="MIA" linkIndex="17" dir="s" state="O"/>
@@ -1544,10 +1574,10 @@
     <connection from="E8" to="E24" fromLane="2" toLane="2" via=":UN_12_2" tl="UN" linkIndex="13" dir="s" state="O"/>
     <connection from="E8" to="E24" fromLane="3" toLane="3" via=":UN_12_3" tl="UN" linkIndex="14" dir="s" state="O"/>
     <connection from="E9" to="E10" fromLane="0" toLane="0" via=":MIA_20_0" tl="MIA" linkIndex="20" dir="r" state="o"/>
-    <connection from="E9" to="E6" fromLane="1" toLane="1" via=":MIA_21_0" tl="MIA" linkIndex="22" dir="s" state="o"/>
-    <connection from="E9" to="E6" fromLane="2" toLane="2" via=":MIA_21_1" tl="MIA" linkIndex="23" dir="s" state="o"/>
-    <connection from="E9" to="E6" fromLane="3" toLane="3" via=":MIA_21_2" tl="MIA" linkIndex="24" dir="s" state="o"/>
-    <connection from="E9" to="E12" fromLane="4" toLane="2" via=":MIA_24_0" tl="MIA" linkIndex="26" dir="l" state="o"/>
+    <connection from="E9" to="E6" fromLane="1" toLane="1" via=":MIA_21_0" tl="MIA" linkIndex="21" dir="s" state="o"/>
+    <connection from="E9" to="E6" fromLane="2" toLane="2" via=":MIA_21_1" tl="MIA" linkIndex="22" dir="s" state="o"/>
+    <connection from="E9" to="E6" fromLane="3" toLane="3" via=":MIA_21_2" tl="MIA" linkIndex="23" dir="s" state="o"/>
+    <connection from="E9" to="E12" fromLane="4" toLane="2" via=":MIA_24_0" tl="MIA" linkIndex="24" dir="l" state="o"/>
     <connection from="E9" to="E12" fromLane="4" toLane="3" via=":MIA_24_1" tl="MIA" linkIndex="25" dir="l" state="o"/>
 
     <connection from=":Airport_0" to="-E0" fromLane="0" toLane="0" dir="s" state="M"/>
@@ -1730,27 +1760,35 @@
     <connection from=":MIA_1" to="E10" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from=":MIA_1" to="E10" fromLane="2" toLane="2" dir="s" state="M"/>
     <connection from=":MIA_1" to="E10" fromLane="3" toLane="3" dir="s" state="M"/>
-    <connection from=":MIA_5" to="E6" fromLane="0" toLane="2" dir="l" state="M"/>
-    <connection from=":MIA_5" to="E6" fromLane="1" toLane="3" dir="l" state="M"/>
+    <connection from=":MIA_5" to="E6" fromLane="0" toLane="2" via=":MIA_26_0" dir="l" state="m"/>
+    <connection from=":MIA_26" to="E6" fromLane="0" toLane="2" dir="l" state="M"/>
+    <connection from=":MIA_5" to="E6" fromLane="1" toLane="3" via=":MIA_27_0" dir="l" state="m"/>
+    <connection from=":MIA_27" to="E6" fromLane="0" toLane="3" dir="l" state="M"/>
     <connection from=":MIA_7" to="-E9" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":MIA_7" to="-E9" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from=":MIA_7" to="-E9" fromLane="2" toLane="2" dir="s" state="M"/>
     <connection from=":MIA_7" to="-E9" fromLane="3" toLane="3" dir="s" state="M"/>
-    <connection from=":MIA_11" to="E10" fromLane="0" toLane="2" dir="l" state="M"/>
-    <connection from=":MIA_11" to="E10" fromLane="1" toLane="3" dir="l" state="M"/>
+    <connection from=":MIA_11" to="E10" fromLane="0" toLane="2" via=":MIA_28_0" dir="l" state="m"/>
+    <connection from=":MIA_28" to="E10" fromLane="0" toLane="2" dir="l" state="M"/>
+    <connection from=":MIA_11" to="E10" fromLane="1" toLane="3" via=":MIA_29_0" dir="l" state="m"/>
+    <connection from=":MIA_29" to="E10" fromLane="0" toLane="3" dir="l" state="M"/>
     <connection from=":MIA_13" to="E6" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from=":MIA_14" to="E12" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":MIA_14" to="E12" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from=":MIA_14" to="E12" fromLane="2" toLane="2" dir="s" state="M"/>
     <connection from=":MIA_14" to="E12" fromLane="3" toLane="3" dir="s" state="M"/>
-    <connection from=":MIA_18" to="-E9" fromLane="0" toLane="2" dir="l" state="M"/>
-    <connection from=":MIA_18" to="-E9" fromLane="1" toLane="3" dir="l" state="M"/>
+    <connection from=":MIA_18" to="-E9" fromLane="0" toLane="2" via=":MIA_30_0" dir="l" state="m"/>
+    <connection from=":MIA_30" to="-E9" fromLane="0" toLane="2" dir="l" state="M"/>
+    <connection from=":MIA_18" to="-E9" fromLane="1" toLane="3" via=":MIA_31_0" dir="l" state="m"/>
+    <connection from=":MIA_31" to="-E9" fromLane="0" toLane="3" dir="l" state="M"/>
     <connection from=":MIA_20" to="E10" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from=":MIA_21" to="E6" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from=":MIA_21" to="E6" fromLane="1" toLane="2" dir="s" state="M"/>
     <connection from=":MIA_21" to="E6" fromLane="2" toLane="3" dir="s" state="M"/>
-    <connection from=":MIA_24" to="E12" fromLane="0" toLane="2" dir="l" state="M"/>
-    <connection from=":MIA_24" to="E12" fromLane="1" toLane="3" dir="l" state="M"/>
+    <connection from=":MIA_24" to="E12" fromLane="0" toLane="2" via=":MIA_32_0" dir="l" state="m"/>
+    <connection from=":MIA_32" to="E12" fromLane="0" toLane="2" dir="l" state="M"/>
+    <connection from=":MIA_24" to="E12" fromLane="1" toLane="3" via=":MIA_33_0" dir="l" state="m"/>
+    <connection from=":MIA_33" to="E12" fromLane="0" toLane="3" dir="l" state="M"/>
     <connection from=":PG_0" to="-E34" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":PG_0" to="-E34" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from=":PG_0" to="-E34" fromLane="2" toLane="2" dir="s" state="M"/>
