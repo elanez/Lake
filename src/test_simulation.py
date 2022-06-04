@@ -137,7 +137,11 @@ class TestSimulation:
 
             for v in vehicles:
                 lane_pos = traci.vehicle.getLanePosition(v)
-                target_pos = lane_length - (self._input_dim * cell_length)
+
+                if lane_length - (self._input_dim * cell_length) < 0:
+                    target_pos = lane_length
+                else:
+                    target_pos = lane_length - (self._input_dim * cell_length)
 
                 if lane_pos > target_pos: #if vehicle is close to the traffic light
                     speed = round(traci.vehicle.getSpeed(v) / traci.lane.getMaxSpeed(l), 2)
