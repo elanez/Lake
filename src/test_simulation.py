@@ -39,7 +39,7 @@ class TestSimulation:
             output_dim = int(len(tls_program) / 2)
             model_id = f'model_{input_dim}.{num_lanes}.{output_dim}.h5'
             model_path = get_model_path(self._config['model_folder'])
-            agent = TestAgent(model_id, input_dim, num_lanes, os.path.join(model_path, tl.getID(), model_id))
+            agent = TestAgent(model_id, input_dim, output_dim, num_lanes, os.path.join(model_path, tl.getID(), model_id))
             lanes = self._get_controlled_lanes(tl.getID())
             phases = []
             for i in range(0, len(tls_program), 2):

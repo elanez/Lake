@@ -135,11 +135,12 @@ class Agent:
 LOAD AND TEST AGENT
 '''
 class TestAgent():
-    def __init__(self, id, input_dim, num_lanes, model_path):
+    def __init__(self, id, input_dim, output_dim, num_lanes, model_path):
         self.id = id
         self._input_dim = input_dim
         self.num_lanes = num_lanes
         self._model = self._load_model(model_path)
+        self._output_dim = output_dim
     
     def _load_model(self, path): #LOAD MODEL FILE
         getLogger().info('Load Model...')
@@ -157,6 +158,6 @@ class TestAgent():
     def predict_one(self, state): #PREDICT ACTION: SINGLE STATE  
         input_1 = np.reshape(state[0], (1, self.num_lanes, self._input_dim, 1))
         input_2 = np.reshape(state[1], (1, self.num_lanes, self._input_dim, 1))
-        input_3 = np.reshape(state[2], (1, 4, 1))
+        input_3 = np.reshape(state[2], (1, self._output_dim, 1))
 
         return self._model.predict([input_1, input_2, input_3])
