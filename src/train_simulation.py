@@ -136,11 +136,11 @@ class TrainSimulation:
         #init
         position_matrix = np.zeros((tl.agent.num_lanes, self._input_dim))
         velocity_matrix = np.zeros((tl.agent.num_lanes, self._input_dim))
-        phase_matrix = np.zeros(4)
+        phase_matrix = np.zeros(tl.action_dim)
         cell_length = 7
 
         #phase matrix based on current active traffic light phase
-        if tl.action < 4:
+        if tl.action < tl.action_dim:
             phase_matrix[tl.action] = 1
         else:
             getLogger().debug(f'Incorrect Green phase action: {tl.action} from getState()')
