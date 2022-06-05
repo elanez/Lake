@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-06-03 17:11:45 by Eclipse SUMO netedit Version 1.13.0
+<!-- generated on 2022-06-05 16:23:25 by Eclipse SUMO netedit Version 1.10.0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -41,11 +41,11 @@
     <location netOffset="0.00,0.00" convBoundary="-4400.00,-3000.00,4500.00,40800.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
     <edge id=":Qurino_0" function="internal">
-        <lane id=":Qurino_0_0" index="0" speed="16.67" length="24.23" shape="-111.20,10213.60 -111.70,10206.45 -112.80,10201.60 -113.90,10196.75 -114.40,10189.60"/>
-        <lane id=":Qurino_0_1" index="1" speed="16.67" length="24.23" shape="-108.00,10213.60 -108.50,10206.45 -109.60,10201.60 -110.70,10196.75 -111.20,10189.60"/>
-        <lane id=":Qurino_0_2" index="2" speed="16.67" length="24.23" shape="-104.80,10213.60 -105.30,10206.45 -106.40,10201.60 -107.50,10196.75 -108.00,10189.60"/>
-        <lane id=":Qurino_0_3" index="3" speed="16.67" length="24.23" shape="-101.60,10213.60 -102.10,10206.45 -103.20,10201.60 -104.30,10196.75 -104.80,10189.60"/>
-        <lane id=":Qurino_0_4" index="4" speed="16.67" length="24.23" shape="-101.60,10213.60 -101.60,10189.60"/>
+        <lane id=":Qurino_0_0" index="0" speed="16.67" length="24.11" shape="-111.20,10213.60 -111.70,10206.45 -112.80,10201.60 -113.90,10196.75 -114.40,10189.60"/>
+        <lane id=":Qurino_0_1" index="1" speed="16.67" length="24.11" shape="-111.20,10213.60 -111.20,10189.60"/>
+        <lane id=":Qurino_0_2" index="2" speed="16.67" length="24.11" shape="-108.00,10213.60 -108.00,10189.60"/>
+        <lane id=":Qurino_0_3" index="3" speed="16.67" length="24.11" shape="-104.80,10213.60 -104.80,10189.60"/>
+        <lane id=":Qurino_0_4" index="4" speed="16.67" length="24.11" shape="-104.80,10213.60 -104.30,10206.45 -103.20,10201.60 -102.10,10196.75 -101.60,10189.60"/>
     </edge>
     <edge id=":Qurino_5" function="internal">
         <lane id=":Qurino_5_0" index="0" speed="16.67" length="113.50" shape="-101.60,10213.60 10.40,10195.20"/>
@@ -134,14 +134,13 @@
     </edge>
 
     <tlLogic id="Quirino" type="static" programID="0" offset="0">
-        <phase duration="10" state="GGGGGGrrGGrrrrrrrrrGGGGGGGG"/>
-        <phase duration="5"  state="yyyyyyrryyrrrrrrrrryyyyyyyy"/>
-        <phase duration="10" state="rrrrrrrrrrGGGGGGGGGGrrrrrrr"/>
-        <phase duration="5"  state="rrrrrrrrrryyyyyyyyyyrrrrrrr"/>
-        <phase duration="10" state="GGGGGGGGrrrrrrrrrrrrrrrrrrr"/>
-        <phase duration="5"  state="yyyyyyGGrrrrrrrrrrrrrrrrrrr"/>
-        <phase duration="10" state="rrrrrrGGrrrrrrrrrrrrrrrrrrr"/>
-        <phase duration="5"  state="rrrrrryyrrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="10" state="GGGGGrrGGrrrrrrrrrGGGGGGG"/>
+        <phase duration="5"  state="yyyyyrrrrrrrrrrrrrrrryyyy"/>
+        <phase duration="10" state="rrrrrrrrrGGGrGrrGrGrrrrrr"/>
+        <phase duration="5"  state="rrrrrrrrryyyryrryryrrrrrr"/>
+        <phase duration="10" state="GGGGGGGrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="5"  state="yyyyyGGrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="10" state="rrrrrGGrrrrrrrrrrrrrrrrrr"/>
     </tlLogic>
 
     <junction id="J10" type="dead_end" x="-3100.00" y="-1400.00" incLanes="" intLanes="" shape="-3100.00,-1400.00"/>
@@ -193,30 +192,30 @@
     </junction>
 
     <connection from="-E29" to="-E22" fromLane="0" toLane="0" via=":Qurino_0_0" tl="Quirino" linkIndex="0" dir="s" state="O"/>
-    <connection from="-E29" to="-E22" fromLane="1" toLane="1" via=":Qurino_0_1" tl="Quirino" linkIndex="1" dir="s" state="O"/>
-    <connection from="-E29" to="-E22" fromLane="2" toLane="2" via=":Qurino_0_2" tl="Quirino" linkIndex="2" dir="s" state="O"/>
-    <connection from="-E29" to="-E22" fromLane="3" toLane="3" via=":Qurino_0_3" tl="Quirino" linkIndex="4" dir="s" state="O"/>
-    <connection from="-E29" to="-E22" fromLane="3" toLane="4" via=":Qurino_0_4" tl="Quirino" linkIndex="5" dir="s" state="O"/>
-    <connection from="-E29" to="E31" fromLane="3" toLane="0" via=":Qurino_5_0" tl="Quirino" linkIndex="6" dir="L" state="o"/>
-    <connection from="-E29" to="E31" fromLane="3" toLane="1" via=":Qurino_5_1" tl="Quirino" linkIndex="7" dir="L" state="o"/>
-    <connection from="-E31" to="E29" fromLane="0" toLane="0" via=":Qurino_9_0" tl="Quirino" linkIndex="10" dir="R" state="o"/>
-    <connection from="-E31" to="E29" fromLane="0" toLane="1" via=":Qurino_9_1" tl="Quirino" linkIndex="11" dir="R" state="o"/>
-    <connection from="-E31" to="E29" fromLane="1" toLane="2" via=":Qurino_9_2" tl="Quirino" linkIndex="12" dir="R" state="o"/>
-    <connection from="-E31" to="E29" fromLane="1" toLane="3" via=":Qurino_9_3" tl="Quirino" linkIndex="13" dir="R" state="o"/>
-    <connection from="-E31" to="-E22" fromLane="1" toLane="0" via=":Qurino_13_0" tl="Quirino" linkIndex="14" dir="L" state="o"/>
-    <connection from="-E31" to="-E22" fromLane="1" toLane="1" via=":Qurino_13_1" tl="Quirino" linkIndex="15" dir="L" state="o"/>
-    <connection from="-E31" to="-E22" fromLane="1" toLane="2" via=":Qurino_13_2" tl="Quirino" linkIndex="16" dir="L" state="o"/>
-    <connection from="-E31" to="-E22" fromLane="2" toLane="3" via=":Qurino_13_3" tl="Quirino" linkIndex="17" dir="L" state="o"/>
-    <connection from="-E31" to="-E22" fromLane="2" toLane="4" via=":Qurino_13_4" tl="Quirino" linkIndex="18" dir="L" state="o"/>
-    <connection from="-E32" to="E31" fromLane="0" toLane="0" via=":Qurino_18_0" tl="Quirino" linkIndex="19" dir="r" state="o"/>
-    <connection from="-E32" to="E33" fromLane="0" toLane="0" via=":Qurino_19_0" tl="Quirino" linkIndex="20" dir="s" state="o"/>
-    <connection from="-E32" to="E33" fromLane="1" toLane="1" via=":Qurino_19_1" tl="Quirino" linkIndex="21" dir="s" state="o"/>
-    <connection from="-E33" to="E32" fromLane="0" toLane="0" via=":Qurino_7_0" tl="Quirino" linkIndex="8" dir="s" state="o"/>
-    <connection from="-E33" to="E32" fromLane="1" toLane="1" via=":Qurino_7_1" tl="Quirino" linkIndex="9" dir="s" state="o"/>
-    <connection from="E22" to="E29" fromLane="0" toLane="0" via=":Qurino_21_0" tl="Quirino" linkIndex="22" dir="s" state="O"/>
-    <connection from="E22" to="E29" fromLane="1" toLane="1" via=":Qurino_21_1" tl="Quirino" linkIndex="24" dir="s" state="O"/>
-    <connection from="E22" to="E29" fromLane="2" toLane="2" via=":Qurino_21_2" tl="Quirino" linkIndex="25" dir="s" state="O"/>
-    <connection from="E22" to="E29" fromLane="3" toLane="3" via=":Qurino_21_3" tl="Quirino" linkIndex="26" dir="s" state="O"/>
+    <connection from="-E29" to="-E22" fromLane="0" toLane="1" via=":Qurino_0_1" tl="Quirino" linkIndex="1" dir="s" state="O"/>
+    <connection from="-E29" to="-E22" fromLane="1" toLane="2" via=":Qurino_0_2" tl="Quirino" linkIndex="2" dir="s" state="O"/>
+    <connection from="-E29" to="-E22" fromLane="2" toLane="3" via=":Qurino_0_3" tl="Quirino" linkIndex="3" dir="s" state="O"/>
+    <connection from="-E29" to="-E22" fromLane="2" toLane="4" via=":Qurino_0_4" tl="Quirino" linkIndex="4" dir="s" state="O"/>
+    <connection from="-E29" to="E31" fromLane="3" toLane="0" via=":Qurino_5_0" tl="Quirino" linkIndex="5" dir="L" state="o"/>
+    <connection from="-E29" to="E31" fromLane="3" toLane="1" via=":Qurino_5_1" tl="Quirino" linkIndex="6" dir="L" state="o"/>
+    <connection from="-E31" to="E29" fromLane="0" toLane="0" via=":Qurino_9_0" tl="Quirino" linkIndex="9" dir="R" state="o"/>
+    <connection from="-E31" to="E29" fromLane="0" toLane="1" via=":Qurino_9_1" tl="Quirino" linkIndex="10" dir="R" state="o"/>
+    <connection from="-E31" to="E29" fromLane="1" toLane="2" via=":Qurino_9_2" tl="Quirino" linkIndex="11" dir="R" state="o"/>
+    <connection from="-E31" to="E29" fromLane="1" toLane="3" via=":Qurino_9_3" tl="Quirino" linkIndex="12" dir="R" state="o"/>
+    <connection from="-E31" to="-E22" fromLane="1" toLane="0" via=":Qurino_13_0" tl="Quirino" linkIndex="13" dir="L" state="o"/>
+    <connection from="-E31" to="-E22" fromLane="1" toLane="1" via=":Qurino_13_1" tl="Quirino" linkIndex="14" dir="L" state="o"/>
+    <connection from="-E31" to="-E22" fromLane="1" toLane="2" via=":Qurino_13_2" tl="Quirino" linkIndex="15" dir="L" state="o"/>
+    <connection from="-E31" to="-E22" fromLane="2" toLane="3" via=":Qurino_13_3" tl="Quirino" linkIndex="16" dir="L" state="o"/>
+    <connection from="-E31" to="-E22" fromLane="2" toLane="4" via=":Qurino_13_4" tl="Quirino" linkIndex="17" dir="L" state="o"/>
+    <connection from="-E32" to="E31" fromLane="0" toLane="0" via=":Qurino_18_0" tl="Quirino" linkIndex="18" dir="r" state="o"/>
+    <connection from="-E32" to="E33" fromLane="0" toLane="0" via=":Qurino_19_0" tl="Quirino" linkIndex="19" dir="s" state="o"/>
+    <connection from="-E32" to="E33" fromLane="1" toLane="1" via=":Qurino_19_1" tl="Quirino" linkIndex="20" dir="s" state="o"/>
+    <connection from="-E33" to="E32" fromLane="0" toLane="0" via=":Qurino_7_0" tl="Quirino" linkIndex="7" dir="s" state="o"/>
+    <connection from="-E33" to="E32" fromLane="1" toLane="1" via=":Qurino_7_1" tl="Quirino" linkIndex="8" dir="s" state="o"/>
+    <connection from="E22" to="E29" fromLane="0" toLane="0" via=":Qurino_21_0" tl="Quirino" linkIndex="21" dir="s" state="O"/>
+    <connection from="E22" to="E29" fromLane="1" toLane="1" via=":Qurino_21_1" tl="Quirino" linkIndex="22" dir="s" state="O"/>
+    <connection from="E22" to="E29" fromLane="2" toLane="2" via=":Qurino_21_2" tl="Quirino" linkIndex="23" dir="s" state="O"/>
+    <connection from="E22" to="E29" fromLane="3" toLane="3" via=":Qurino_21_3" tl="Quirino" linkIndex="24" dir="s" state="O"/>
 
     <connection from=":Qurino_0" to="-E22" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":Qurino_0" to="-E22" fromLane="1" toLane="1" dir="s" state="M"/>
