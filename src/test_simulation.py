@@ -103,7 +103,7 @@ class TestSimulation:
                 tl.sum_queue_length += queue_length
                 tl.sum_waiting_time += queue_length
 
-            self._save_vehicle_stats()
+            # self._save_vehicle_stats()
             traci.simulationStep()
             self._step += 1     
 
