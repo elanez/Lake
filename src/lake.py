@@ -4,6 +4,13 @@ import tkinter as tk
 import os
 from create_settings import Settings
 
+import datetime
+
+from plot import Plot
+from logger import getLogger
+from test_simulation import TestSimulation
+from tools import get_model_path, import_test_config
+
 model_name = [
     "1TL",
     "2TL",
@@ -48,16 +55,31 @@ def func_create_test_settings():
     test_load_model = tl_load_model.get()
     settings = Settings('test_settings.ini')
     settings.generate_test_settings(5400, f'{test_load_model}','v1.0', f'{test_load_model}/{test_load_model}')
-    path = os.path.join(os.getcwd(), 'src', 'test.py')
-    loading_path = os.path.join(os.getcwd(), 'src', 'loading.py')
-    os.system(loading_path)
-    os.system(path)
+    os.system('loading.py')
+
+def func_test_file():
+    getLogger().info('===== START TEST PROGRAM =====')
+    config = import_test_config('test_settings.ini')
+    model_path = os.path.join(os.getcwd(), 'models')
+
+    simulation = TestSimulation(config)
+    timestamp_start = datetime.datetime.now()
+    simulation.run()
+
+    #plot data
+    model_path = get_model_path(config['model_folder'])
+    scatter = Plot(model_path, 90)
+    wait_time, distance = simulation.get_vehicle_stats()
+    scatter.scatter_plot(distance, wait_time, 'Vehicle_data', 'Distance', 'Wait Time')
+
+    getLogger().info(f'SUMMARY -> Start time: {timestamp_start} End time: {datetime.datetime.now()}')
+    getLogger().info(f'Average wait time: {sum(wait_time)/len(wait_time)}')
+    getLogger().info('====== END TEST PROGRAM ======')
 
 def func_start_btn_simulate():
-   
     window.destroy()
-
     func_create_test_settings()
+    func_test_file()
    
 
 window = tk.Tk()
