@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-06-05 16:22:02 by Eclipse SUMO netedit Version 1.10.0
+<!-- generated on 2022-06-06 14:13:11 by Eclipse SUMO netedit Version 1.13.0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="Roxas.net.xml"/>
+        <sumo-net-file value="C:\Users\Lance\Documents\GitHub\Lake\sumo_files\roxas\All\Roxas.net.xml"/>
     </input>
 
     <output>
-        <output-file value="Roxas.net.xml"/>
+        <output-file value="C:\Users\Lance\Documents\GitHub\Lake\sumo_files\roxas\All\Roxas.net.xml"/>
     </output>
 
     <processing>
@@ -147,10 +147,10 @@
         <lane id=":J0_0_4" index="4" speed="16.67" length="11.32" shape="-104.80,-496.00 -104.30,-499.39 -103.20,-501.60 -102.10,-503.81 -101.60,-507.20"/>
     </edge>
     <edge id=":J0_5" function="internal">
-        <lane id=":J0_5_0" index="0" speed="11.35" length="2.75" shape="-101.60,-496.00 -100.00,-498.24"/>
+        <lane id=":J0_5_0" index="0" speed="11.35" length="1.49" shape="-101.60,-496.00 -100.73,-497.21"/>
     </edge>
     <edge id=":J0_14" function="internal">
-        <lane id=":J0_14_0" index="0" speed="11.35" length="26.86" shape="-100.00,-498.24 -99.85,-498.45 -94.60,-500.20 -85.85,-501.25 -73.60,-501.60"/>
+        <lane id=":J0_14_0" index="0" speed="11.35" length="28.12" shape="-100.73,-497.21 -99.85,-498.45 -94.60,-500.20 -85.85,-501.25 -73.60,-501.60"/>
     </edge>
     <edge id=":J0_6" function="internal">
         <lane id=":J0_6_0" index="0" speed="6.51" length="9.03" shape="-79.20,-507.20 -78.85,-504.75 -77.80,-503.00 -76.05,-501.95 -73.60,-501.60"/>
@@ -865,77 +865,78 @@
     </edge>
 
     <tlLogic id="Airport" type="static" programID="0" offset="0">
-        <phase duration="10" state="GGGGrrGrrrrrrrrrrrrrrGGGGGGG"/>
-        <phase duration="5"  state="yyyyyyyyyyrrrrrrrrrrryyyyyyy"/>
-        <phase duration="10" state="rrrrrrrrrrGGGGGGGGGGGrrrrrrr"/>
-        <phase duration="5"  state="rrrrrrrrrryyyyyyyyyyyrrrrrrr"/>
-        <phase duration="10" state="rrrrGGrGGGrrrrrrrrrrrrrrrrrr"/>
-        <phase duration="5"  state="rrrryyryyyrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="90" state="GGGGrrGrrrrrrrrrrrrrrGGGGGGG"/>
+        <phase duration="3"  state="yyyyyyyyyyrrrrrrrrrrryyyyyyy"/>
+        <phase duration="35" state="rrrrrrrrrrGGGGGGGGGGGrrrrrrr"/>
+        <phase duration="3"  state="rrrrrrrrrryyyyyyyyyyyrrrrrrr"/>
+        <phase duration="55" state="rrrrGGrGGGrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="3"  state="rrrryyryyyrrrrrrrrrrrrrrrrrr"/>
     </tlLogic>
     <tlLogic id="Edsa" type="static" programID="0" offset="0">
-        <phase duration="36" state="rrrrrrrrGGGGGGGrrrrrrrrrGGGGGGGrr"/>
-        <phase duration="4"  state="rrrrrrrryyyyyyyrrrrrrrrryyyyyyyrr"/>
-        <phase duration="36" state="rrrrrrrrrrrrrrrGrrrrrrrrrrrrrrrGG"/>
-        <phase duration="4"  state="rrrrrrrrrrrrrrryrrrrrrrrrrrrrrryy"/>
-        <phase duration="6"  state="GGGGGrrrrrrrrrrrGGGGGGrrrrrrrrrrr"/>
-        <phase duration="4"  state="yyyyyrrrrrrrrrrryyyyyyrrrrrrrrrrr"/>
-        <phase duration="8"  state="rrrrrGGGrrrrrrrrrrrrrrGGrrrrrrrrr"/>
-        <phase duration="4"  state="rrrrryyyrrrrrrrrrrrrrryyrrrrrrrrr"/>
+        <phase duration="85" state="rrrrrrrrGGGGGGGrrrrrrrrrGGGGGGGrr"/>
+        <phase duration="3"  state="rrrrrrrryyyyyyyrrrrrrrrryyyyyyyrr"/>
+        <phase duration="22" state="rrrrrrrrrrrrrrrGrrrrrrrrrrrrrrrGG"/>
+        <phase duration="3"  state="rrrrrrrrrrrrrrryrrrrrrrrrrrrrrryy"/>
+        <phase duration="33" state="GGGGGrrrrrrrrrrrGGGGGGrrrrrrrrrrr"/>
+        <phase duration="3"  state="yyyyyrrrrrrrrrrryyyyyyrrrrrrrrrrr"/>
+        <phase duration="20" state="rrrrrGGGrrrrrrrrrrrrrrGGrrrrrrrrr"/>
+        <phase duration="3"  state="rrrrryyyrrrrrrrrrrrrrryyrrrrrrrrr"/>
     </tlLogic>
     <tlLogic id="Kalaw" type="static" programID="0" offset="0">
-        <phase duration="10" state="GGGrrrrrrrrrrrrGGGrrrrrrrrrrrr"/>
-        <phase duration="5"  state="yyyrrrrrrrrrrrryyyrrrrrrrrrrrr"/>
-        <phase duration="10" state="rrrGGGGrrrrrrrrrrrGGGGrrrrrrrr"/>
-        <phase duration="5"  state="rrryyyyrrrrrrrrrrryyyyrrrrrrrr"/>
-        <phase duration="10" state="rrrrrrrGGGGGGGGrrrrrrrrrrrrrrr"/>
-        <phase duration="5"  state="rrrrrrryyyyyyyyrrrrrrrrrrrrrrr"/>
-        <phase duration="10" state="rrrrrrrrrrrrrrrrrrrrrrGGGGGGGG"/>
-        <phase duration="5"  state="rrrrrrrrrrrrrrrrrrrrrryyyyyyyy"/>
+        <phase duration="85" state="GGGrrrrrrrrrrrrGGGrrrrrrrrrrrr"/>
+        <phase duration="3"  state="yyyrrrrrrrrrrrryyyrrrrrrrrrrrr"/>
+        <phase duration="22" state="rrrGGGGrrrrrrrrrrrGGGGrrrrrrrr"/>
+        <phase duration="3"  state="rrryyyyrrrrrrrrrrryyyyrrrrrrrr"/>
+        <phase duration="33" state="rrrrrrrGGGGGGGGrrrrrrrrrrrrrrr"/>
+        <phase duration="3"  state="rrrrrrryyyyyyyyrrrrrrrrrrrrrrr"/>
+        <phase duration="20" state="rrrrrrrrrrrrrrrrrrrrrrGGGGGGGG"/>
+        <phase duration="3"  state="rrrrrrrrrrrrrrrrrrrrrryyyyyyyy"/>
     </tlLogic>
     <tlLogic id="MIA" type="static" programID="0" offset="0">
-        <phase duration="10" state="GGGGGrrrrrrrrGGGGGrrrrrrrr"/>
-        <phase duration="5"  state="yyyyyrrrrrrrrGGGGGrrrrrrrr"/>
-        <phase duration="10" state="rrrrrrrrrrrrrGGGGGGGGrrrrr"/>
-        <phase duration="5"  state="rrrrrrrrrrrrryyyyyyyGrrrrr"/>
-        <phase duration="10" state="GrrrrrrrrrrrrrrrrrrrGGGGGG"/>
-        <phase duration="5"  state="yrrrrrrrrrrrrrrrrrrryyyyyy"/>
-        <phase duration="10" state="rrrrrrrGGGGGGGrrrrrrrrrrrr"/>
-        <phase duration="5"  state="rrrrrrryyyyyyyrrrrrrrrrrrr"/>
-        <phase duration="10" state="GGGGGGGrrrrrrrrrrrrrrrrrrr"/>
-        <phase duration="5"  state="GGGGGyyrrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="11" state="GGGGGrrrrrrrrGGGGGrrrrrrrr"/>
+        <phase duration="3"  state="yyyyyrrrrrrrrGGGGGrrrrrrrr"/>
+        <phase duration="53" state="rrrrrrrrrrrrrGGGGGGGGrrrrr"/>
+        <phase duration="3"  state="rrrrrrrrrrrrryyyyyyyGrrrrr"/>
+        <phase duration="49" state="GrrrrrrrrrrrrrrrrrrrGGGGGG"/>
+        <phase duration="3"  state="yrrrrrrrrrrrrrrrrrrryyyyyy"/>
+        <phase duration="41" state="rrrrrrrGGGGGGGrrrrrrrrrrrr"/>
+        <phase duration="3"  state="rrrrrrryyyyyyyrrrrrrrrrrrr"/>
+        <phase duration="46" state="GGGGGGGrrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="3"  state="GGGGGyyrrrrrrrrrrrrrrrrrrr"/>
     </tlLogic>
     <tlLogic id="PG" type="static" programID="0" offset="0">
-        <phase duration="10" state="GGGGrrrrGGGGGG"/>
-        <phase duration="5"  state="GGGGrrrryyyyyy"/>
-        <phase duration="10" state="GGGGGGGGrrrrrr"/>
-        <phase duration="5"  state="yyyyGGGGrrrrrr"/>
-        <phase duration="10" state="rrrrGGGGrrrrrr"/>
-        <phase duration="5"  state="rrrryyyyrrrrrr"/>
+        <phase duration="125" state="GGGGrrrrGGGGGG"/>
+        <phase duration="3"  state="GGGGrrrryyyyyy"/>
+        <phase duration="35" state="GGGGGGGGrrrrrr"/>
+        <phase duration="3"  state="yyyyGGGGrrrrrr"/>
+        <phase duration="35" state="rrrrGGGGrrrrrr"/>
+        <phase duration="3"  state="rrrryyyyrrrrrr"/>
     </tlLogic>
     <tlLogic id="Quirino" type="static" programID="0" offset="0">
-        <phase duration="10" state="GGGGGrrGGrrrrrrrrrGGGGGGG"/>
-        <phase duration="5"  state="yyyyyrrrrrrrrrrrrrrrryyyy"/>
-        <phase duration="10" state="rrrrrrrrrGGGrGrrGrGrrrrrr"/>
-        <phase duration="5"  state="rrrrrrrrryyyryrryryrrrrrr"/>
-        <phase duration="10" state="GGGGGGGrrrrrrrrrrrrrrrrrr"/>
-        <phase duration="5"  state="yyyyyGGrrrrrrrrrrrrrrrrrr"/>
-        <phase duration="10" state="rrrrrGGrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="115" state="GGGGGrrGGrrrrrrrrrGGGGGGG"/>
+        <phase duration="3"  state="yyyyyrrrrrrrrrrrrrrrryyyy"/>
+        <phase duration="49" state="rrrrrrrrrGGGrGrrGrGrrrrrr"/>
+        <phase duration="3"  state="rrrrrrrrryyyryrryryrrrrrr"/>
+        <phase duration="36" state="GGGGGGGrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="3"  state="yyyyyGGrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="36" state="rrrrrGGrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="3"  state="rrrrryyrrrrrrrrrrrrrrrrrr"/>
     </tlLogic>
     <tlLogic id="UN" type="static" programID="0" offset="0">
-        <phase duration="10" state="GGGGrrrrrrGGGGG"/>
-        <phase duration="5"  state="GGGGrrrrrryyyyy"/>
-        <phase duration="10" state="GGGGGGrrrrrrrrr"/>
-        <phase duration="5"  state="yyyyyyrrrrrrrrr"/>
-        <phase duration="10" state="rrrrrrGGGGGrrrr"/>
-        <phase duration="5"  state="rrrrrryyyyyrrrr"/>
+        <phase duration="88" state="GGGGrrrrrrGGGGG"/>
+        <phase duration="3"  state="GGGGrrrrrryyyyy"/>
+        <phase duration="42" state="GGGGGGrrrrrrrrr"/>
+        <phase duration="3"  state="yyyyyyrrrrrrrrr"/>
+        <phase duration="30" state="rrrrrrGGGGGrrrr"/>
+        <phase duration="3"  state="rrrrrryyyyyrrrr"/>
     </tlLogic>
     <tlLogic id="VC" type="static" programID="0" offset="0">
-        <phase duration="10" state="GGGGGrrrrrGGGGrrrrrr"/>
-        <phase duration="5"  state="yyyyyrrrrryyyyrrrrrr"/>
-        <phase duration="10" state="rrrrrGGGGGrrrrrrrrrr"/>
-        <phase duration="5"  state="rrrrryyyyyrrrrrrrrrr"/>
-        <phase duration="10" state="rrrrrrrrrrrrrrGGGGGG"/>
-        <phase duration="5"  state="rrrrrrrrrrrrrryyyyyy"/>
+        <phase duration="104" state="GGGGGrrrrrGGGGrrrrrr"/>
+        <phase duration="3"  state="yyyyyrrrrryyyyrrrrrr"/>
+        <phase duration="26" state="rrrrrGGGGGrrrrrrrrrr"/>
+        <phase duration="3"  state="rrrrryyyyyrrrrrrrrrr"/>
+        <phase duration="70" state="rrrrrrrrrrrrrrGGGGGG"/>
+        <phase duration="3"  state="rrrrrrrrrrrrrryyyyyy"/>
     </tlLogic>
 
     <junction id="Airport" type="traffic_light" x="-100.00" y="-300.00" incLanes="-E2_0 -E2_1 -E2_2 -E2_3 -E2_4 E1_0 E1_1 E1_2 E0_0 E0_1 E0_2 E0_3 E0_4 E0_5 E0_6" intLanes=":Airport_0_0 :Airport_0_1 :Airport_0_2 :Airport_0_3 :Airport_4_0 :Airport_4_1 :Airport_6_0 :Airport_7_0 :Airport_7_1 :Airport_7_2 :Airport_10_0 :Airport_10_1 :Airport_10_2 :Airport_10_3 :Airport_10_4 :Airport_10_5 :Airport_10_6 :Airport_17_0 :Airport_17_1 :Airport_17_2 :Airport_17_3 :Airport_21_0 :Airport_21_1 :Airport_21_2 :Airport_21_3 :Airport_21_4 :Airport_21_5 :Airport_21_6" shape="-116.00,-286.40 -77.60,-286.40 -77.16,-288.62 -76.60,-289.40 -75.82,-289.96 -74.82,-290.29 -73.60,-290.40 -73.60,-300.00 -75.82,-300.44 -76.60,-301.00 -77.16,-301.78 -77.49,-302.78 -77.60,-304.00 -116.00,-304.00">
@@ -1269,7 +1270,7 @@
         <request index="19" response="00000011110001111111" foes="00000011110001111111" cont="0"/>
     </junction>
 
-    <junction id=":J0_14_0" type="internal" x="-100.00" y="-498.24" incLanes=":J0_5_0 -E3_0 -E3_1 -E3_2 -E3_3 -E3_4 -E3_5 -E3_6" intLanes=":J0_6_0 :J0_7_0 :J0_7_1 :J0_7_2 :J0_7_3 :J0_7_4 :J0_7_5 :J0_7_6"/>
+    <junction id=":J0_14_0" type="internal" x="-100.73" y="-497.21" incLanes=":J0_5_0 -E3_0 -E3_1 -E3_2 -E3_3 -E3_4 -E3_5 -E3_6" intLanes=":J0_6_0 :J0_7_0 :J0_7_1 :J0_7_2 :J0_7_3 :J0_7_4 :J0_7_5 :J0_7_6"/>
 
     <connection from="-E0" to="E3" fromLane="0" toLane="0" via=":J0_0_0" dir="s" state="M"/>
     <connection from="-E0" to="E3" fromLane="1" toLane="1" via=":J0_0_1" dir="s" state="M"/>
