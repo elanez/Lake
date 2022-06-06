@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<<<<<<< HEAD
-<!-- generated on 2022-06-06 14:13:11 by Eclipse SUMO netedit Version 1.13.0
-=======
-<!-- generated on 2022-06-05 20:11:54 by Eclipse SUMO netedit Version 1.10.0
->>>>>>> ae94d1a9e132f28de5ad31a0556b50d9658244ad
+<!-- generated on 2022-06-06 15:18:01 by Eclipse SUMO netedit Version 1.13.0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -917,16 +913,14 @@
         <phase duration="3"  state="rrrryyyyrrrrrr"/>
     </tlLogic>
     <tlLogic id="Quirino" type="static" programID="0" offset="0">
-<<<<<<< HEAD
         <phase duration="115" state="GGGGGrrGGrrrrrrrrrGGGGGGG"/>
-        <phase duration="3"  state="yyyyyrrrrrrrrrrrrrrrryyyy"/>
+        <phase duration="3"  state="yyyyyrryyrrrrrrrrryyyyyyy"/>
         <phase duration="49" state="rrrrrrrrrGGGrGrrGrGrrrrrr"/>
         <phase duration="3"  state="rrrrrrrrryyyryrryryrrrrrr"/>
         <phase duration="36" state="GGGGGGGrrrrrrrrrrrrrrrrrr"/>
         <phase duration="3"  state="yyyyyGGrrrrrrrrrrrrrrrrrr"/>
         <phase duration="36" state="rrrrrGGrrrrrrrrrrrrrrrrrr"/>
         <phase duration="3"  state="rrrrryyrrrrrrrrrrrrrrrrrr"/>
-=======
         <phase duration="10" state="GGGGGrrGGrrrrrrrrrGGGGGGG"/>
         <phase duration="5"  state="yyyyyrryyrrrrrrrrryyyyyyy"/>
         <phase duration="10" state="rrrrrrrrrGGGGGGGGGGrrrrrr"/>
@@ -935,7 +929,6 @@
         <phase duration="5"  state="yyyyyGGrrrrrrrrrrrrrrrrrr"/>
         <phase duration="10" state="rrrrrGGrrrrrrrrrrrrrrrrrr"/>
         <phase duration="5"  state="rrrrryyrrrrrrrrrrrrrrrrrr"/>
->>>>>>> ae94d1a9e132f28de5ad31a0556b50d9658244ad
     </tlLogic>
     <tlLogic id="UN" type="static" programID="0" offset="0">
         <phase duration="88" state="GGGGrrrrrrGGGGG"/>
