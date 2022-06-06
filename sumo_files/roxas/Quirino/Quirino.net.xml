@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-06-05 16:23:25 by Eclipse SUMO netedit Version 1.10.0
+<!-- generated on 2022-06-06 20:05:57 by Eclipse SUMO netedit Version 1.13.0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="Quirino.net.xml"/>
+        <sumo-net-file value="C:\Users\kimki\Desktop\Data%20Science\Lake\sumo_files\roxas\Quirino\Quirino.net.xml"/>
     </input>
 
     <output>
-        <output-file value="Quirino.net.xml"/>
+        <output-file value="C:\Users\kimki\Desktop\Data%20Science\Lake\sumo_files\roxas\Quirino\Quirino.net.xml"/>
     </output>
 
     <processing>
@@ -135,12 +135,13 @@
 
     <tlLogic id="Quirino" type="static" programID="0" offset="0">
         <phase duration="10" state="GGGGGrrGGrrrrrrrrrGGGGGGG"/>
-        <phase duration="5"  state="yyyyyrrrrrrrrrrrrrrrryyyy"/>
-        <phase duration="10" state="rrrrrrrrrGGGrGrrGrGrrrrrr"/>
-        <phase duration="5"  state="rrrrrrrrryyyryrryryrrrrrr"/>
+        <phase duration="5"  state="yyyyyrryyrrrrrrrrryyyyyyy"/>
+        <phase duration="10" state="rrrrrrrrrGGGGGGGGGGrrrrrr"/>
+        <phase duration="5"  state="rrrrrrrrryyyyyyyyyyrrrrrr"/>
         <phase duration="10" state="GGGGGGGrrrrrrrrrrrrrrrrrr"/>
-        <phase duration="5"  state="yyyyyGGrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="5"  state="yyyyyyyrrrrrrrrrrrrrrrrrr"/>
         <phase duration="10" state="rrrrrGGrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="5"  state="rrrrryyrrrrrrrrrrrrrrrrrr"/>
     </tlLogic>
 
     <junction id="J10" type="dead_end" x="-3100.00" y="-1400.00" incLanes="" intLanes="" shape="-3100.00,-1400.00"/>
