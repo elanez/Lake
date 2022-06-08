@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-06-02 20:01:53 by Eclipse SUMO netedit Version 1.10.0
+<!-- generated on 2022-06-08 11:52:25 by Eclipse SUMO netedit Version 1.10.0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -214,7 +214,7 @@
         <lane id="top_out_3" index="3" speed="16.67" length="500.00" shape="1.60,16.80 1.60,500.00"/>
     </edge>
 
-    <tlLogic id="J20" type="static" programID="0" offset="0">
+    <tlLogic id="TL1" type="static" programID="0" offset="0">
         <phase duration="10" state="rrrrrrGGGGGrrrrrrrGGGGGr"/>
         <phase duration="5"  state="rrrrrryyyyyrrrrrrryyyyyr"/>
         <phase duration="10" state="rrrrrrrrrrrGrrrrrrrrrrrG"/>
@@ -224,7 +224,7 @@
         <phase duration="10" state="rrrrrGrrrrrrrrrrrGrrrrrr"/>
         <phase duration="5"  state="rrrrryrrrrrrrrrrryrrrrrr"/>
     </tlLogic>
-    <tlLogic id="J22" type="static" programID="0" offset="0">
+    <tlLogic id="TL2" type="static" programID="0" offset="0">
         <phase duration="10" state="rrrrrrGGGGGrrrrrrrGGGGGr"/>
         <phase duration="5"  state="rrrrrryyyyyrrrrrrryyyyyr"/>
         <phase duration="10" state="rrrrrrrrrrrGrrrrrrrrrrrG"/>
@@ -286,46 +286,46 @@
     <junction id="J23" type="dead_end" x="0.00" y="-500.00" incLanes="bottom_out_0 bottom_out_1 bottom_out_2 bottom_out_3" intLanes="" shape="0.00,-500.00 -12.80,-500.00 0.00,-500.00"/>
     <junction id="J3" type="dead_end" x="500.00" y="-500.00" incLanes="E2_0 E2_1 E2_2 E2_3" intLanes="" shape="500.00,-500.00 487.20,-500.00 500.00,-500.00"/>
 
-    <connection from="-E2" to="E7" fromLane="0" toLane="0" via=":J22_10_0" tl="J22" linkIndex="12" dir="r" state="O"/>
-    <connection from="-E2" to="-E6" fromLane="0" toLane="0" via=":J22_11_0" tl="J22" linkIndex="13" dir="s" state="O"/>
-    <connection from="-E2" to="-E6" fromLane="1" toLane="1" via=":J22_11_1" tl="J22" linkIndex="14" dir="s" state="O"/>
-    <connection from="-E2" to="-E6" fromLane="2" toLane="2" via=":J22_11_2" tl="J22" linkIndex="15" dir="s" state="O"/>
-    <connection from="-E2" to="right_in" fromLane="3" toLane="3" via=":J22_14_0" tl="J22" linkIndex="17" dir="l" state="o"/>
-    <connection from="-E7" to="-E6" fromLane="0" toLane="0" via=":J22_5_0" tl="J22" linkIndex="6" dir="r" state="o"/>
-    <connection from="-E7" to="right_in" fromLane="0" toLane="0" via=":J22_6_0" tl="J22" linkIndex="7" dir="s" state="o"/>
-    <connection from="-E7" to="right_in" fromLane="1" toLane="1" via=":J22_6_1" tl="J22" linkIndex="8" dir="s" state="o"/>
-    <connection from="-E7" to="right_in" fromLane="2" toLane="2" via=":J22_6_2" tl="J22" linkIndex="9" dir="s" state="o"/>
-    <connection from="-E7" to="E2" fromLane="3" toLane="3" via=":J22_9_0" tl="J22" linkIndex="11" dir="l" state="o"/>
-    <connection from="E6" to="right_in" fromLane="0" toLane="0" via=":J22_0_0" tl="J22" linkIndex="0" dir="r" state="O"/>
-    <connection from="E6" to="E2" fromLane="0" toLane="0" via=":J22_1_0" tl="J22" linkIndex="1" dir="s" state="O"/>
-    <connection from="E6" to="E2" fromLane="1" toLane="1" via=":J22_1_1" tl="J22" linkIndex="2" dir="s" state="O"/>
-    <connection from="E6" to="E2" fromLane="2" toLane="2" via=":J22_1_2" tl="J22" linkIndex="3" dir="s" state="O"/>
-    <connection from="E6" to="E7" fromLane="3" toLane="3" via=":J22_4_0" tl="J22" linkIndex="5" dir="l" state="o"/>
-    <connection from="bottom_in" to="right_out" fromLane="0" toLane="0" via=":J20_10_0" tl="J20" linkIndex="12" dir="r" state="O"/>
-    <connection from="bottom_in" to="top_out" fromLane="0" toLane="0" via=":J20_11_0" tl="J20" linkIndex="13" dir="s" state="O"/>
-    <connection from="bottom_in" to="top_out" fromLane="1" toLane="1" via=":J20_11_1" tl="J20" linkIndex="14" dir="s" state="O"/>
-    <connection from="bottom_in" to="top_out" fromLane="2" toLane="2" via=":J20_11_2" tl="J20" linkIndex="15" dir="s" state="O"/>
-    <connection from="bottom_in" to="left_out" fromLane="3" toLane="3" via=":J20_14_0" tl="J20" linkIndex="17" dir="l" state="o"/>
-    <connection from="left_in" to="bottom_out" fromLane="0" toLane="0" via=":J20_15_0" tl="J20" linkIndex="18" dir="r" state="o"/>
-    <connection from="left_in" to="right_out" fromLane="0" toLane="0" via=":J20_16_0" tl="J20" linkIndex="19" dir="s" state="o"/>
-    <connection from="left_in" to="right_out" fromLane="1" toLane="1" via=":J20_16_1" tl="J20" linkIndex="20" dir="s" state="o"/>
-    <connection from="left_in" to="right_out" fromLane="2" toLane="2" via=":J20_16_2" tl="J20" linkIndex="21" dir="s" state="o"/>
-    <connection from="left_in" to="top_out" fromLane="3" toLane="3" via=":J20_19_0" tl="J20" linkIndex="23" dir="l" state="o"/>
-    <connection from="right_in" to="top_out" fromLane="0" toLane="0" via=":J20_5_0" tl="J20" linkIndex="6" dir="r" state="o"/>
-    <connection from="right_in" to="left_out" fromLane="0" toLane="0" via=":J20_6_0" tl="J20" linkIndex="7" dir="s" state="o"/>
-    <connection from="right_in" to="left_out" fromLane="1" toLane="1" via=":J20_6_1" tl="J20" linkIndex="8" dir="s" state="o"/>
-    <connection from="right_in" to="left_out" fromLane="2" toLane="2" via=":J20_6_2" tl="J20" linkIndex="9" dir="s" state="o"/>
-    <connection from="right_in" to="bottom_out" fromLane="3" toLane="3" via=":J20_9_0" tl="J20" linkIndex="11" dir="l" state="o"/>
-    <connection from="right_out" to="E2" fromLane="0" toLane="0" via=":J22_15_0" tl="J22" linkIndex="18" dir="r" state="o"/>
-    <connection from="right_out" to="E7" fromLane="0" toLane="0" via=":J22_16_0" tl="J22" linkIndex="19" dir="s" state="o"/>
-    <connection from="right_out" to="E7" fromLane="1" toLane="1" via=":J22_16_1" tl="J22" linkIndex="20" dir="s" state="o"/>
-    <connection from="right_out" to="E7" fromLane="2" toLane="2" via=":J22_16_2" tl="J22" linkIndex="21" dir="s" state="o"/>
-    <connection from="right_out" to="-E6" fromLane="3" toLane="3" via=":J22_19_0" tl="J22" linkIndex="23" dir="l" state="o"/>
-    <connection from="top_in" to="left_out" fromLane="0" toLane="0" via=":J20_0_0" tl="J20" linkIndex="0" dir="r" state="O"/>
-    <connection from="top_in" to="bottom_out" fromLane="0" toLane="0" via=":J20_1_0" tl="J20" linkIndex="1" dir="s" state="O"/>
-    <connection from="top_in" to="bottom_out" fromLane="1" toLane="1" via=":J20_1_1" tl="J20" linkIndex="2" dir="s" state="O"/>
-    <connection from="top_in" to="bottom_out" fromLane="2" toLane="2" via=":J20_1_2" tl="J20" linkIndex="3" dir="s" state="O"/>
-    <connection from="top_in" to="right_out" fromLane="3" toLane="3" via=":J20_4_0" tl="J20" linkIndex="5" dir="l" state="o"/>
+    <connection from="-E2" to="E7" fromLane="0" toLane="0" via=":J22_10_0" tl="TL2" linkIndex="12" dir="r" state="O"/>
+    <connection from="-E2" to="-E6" fromLane="0" toLane="0" via=":J22_11_0" tl="TL2" linkIndex="13" dir="s" state="O"/>
+    <connection from="-E2" to="-E6" fromLane="1" toLane="1" via=":J22_11_1" tl="TL2" linkIndex="14" dir="s" state="O"/>
+    <connection from="-E2" to="-E6" fromLane="2" toLane="2" via=":J22_11_2" tl="TL2" linkIndex="15" dir="s" state="O"/>
+    <connection from="-E2" to="right_in" fromLane="3" toLane="3" via=":J22_14_0" tl="TL2" linkIndex="17" dir="l" state="o"/>
+    <connection from="-E7" to="-E6" fromLane="0" toLane="0" via=":J22_5_0" tl="TL2" linkIndex="6" dir="r" state="o"/>
+    <connection from="-E7" to="right_in" fromLane="0" toLane="0" via=":J22_6_0" tl="TL2" linkIndex="7" dir="s" state="o"/>
+    <connection from="-E7" to="right_in" fromLane="1" toLane="1" via=":J22_6_1" tl="TL2" linkIndex="8" dir="s" state="o"/>
+    <connection from="-E7" to="right_in" fromLane="2" toLane="2" via=":J22_6_2" tl="TL2" linkIndex="9" dir="s" state="o"/>
+    <connection from="-E7" to="E2" fromLane="3" toLane="3" via=":J22_9_0" tl="TL2" linkIndex="11" dir="l" state="o"/>
+    <connection from="E6" to="right_in" fromLane="0" toLane="0" via=":J22_0_0" tl="TL2" linkIndex="0" dir="r" state="O"/>
+    <connection from="E6" to="E2" fromLane="0" toLane="0" via=":J22_1_0" tl="TL2" linkIndex="1" dir="s" state="O"/>
+    <connection from="E6" to="E2" fromLane="1" toLane="1" via=":J22_1_1" tl="TL2" linkIndex="2" dir="s" state="O"/>
+    <connection from="E6" to="E2" fromLane="2" toLane="2" via=":J22_1_2" tl="TL2" linkIndex="3" dir="s" state="O"/>
+    <connection from="E6" to="E7" fromLane="3" toLane="3" via=":J22_4_0" tl="TL2" linkIndex="5" dir="l" state="o"/>
+    <connection from="bottom_in" to="right_out" fromLane="0" toLane="0" via=":J20_10_0" tl="TL1" linkIndex="12" dir="r" state="O"/>
+    <connection from="bottom_in" to="top_out" fromLane="0" toLane="0" via=":J20_11_0" tl="TL1" linkIndex="13" dir="s" state="O"/>
+    <connection from="bottom_in" to="top_out" fromLane="1" toLane="1" via=":J20_11_1" tl="TL1" linkIndex="14" dir="s" state="O"/>
+    <connection from="bottom_in" to="top_out" fromLane="2" toLane="2" via=":J20_11_2" tl="TL1" linkIndex="15" dir="s" state="O"/>
+    <connection from="bottom_in" to="left_out" fromLane="3" toLane="3" via=":J20_14_0" tl="TL1" linkIndex="17" dir="l" state="o"/>
+    <connection from="left_in" to="bottom_out" fromLane="0" toLane="0" via=":J20_15_0" tl="TL1" linkIndex="18" dir="r" state="o"/>
+    <connection from="left_in" to="right_out" fromLane="0" toLane="0" via=":J20_16_0" tl="TL1" linkIndex="19" dir="s" state="o"/>
+    <connection from="left_in" to="right_out" fromLane="1" toLane="1" via=":J20_16_1" tl="TL1" linkIndex="20" dir="s" state="o"/>
+    <connection from="left_in" to="right_out" fromLane="2" toLane="2" via=":J20_16_2" tl="TL1" linkIndex="21" dir="s" state="o"/>
+    <connection from="left_in" to="top_out" fromLane="3" toLane="3" via=":J20_19_0" tl="TL1" linkIndex="23" dir="l" state="o"/>
+    <connection from="right_in" to="top_out" fromLane="0" toLane="0" via=":J20_5_0" tl="TL1" linkIndex="6" dir="r" state="o"/>
+    <connection from="right_in" to="left_out" fromLane="0" toLane="0" via=":J20_6_0" tl="TL1" linkIndex="7" dir="s" state="o"/>
+    <connection from="right_in" to="left_out" fromLane="1" toLane="1" via=":J20_6_1" tl="TL1" linkIndex="8" dir="s" state="o"/>
+    <connection from="right_in" to="left_out" fromLane="2" toLane="2" via=":J20_6_2" tl="TL1" linkIndex="9" dir="s" state="o"/>
+    <connection from="right_in" to="bottom_out" fromLane="3" toLane="3" via=":J20_9_0" tl="TL1" linkIndex="11" dir="l" state="o"/>
+    <connection from="right_out" to="E2" fromLane="0" toLane="0" via=":J22_15_0" tl="TL2" linkIndex="18" dir="r" state="o"/>
+    <connection from="right_out" to="E7" fromLane="0" toLane="0" via=":J22_16_0" tl="TL2" linkIndex="19" dir="s" state="o"/>
+    <connection from="right_out" to="E7" fromLane="1" toLane="1" via=":J22_16_1" tl="TL2" linkIndex="20" dir="s" state="o"/>
+    <connection from="right_out" to="E7" fromLane="2" toLane="2" via=":J22_16_2" tl="TL2" linkIndex="21" dir="s" state="o"/>
+    <connection from="right_out" to="-E6" fromLane="3" toLane="3" via=":J22_19_0" tl="TL2" linkIndex="23" dir="l" state="o"/>
+    <connection from="top_in" to="left_out" fromLane="0" toLane="0" via=":J20_0_0" tl="TL1" linkIndex="0" dir="r" state="O"/>
+    <connection from="top_in" to="bottom_out" fromLane="0" toLane="0" via=":J20_1_0" tl="TL1" linkIndex="1" dir="s" state="O"/>
+    <connection from="top_in" to="bottom_out" fromLane="1" toLane="1" via=":J20_1_1" tl="TL1" linkIndex="2" dir="s" state="O"/>
+    <connection from="top_in" to="bottom_out" fromLane="2" toLane="2" via=":J20_1_2" tl="TL1" linkIndex="3" dir="s" state="O"/>
+    <connection from="top_in" to="right_out" fromLane="3" toLane="3" via=":J20_4_0" tl="TL1" linkIndex="5" dir="l" state="o"/>
 
     <connection from=":J20_0" to="left_out" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from=":J20_1" to="bottom_out" fromLane="0" toLane="0" dir="s" state="M"/>
