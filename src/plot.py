@@ -15,16 +15,13 @@ class Plot:
         #max_val = max(data)
 
         # plt.title("Rewards per Episode")
-
         plt.rcParams.update({'font.size': 12})  # set bigger font size
-
         plt.plot(data)
         plt.ylabel(ylabel)
         plt.xlabel(xlabel)
-        
         #plt.ylim(min_val - 0.05 * abs(min_val), max_val + 0.05 * abs(max_val))
-        fig = plt.gcf()
 
+        fig = plt.gcf()
         fig.savefig(os.path.join(self._path, f'plot_{filename}.png'), dpi=self._dpi)
         plt.close("all")
 
@@ -37,24 +34,33 @@ class Plot:
         plt.scatter(x, y, alpha = 1/5)
         plt.ylabel(ylabel)
         plt.xlabel(xlabel)
+        # plt.show()
        
         fig = plt.gcf()
-        plt.show()
         fig.savefig(os.path.join(self._path, f'test_{filename}.png'), dpi=self._dpi)
         plt.close("all")
 
-        #Save data to .txt file
-        #with open(os.path.join(self._path,  f'plot_{filename}_data.txt'), "w") as file:
-            #for value in data:
-                    #file.write("%s\n" % value)
-
-    def compare_plot(self, filename, x1, y1, x2, y2, xlabel, ylabel):
+    def compare_plot(self, filename, x1, y1, x2, y2, xlabel, ylabel): #scatter plot
         plt.scatter(x1, y1, c='b', alpha = 1/5)
         plt.scatter(x2, y2, c='r', alpha = 1/5)
         plt.ylabel(ylabel)
         plt.xlabel(xlabel)
+        # plt.show()
 
         fig = plt.gcf()
-        plt.show()
-        # fig.savefig(os.path.join(self._path, f'plot_{filename}.png'), dpi=self._dpi)
+        fig.savefig(os.path.join(self._path, f'plot_{filename}.png'), dpi=self._dpi)
+        plt.close("all")
+
+    def bar_graph(self, data, filename, xlabel, ylabel):
+        names = list(data.keys())
+        values = list(data.values())
+
+        plt.bar(range(len(data)), values, tick_label=names)
+        plt.xlabel(xlabel)
+        plt.ylabel(ylabel)
+        # plt.show()
+
+        fig = plt.gcf()
+        fig.savefig(os.path.join(self._path, f'test_{filename}.png'), dpi=self._dpi)
+        plt.close("all")
 
