@@ -161,3 +161,8 @@ class TestAgent():
         input_3 = np.reshape(state[2], (1, self._output_dim, 1))
 
         return self._model.predict([input_1, input_2, input_3])
+    
+    def save_data(self, path, data, filename):
+        with open(os.path.join(path,  f'test_{filename}_data.txt'), "w") as file:
+            for value in data:
+                    file.write("%s\n" % value)

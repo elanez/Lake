@@ -64,6 +64,8 @@ class TestSimulation:
 
         while self._step < self._max_steps:
             for tl in self._trafficlight_list:
+                if self._step == 0:
+                    self._set_green_phase(tl)
                 if traci.trafficlight.getNextSwitch(tl.id) - traci.simulation.getTime()  <= 0: # If trafficlight duration reaches zero
                     if self.isGreen(traci.trafficlight.getRedYellowGreenState(tl.id)): #GREEN PHASE   
                         current_state = self._get_state(tl)
@@ -81,6 +83,7 @@ class TestSimulation:
                 
                         #traffic light phase
                         tl.action = self._choose_action(current_state, tl)
+                        tl.action_store.append(tl.action)
 
                         #different phase
                         if self._step != 0 and tl.old_action != tl.action:
@@ -103,7 +106,7 @@ class TestSimulation:
                 tl.sum_queue_length += queue_length
                 tl.sum_waiting_time += queue_length
 
-            # self._save_vehicle_stats()
+            self._save_vehicle_stats()
             traci.simulationStep()
             self._step += 1     
 

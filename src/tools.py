@@ -86,6 +86,15 @@ def set_path(path_name, folder_name): #Create folder path with incrementing fold
     os.makedirs(path, exist_ok=True)
     return path
 
+def get_path(path_name, folder_name):
+    path = os.path.join(path_name, folder_name)
+    if os.path.exists(path):
+        return path
+    else:
+        msg = f'{path} does not exist'
+        getLogger().error(msg)
+        sys.exit(msg)
+
 def get_model_path(folder_name):
     path = os.path.join(os.getcwd(), 'models', folder_name)
     if os.path.exists(path):
@@ -132,3 +141,9 @@ def contains(list, filter):
         if filter(x):
             return True
     return False
+
+def read_txtfile(path, filename):
+    lines = []
+    with open(os.path.join(path, filename)) as f:
+        lines = f.readlines()
+    return lines

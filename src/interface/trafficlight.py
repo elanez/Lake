@@ -11,6 +11,7 @@ class TrafficLight:
         self.reward_store = []
         self.cumulative_wait_store = []
         self.avg_queue_length_store = []
+        self.action_store = []
 
     def reset_data(self):
         self.action = 0
