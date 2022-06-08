@@ -1,10 +1,9 @@
 import os
 import datetime
 
-from plot import Plot
 from logger import getLogger
 from test_simulation import TestSimulation
-from tools import get_model_path, get_path, import_test_config
+from tools import import_test_config
 
 if __name__ == "__main__":
     getLogger().info('===== START TEST PROGRAM =====')
@@ -15,11 +14,12 @@ if __name__ == "__main__":
     timestamp_start = datetime.datetime.now()
     simulation.run()
 
+    '''
     #plot data
     model_path = get_model_path(config['model_folder'])
     plot = Plot(model_path, 90)
     wait_time, distance = simulation.get_vehicle_stats()
-    # plot.scatter_plot(distance, wait_time, 'Vehicle_data', 'Distance', 'Wait Time')
+    plot.scatter_plot(distance, wait_time, 'Vehicle_data', 'Distance', 'Wait Time')
 
     #init
     wait_time = {}
@@ -35,6 +35,8 @@ if __name__ == "__main__":
     
     plot.bar_graph(wait_time, 'Waiting_Time', 'Traffic light ID', 'Cumulative Wait Time')
     plot.bar_graph(ave_queue, 'Ave_Queue', 'Traffic light ID', 'Ave Queue length')
+
+    '''
 
     getLogger().info(f'SUMMARY -> Start time: {timestamp_start} End time: {datetime.datetime.now()}')
     # getLogger().info(f'Average wait time: {sum(wait_time)/len(wait_time)}')

@@ -69,8 +69,9 @@ class TestSimulation:
                 if traci.trafficlight.getNextSwitch(tl.id) - traci.simulation.getTime()  <= 0: # If trafficlight duration reaches zero
                     if self.isGreen(traci.trafficlight.getRedYellowGreenState(tl.id)): #GREEN PHASE   
                         current_state = self._get_state(tl)
-                        current_total_wait = self._get_waiting_time(tl.lanes)
+                        # current_total_wait = self._get_waiting_time(tl.lanes)
                         
+                        '''
                         #calculate reward
                         cars_passed = self._get_car_passtrough(tl.car_present, self._get_cars_in_lane(tl.lanes))
                         tl.car_present = self._get_cars_in_lane(tl.lanes)
@@ -80,10 +81,11 @@ class TestSimulation:
                         else:
                             plus_reward = cars_passed
                         tl.reward = tl.old_total_wait - current_total_wait + (plus_reward * (self._green_duration + self._yellow_duration))
+                        '''
                 
                         #traffic light phase
                         tl.action = self._choose_action(current_state, tl)
-                        tl.action_store.append(tl.action)
+                        # tl.action_store.append(tl.action)
 
                         #different phase
                         if self._step != 0 and tl.old_action != tl.action:
@@ -93,31 +95,32 @@ class TestSimulation:
 
                         tl.old_state = current_state
                         tl.old_action = tl.action
-                        tl.old_total_wait = current_total_wait
+                        # tl.old_total_wait = current_total_wait
 
-                        if tl.reward < 0:
-                            tl.sum_reward += tl.reward
+                        # if tl.reward < 0:
+                        #     tl.sum_reward += tl.reward
                     else: #YELLOW PHASE
                         self._set_green_phase(tl)
                 elif self._step == 0:
                     tl.old_state =  self._get_state(tl)
                     
-                queue_length = self._get_queue_length(tl.lanes)
-                tl.sum_queue_length += queue_length
-                tl.sum_waiting_time += queue_length
+                # queue_length = self._get_queue_length(tl.lanes)
+                # tl.sum_queue_length += queue_length
+                # tl.sum_waiting_time += queue_length
 
-            self._save_vehicle_stats()
+            # self._save_vehicle_stats()
             traci.simulationStep()
             self._step += 1     
 
         traci.close()
         simulation_time = round(timeit.default_timer() - start_time, 1)
-
+        '''
         for tl in self._trafficlight_list:
             #Save episode stats
             tl.save_stats(self._max_steps)
             getLogger().info(f'Queue Length: {round(tl.sum_queue_length / self._max_steps, 2)} Sum Waiting Time: {tl.sum_waiting_time}  Total nagative reward: {tl.sum_reward}')
             tl.reset_data()
+        '''
 
         return simulation_time
     
