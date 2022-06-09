@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-06-09 11:01:21 by Eclipse SUMO netedit Version 1.10.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="C:\Users\Elan%20Fernandez\OneDrive\Documents\GitHub\Lake\sumo_files\roxas\Edsa\Edsa.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="C:\Users\Elan%20Fernandez\OneDrive\Documents\GitHub\Lake\sumo_files\roxas\Edsa\Edsa.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <tlLogic id="Edsa" type="static" programID="0" offset="0">
+        <phase duration="30" state="rrrrrGGGGGGGrrrrrrrrrGGGGGGGrr"/>
+        <phase duration="3" state="rrrrryyyyyyyrrrrrrrrryyyyyyyrr"/>
+        <phase duration="15" state="GrrrrrrrrrrrGrGrrrrrrrrrrrrrGG"/>
+        <phase duration="3" state="GrrrrrrrrrrryrGrrrrrrrrrrrrryy"/>
+        <phase duration="30" state="GGGrrrrrrrrrrGGGGGrrrrrrrrrrrr"/>
+        <phase duration="3" state="yyyrrrrrrrrrrGyyyyrrrrrrrrrrrr"/>
+        <phase duration="15" state="rrrGGGrrrrrrrGrrrrrGGGrrrrrrrr"/>
+        <phase duration="3" state="rrryyGrrrrrrryrrrrryyGrrrrrrrr"/>
+    </tlLogic>
+</additional>
