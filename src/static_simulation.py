@@ -212,6 +212,11 @@ class TestSimulation:
     def traffic_light_list(self):
         return self._trafficlight_list
 
+def save_data(path, data, filename):
+        with open(os.path.join(path,  f'test_{filename}_data.txt'), "w") as file:
+            for value in data:
+                    file.write("%s\n" % value)
+
 if __name__ == "__main__":
     getLogger().info('===== START STATIC PROGRAM =====')
     config = import_test_config('test_settings.ini')
@@ -234,10 +239,9 @@ if __name__ == "__main__":
         plot_path = get_path(model_path, tl.id)
         wait_time[tl.id] = tl.cumulative_wait_store[0]
         ave_queue[tl.id] = tl.avg_queue_length_store[0]
-        # tl.agent.save_data(plot_path, tl.cumulative_wait_store, 'Cumulative waiting time')
-        # tl.agent.save_data(plot_path, tl.avg_queue_length_store, 'Avg Queue Length')
-        # tl.agent.save_data(plot_path, tl.action_store, 'Actions')
+        save_data(plot_path, tl.cumulative_wait_store, 'Cumulative waiting time-Static')
+        save_data(plot_path, tl.avg_queue_length_store, 'Avg Queue Length-Static')
+        save_data(plot_path, tl.action_store, 'Actions-Static')
     
     plot.bar_graph(wait_time, 'static_waiting_time', 'Traffic light ID', 'Cumulative Wait Time')
     plot.bar_graph(ave_queue, 'static_ave_queue', 'Traffic light ID', 'Ave Queue length')
-    
