@@ -65,10 +65,10 @@ class Routing:
                     getLogger().error(msg)
                     sys.error(msg)
             for car_counter, step in enumerate(car_gen_steps):
-                if np.random.uniform() < 0.70: #car goes straight -> 70%
+                if np.random.uniform() < 0.60: #car goes straight -> 60%
                     i = np.random.randint(0, len(route_straight)) # random source and destination
-                    print(f'    <vehicle id="{route_straight[i]}_{car_counter}" type="{vehicle_type}" route="{route_straight[i]}" depart="{step}" departLane="allowed" />', file=file)
+                    print(f'    <vehicle id="{route_straight[i]}_{car_counter}" type="{vehicle_type}" route="{route_straight[i]}" depart="{step}" departLane="random" />', file=file)
                 else: #car turns
                     i = np.random.randint(0, len(route_turn)) # random source and destination
-                    print(f'    <vehicle id="{route_turn[i]}_{car_counter}" type="{vehicle_type}" route="{route_turn[i]}" depart="{step}" departLane="allowed" />', file=file)
+                    print(f'    <vehicle id="{route_turn[i]}_{car_counter}" type="{vehicle_type}" route="{route_turn[i]}" depart="{step}" departLane="random" />', file=file)
             print('</routes>', file=file)

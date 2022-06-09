@@ -74,6 +74,7 @@ class TrainSimulation:
                         current_total_wait = self._get_waiting_time(tl.lanes)
 
                         #calculate reward
+                        '''
                         cars_passed = self._get_car_passtrough(tl.car_present, self._get_cars_in_lane(tl.lanes))
                         tl.car_present = self._get_cars_in_lane(tl.lanes)
                         queue_length = self._get_queue_length(tl.lanes)
@@ -82,7 +83,9 @@ class TrainSimulation:
                         else:
                             plus_reward = cars_passed
                         tl.reward = tl.old_total_wait - current_total_wait + (plus_reward * (self._green_duration + self._yellow_duration))
-                        
+                        '''
+                        tl.reward = tl.old_total_wait - current_total_wait
+
                         #save data to memory
                         if self._step != 0:
                             tl.agent.add_sample((tl.old_state, tl.old_action, tl.reward, current_state))
