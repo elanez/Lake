@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-06-09 11:11:05 by Eclipse SUMO netedit Version 1.10.0
+<!-- generated on 2022-06-09 21:06:51 by Eclipse SUMO netedit Version 1.10.0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -298,12 +298,10 @@
         <lane id=":Kalaw_18_3" index="3" speed="11.36" length="29.67" shape="-98.40,6528.20 -99.55,6536.25 -103.00,6542.00 -108.75,6545.45 -116.80,6546.60"/>
     </edge>
     <edge id=":Kalaw_22" function="internal">
-        <lane id=":Kalaw_22_0" index="0" speed="6.51" length="9.03" shape="-116.80,6533.80 -114.35,6533.45 -112.60,6532.40 -111.55,6530.65 -111.20,6528.20"/>
-    </edge>
-    <edge id=":Kalaw_23" function="internal">
-        <lane id=":Kalaw_23_0" index="0" speed="15.28" length="33.67" shape="-116.80,6537.00 -83.20,6537.00"/>
-        <lane id=":Kalaw_23_1" index="1" speed="15.28" length="33.67" shape="-116.80,6540.20 -83.20,6540.20"/>
-        <lane id=":Kalaw_23_2" index="2" speed="15.28" length="33.67" shape="-116.80,6540.20 -106.80,6540.70 -100.00,6541.80 -93.20,6542.90 -83.20,6543.40"/>
+        <lane id=":Kalaw_22_0" index="0" speed="15.28" length="33.65" shape="-116.80,6533.80 -83.20,6533.80"/>
+        <lane id=":Kalaw_22_1" index="1" speed="15.28" length="33.65" shape="-116.80,6537.00 -83.20,6537.00"/>
+        <lane id=":Kalaw_22_2" index="2" speed="15.28" length="33.65" shape="-116.80,6540.20 -83.20,6540.20"/>
+        <lane id=":Kalaw_22_3" index="3" speed="15.28" length="33.65" shape="-116.80,6540.20 -106.80,6540.70 -100.00,6541.80 -93.20,6542.90 -83.20,6543.40"/>
     </edge>
     <edge id=":Kalaw_26" function="internal">
         <lane id=":Kalaw_26_0" index="0" speed="12.64" length="36.97" shape="-116.80,6540.20 -108.68,6542.43 -99.47,6547.95 -91.93,6554.99 -88.80,6561.80"/>
@@ -881,8 +879,8 @@
     <tlLogic id="Kalaw" type="static" programID="0" offset="0">
         <phase duration="85" state="GGGrrrrrrrrrrrrGGGrrrrrrrrrrrr"/>
         <phase duration="3"  state="yyyrrrrrrrrrrrryyyrrrrrrrrrrrr"/>
-        <phase duration="22" state="rrrGGGGrrrrrrrrrrrGGGGrrrrrrrr"/>
-        <phase duration="3"  state="rrryyyyrrrrrrrrrrryyyyrrrrrrrr"/>
+        <phase duration="22" state="rrrGGGGGGrrrrrrrrrGGGGrrrrrrrr"/>
+        <phase duration="3"  state="rrryyyyGGrrrrrrrrryyyyrrrrrrrr"/>
         <phase duration="33" state="rrrrrrrGGGGGGGGrrrrrrrrrrrrrrr"/>
         <phase duration="3"  state="rrrrrrryyyyyyyyrrrrrrrrrrrrrrr"/>
         <phase duration="20" state="rrrrrrrrrrrrrrrrrrrrrrGGGGGGGG"/>
@@ -1118,30 +1116,30 @@
     <junction id="J40" type="dead_end" x="-700.00" y="6545.00" incLanes="E36_0 E36_1 E36_2 E36_3" intLanes="" shape="-700.00,6545.00 -700.00,6557.80 -700.00,6545.00"/>
     <junction id="J5" type="dead_end" x="400.00" y="-500.00" incLanes="E4_0" intLanes="" shape="400.00,-503.20 400.00,-500.00"/>
     <junction id="J8" type="dead_end" x="500.00" y="-1400.00" incLanes="E6_0 E6_1 E6_2 E6_3" intLanes="" shape="3000.00,-1400.00 3000.00,-1412.80 3000.00,-1400.00" customShape="1"/>
-    <junction id="Kalaw" type="traffic_light" x="-100.00" y="6545.00" incLanes="-E28_0 -E28_1 -E28_2 -E28_3 -E27_0 -E27_1 -E27_2 E24_0 E24_1 E24_2 E24_3 -E36_0 -E36_1 -E36_2 -E36_3" intLanes=":Kalaw_0_0 :Kalaw_0_1 :Kalaw_0_2 :Kalaw_3_0 :Kalaw_3_1 :Kalaw_3_2 :Kalaw_3_3 :Kalaw_7_0 :Kalaw_7_1 :Kalaw_9_0 :Kalaw_9_1 :Kalaw_9_2 :Kalaw_9_3 :Kalaw_13_0 :Kalaw_13_1 :Kalaw_15_0 :Kalaw_15_1 :Kalaw_15_2 :Kalaw_18_0 :Kalaw_18_1 :Kalaw_18_2 :Kalaw_18_3 :Kalaw_22_0 :Kalaw_23_0 :Kalaw_23_1 :Kalaw_23_2 :Kalaw_26_0 :Kalaw_26_1 :Kalaw_26_2 :Kalaw_26_3" shape="-112.80,6561.80 -87.20,6561.80 -87.09,6559.60 -86.76,6557.80 -86.20,6556.40 -85.42,6555.40 -84.42,6554.80 -83.20,6554.60 -83.20,6532.20 -85.42,6531.76 -86.20,6531.20 -86.76,6530.42 -87.09,6529.42 -87.20,6528.20 -112.80,6528.20 -113.24,6530.42 -113.80,6531.20 -114.58,6531.76 -115.58,6532.09 -116.80,6532.20 -116.80,6557.80 -114.58,6558.24 -113.80,6558.80 -113.24,6559.58 -112.91,6560.58">
+    <junction id="Kalaw" type="traffic_light" x="-100.00" y="6545.00" incLanes="-E28_0 -E28_1 -E28_2 -E28_3 -E27_0 -E27_1 -E27_2 E24_0 E24_1 E24_2 E24_3 -E36_0 -E36_1 -E36_2 -E36_3" intLanes=":Kalaw_0_0 :Kalaw_0_1 :Kalaw_0_2 :Kalaw_3_0 :Kalaw_3_1 :Kalaw_3_2 :Kalaw_3_3 :Kalaw_7_0 :Kalaw_7_1 :Kalaw_9_0 :Kalaw_9_1 :Kalaw_9_2 :Kalaw_9_3 :Kalaw_13_0 :Kalaw_13_1 :Kalaw_15_0 :Kalaw_15_1 :Kalaw_15_2 :Kalaw_18_0 :Kalaw_18_1 :Kalaw_18_2 :Kalaw_18_3 :Kalaw_22_0 :Kalaw_22_1 :Kalaw_22_2 :Kalaw_22_3 :Kalaw_26_0 :Kalaw_26_1 :Kalaw_26_2 :Kalaw_26_3" shape="-112.80,6561.80 -87.20,6561.80 -87.09,6559.60 -86.76,6557.80 -86.20,6556.40 -85.42,6555.40 -84.42,6554.80 -83.20,6554.60 -83.20,6532.20 -85.42,6531.76 -86.20,6531.20 -86.76,6530.42 -87.09,6529.42 -87.20,6528.20 -112.80,6528.20 -113.24,6530.42 -113.80,6531.20 -114.58,6531.76 -115.58,6532.09 -116.80,6532.20 -116.80,6557.80 -114.58,6558.24 -113.80,6558.80 -113.24,6559.58 -112.91,6560.58">
         <request index="0"  response="000000000000000000000000000000" foes="111111111111000111111000000000" cont="0"/>
         <request index="1"  response="000000000000000000000000000000" foes="111111111111000111111000000000" cont="0"/>
         <request index="2"  response="000000000000000000000000000000" foes="111111111111000111111000000000" cont="0"/>
-        <request index="3"  response="000000000000111000000000000000" foes="111111100000111111111000000000" cont="0"/>
-        <request index="4"  response="000000000000111000000000000000" foes="111111100000111111111000000000" cont="0"/>
-        <request index="5"  response="000000000000111000000000000000" foes="111111100000111111111000000000" cont="0"/>
-        <request index="6"  response="000000000000111000000000000000" foes="111111100000111111111000000000" cont="0"/>
+        <request index="3"  response="000000000000111000000000000000" foes="111111110000111111111000000000" cont="0"/>
+        <request index="4"  response="000000000000111000000000000000" foes="111111110000111111111000000000" cont="0"/>
+        <request index="5"  response="000000000000111000000000000000" foes="111111110000111111111000000000" cont="0"/>
+        <request index="6"  response="000000000000111000000000000000" foes="111111110000111111111000000000" cont="0"/>
         <request index="7"  response="000000000000111000000000000000" foes="111100000000111000000000000000" cont="0"/>
         <request index="8"  response="000000000000111000000000000000" foes="111100000000111000000000000000" cont="0"/>
         <request index="9"  response="000000001111111000000001111111" foes="111100001111111000000001111111" cont="0"/>
         <request index="10" response="000000001111111000000001111111" foes="111100001111111000000001111111" cont="0"/>
         <request index="11" response="000000001111111000000001111111" foes="111100001111111000000001111111" cont="0"/>
         <request index="12" response="000000001111111000000001111111" foes="111100001111111000000001111111" cont="0"/>
-        <request index="13" response="000011101111111000000001111111" foes="000011101111111000000001111111" cont="0"/>
-        <request index="14" response="000011101111111000000001111111" foes="000011101111111000000001111111" cont="0"/>
-        <request index="15" response="000000000000000000000000000000" foes="111111100000000111111111111000" cont="0"/>
-        <request index="16" response="000000000000000000000000000000" foes="111111100000000111111111111000" cont="0"/>
-        <request index="17" response="000000000000000000000000000000" foes="111111100000000111111111111000" cont="0"/>
-        <request index="18" response="000000000000000000000000000111" foes="111111100000000111111000000111" cont="0"/>
-        <request index="19" response="000000000000000000000000000111" foes="111111100000000111111000000111" cont="0"/>
-        <request index="20" response="000000000000000000000000000111" foes="111111100000000111111000000111" cont="0"/>
-        <request index="21" response="000000000000000000000000000111" foes="111111100000000111111000000111" cont="0"/>
-        <request index="22" response="000000000000000000000000000111" foes="000000000000000000000000000111" cont="0"/>
+        <request index="13" response="000011111111111000000001111111" foes="000011111111111000000001111111" cont="0"/>
+        <request index="14" response="000011111111111000000001111111" foes="000011111111111000000001111111" cont="0"/>
+        <request index="15" response="000000000000000000000000000000" foes="111111110000000111111111111000" cont="0"/>
+        <request index="16" response="000000000000000000000000000000" foes="111111110000000111111111111000" cont="0"/>
+        <request index="17" response="000000000000000000000000000000" foes="111111110000000111111111111000" cont="0"/>
+        <request index="18" response="000000000000000000000000000111" foes="111111110000000111111000000111" cont="0"/>
+        <request index="19" response="000000000000000000000000000111" foes="111111110000000111111000000111" cont="0"/>
+        <request index="20" response="000000000000000000000000000111" foes="111111110000000111111000000111" cont="0"/>
+        <request index="21" response="000000000000000000000000000111" foes="111111110000000111111000000111" cont="0"/>
+        <request index="22" response="000000001111111000000001111111" foes="000000001111111110000001111111" cont="0"/>
         <request index="23" response="000000001111111000000001111111" foes="000000001111111110000001111111" cont="0"/>
         <request index="24" response="000000001111111000000001111111" foes="000000001111111110000001111111" cont="0"/>
         <request index="25" response="000000001111111000000001111111" foes="000000001111111110000001111111" cont="0"/>
@@ -1377,10 +1375,10 @@
     <connection from="-E34" to="-E29" fromLane="1" toLane="1" via=":J29_0_1" dir="s" state="M"/>
     <connection from="-E34" to="-E29" fromLane="2" toLane="2" via=":J29_0_2" dir="s" state="M"/>
     <connection from="-E34" to="-E29" fromLane="3" toLane="3" via=":J29_0_3" dir="s" state="M"/>
-    <connection from="-E36" to="E25" fromLane="0" toLane="0" via=":Kalaw_22_0" tl="Kalaw" linkIndex="22" dir="r" state="o"/>
-    <connection from="-E36" to="E27" fromLane="1" toLane="1" via=":Kalaw_23_0" tl="Kalaw" linkIndex="23" dir="s" state="o"/>
-    <connection from="-E36" to="E27" fromLane="2" toLane="2" via=":Kalaw_23_1" tl="Kalaw" linkIndex="24" dir="s" state="o"/>
-    <connection from="-E36" to="E27" fromLane="2" toLane="3" via=":Kalaw_23_2" tl="Kalaw" linkIndex="25" dir="s" state="o"/>
+    <connection from="-E36" to="E27" fromLane="0" toLane="0" via=":Kalaw_22_0" tl="Kalaw" linkIndex="22" dir="s" state="o"/>
+    <connection from="-E36" to="E27" fromLane="1" toLane="1" via=":Kalaw_22_1" tl="Kalaw" linkIndex="23" dir="s" state="o"/>
+    <connection from="-E36" to="E27" fromLane="2" toLane="2" via=":Kalaw_22_2" tl="Kalaw" linkIndex="24" dir="s" state="o"/>
+    <connection from="-E36" to="E27" fromLane="2" toLane="3" via=":Kalaw_22_3" tl="Kalaw" linkIndex="25" dir="s" state="o"/>
     <connection from="-E36" to="E28" fromLane="2" toLane="0" via=":Kalaw_26_0" tl="Kalaw" linkIndex="26" dir="l" state="o"/>
     <connection from="-E36" to="E28" fromLane="2" toLane="1" via=":Kalaw_26_1" tl="Kalaw" linkIndex="27" dir="l" state="o"/>
     <connection from="-E36" to="E28" fromLane="3" toLane="2" via=":Kalaw_26_2" tl="Kalaw" linkIndex="28" dir="l" state="o"/>
@@ -1699,10 +1697,10 @@
     <connection from=":Kalaw_18" to="E36" fromLane="1" toLane="1" dir="l" state="M"/>
     <connection from=":Kalaw_18" to="E36" fromLane="2" toLane="2" dir="l" state="M"/>
     <connection from=":Kalaw_18" to="E36" fromLane="3" toLane="3" dir="l" state="M"/>
-    <connection from=":Kalaw_22" to="E25" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from=":Kalaw_23" to="E27" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from=":Kalaw_23" to="E27" fromLane="1" toLane="2" dir="s" state="M"/>
-    <connection from=":Kalaw_23" to="E27" fromLane="2" toLane="3" dir="s" state="M"/>
+    <connection from=":Kalaw_22" to="E27" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":Kalaw_22" to="E27" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from=":Kalaw_22" to="E27" fromLane="2" toLane="2" dir="s" state="M"/>
+    <connection from=":Kalaw_22" to="E27" fromLane="3" toLane="3" dir="s" state="M"/>
     <connection from=":Kalaw_26" to="E28" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from=":Kalaw_26" to="E28" fromLane="1" toLane="1" dir="l" state="M"/>
     <connection from=":Kalaw_26" to="E28" fromLane="2" toLane="2" dir="l" state="M"/>

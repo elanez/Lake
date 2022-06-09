@@ -4,15 +4,15 @@
         <edge id="E6" value="100.00"/>
         <edge id="-E9" value="100.00"/>
         <edge id="E4" value="100.00"/>
-        <edge id="E11" value="100.00"/>
-        <edge id="E17" value="100.00"/>
+        <edge id="E11" value="80.00"/>
+        <edge id="E17" value="80.00"/>
         <edge id="E20" value="100.00"/>
         <edge id="E21" value="100.00"/>
-        <edge id="E31" value="100.00"/>
-        <edge id="E35" value="100.00"/>
-        <edge id="E23" value="100.00"/>
-        <edge id="E27" value="100.00"/>
-        <edge id="E36" value="100.00"/>
+        <edge id="E31" value="80.00"/>
+        <edge id="E35" value="80.00"/>
+        <edge id="E23" value="60.00"/>
+        <edge id="E27" value="60.00"/>
+        <edge id="E36" value="20.00"/>
         <edge id="E28" value="100.00"/>
         <edge id="E8" value="0.00"/>
         <edge id="E7" value="0.00"/>
