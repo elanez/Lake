@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-06-03 18:22:39 by Eclipse SUMO netedit Version 1.10.0
+<!-- generated on 2022-06-10 12:03:57 by Eclipse SUMO netedit Version 1.10.0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -41,46 +41,39 @@
     <location netOffset="0.00,0.00" convBoundary="-4400.00,-3000.00,4500.00,40800.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
     <edge id=":Airport_0" function="internal">
-        <lane id=":Airport_0_0" index="0" speed="16.67" length="17.60" shape="-114.40,213.60 -114.40,196.00"/>
-        <lane id=":Airport_0_1" index="1" speed="16.67" length="17.60" shape="-111.20,213.60 -111.20,196.00"/>
-        <lane id=":Airport_0_2" index="2" speed="16.67" length="17.60" shape="-108.00,213.60 -108.00,196.00"/>
-        <lane id=":Airport_0_3" index="3" speed="16.67" length="17.60" shape="-104.80,213.60 -104.80,196.00"/>
+        <lane id=":Airport_0_0" index="0" speed="16.67" length="17.68" shape="-114.40,213.60 -114.40,196.00"/>
+        <lane id=":Airport_0_1" index="1" speed="16.67" length="17.68" shape="-111.20,213.60 -111.20,196.00"/>
+        <lane id=":Airport_0_2" index="2" speed="16.67" length="17.68" shape="-108.00,213.60 -108.00,196.00"/>
+        <lane id=":Airport_0_3" index="3" speed="16.67" length="17.68" shape="-104.80,213.60 -104.80,196.00"/>
+        <lane id=":Airport_0_4" index="4" speed="16.67" length="17.68" shape="-104.80,213.60 -104.30,208.33 -103.20,204.80 -102.10,201.27 -101.60,196.00"/>
     </edge>
-    <edge id=":Airport_4" function="internal">
-        <lane id=":Airport_4_0" index="0" speed="7.61" length="25.70" shape="-104.80,213.60 -100.00,206.40 -95.20,204.00 -90.40,206.40 -85.60,213.60"/>
-        <lane id=":Airport_4_1" index="1" speed="7.00" length="25.70" shape="-104.80,213.60 -100.80,207.60 -96.80,205.60 -92.80,207.60 -88.80,213.60"/>
-    </edge>
-    <edge id=":Airport_6" function="internal">
-        <lane id=":Airport_6_0" index="0" speed="16.67" length="17.60" shape="-101.60,213.60 -101.60,196.00"/>
+    <edge id=":Airport_5" function="internal">
+        <lane id=":Airport_5_0" index="0" speed="4.72" length="7.01" shape="-101.60,213.60 -100.00,211.20 -98.40,210.40 -96.80,211.20 -95.20,213.60"/>
+        <lane id=":Airport_5_1" index="1" speed="3.65" length="7.01" shape="-101.60,213.60 -100.80,212.40 -100.00,212.00 -99.20,212.40 -98.40,213.60"/>
     </edge>
     <edge id=":Airport_7" function="internal">
-        <lane id=":Airport_7_0" index="0" speed="5.58" length="9.35" shape="-101.60,213.60 -99.20,210.00 -96.80,208.80 -94.40,210.00 -92.00,213.60"/>
-        <lane id=":Airport_7_1" index="1" speed="4.72" length="9.35" shape="-101.60,213.60 -100.00,211.20 -98.40,210.40 -96.80,211.20 -95.20,213.60"/>
-        <lane id=":Airport_7_2" index="2" speed="3.65" length="9.35" shape="-101.60,213.60 -100.80,212.40 -100.00,212.00 -99.20,212.40 -98.40,213.60"/>
+        <lane id=":Airport_7_0" index="0" speed="6.51" length="9.03" shape="-73.60,208.00 -76.05,208.35 -77.80,209.40 -78.85,211.15 -79.20,213.60"/>
+        <lane id=":Airport_7_1" index="1" speed="8.00" length="14.19" shape="-73.60,204.80 -77.45,205.35 -80.20,207.00 -81.85,209.75 -82.40,213.60"/>
+        <lane id=":Airport_7_2" index="2" speed="8.67" length="16.85" shape="-73.60,204.80 -78.85,205.35 -82.60,207.00 -84.85,209.75 -85.60,213.60"/>
+        <lane id=":Airport_7_3" index="3" speed="9.32" length="19.63" shape="-73.60,204.80 -80.25,205.35 -85.00,207.00 -87.85,209.75 -88.80,213.60"/>
+        <lane id=":Airport_7_4" index="4" speed="9.94" length="22.48" shape="-73.60,204.80 -81.65,205.35 -87.40,207.00 -90.85,209.75 -92.00,213.60"/>
+        <lane id=":Airport_7_5" index="5" speed="10.54" length="25.39" shape="-73.60,204.80 -83.05,205.35 -89.80,207.00 -93.85,209.75 -95.20,213.60"/>
+        <lane id=":Airport_7_6" index="6" speed="11.11" length="28.34" shape="-73.60,204.80 -84.45,205.35 -92.20,207.00 -96.85,209.75 -98.40,213.60"/>
     </edge>
-    <edge id=":Airport_10" function="internal">
-        <lane id=":Airport_10_0" index="0" speed="6.51" length="9.03" shape="-73.60,208.00 -76.05,208.35 -77.80,209.40 -78.85,211.15 -79.20,213.60"/>
-        <lane id=":Airport_10_1" index="1" speed="8.00" length="14.19" shape="-73.60,204.80 -77.45,205.35 -80.20,207.00 -81.85,209.75 -82.40,213.60"/>
-        <lane id=":Airport_10_2" index="2" speed="8.67" length="16.85" shape="-73.60,204.80 -78.85,205.35 -82.60,207.00 -84.85,209.75 -85.60,213.60"/>
-        <lane id=":Airport_10_3" index="3" speed="9.32" length="19.63" shape="-73.60,204.80 -80.25,205.35 -85.00,207.00 -87.85,209.75 -88.80,213.60"/>
-        <lane id=":Airport_10_4" index="4" speed="9.94" length="22.48" shape="-73.60,204.80 -81.65,205.35 -87.40,207.00 -90.85,209.75 -92.00,213.60"/>
-        <lane id=":Airport_10_5" index="5" speed="10.54" length="25.39" shape="-73.60,204.80 -83.05,205.35 -89.80,207.00 -93.85,209.75 -95.20,213.60"/>
-        <lane id=":Airport_10_6" index="6" speed="11.11" length="28.34" shape="-73.60,204.80 -84.45,205.35 -92.20,207.00 -96.85,209.75 -98.40,213.60"/>
+    <edge id=":Airport_14" function="internal">
+        <lane id=":Airport_14_0" index="0" speed="12.96" length="38.91" shape="-73.60,201.60 -90.05,201.25 -101.80,200.20 -108.85,198.45 -111.20,196.00"/>
+        <lane id=":Airport_14_1" index="1" speed="12.44" length="35.80" shape="-73.60,201.60 -88.65,201.25 -99.40,200.20 -105.85,198.45 -108.00,196.00"/>
+        <lane id=":Airport_14_2" index="2" speed="11.91" length="32.70" shape="-73.60,201.60 -87.25,201.25 -97.00,200.20 -102.85,198.45 -104.80,196.00"/>
+        <lane id=":Airport_14_3" index="3" speed="11.35" length="29.61" shape="-73.60,201.60 -85.85,201.25 -94.60,200.20 -99.85,198.45 -101.60,196.00"/>
     </edge>
-    <edge id=":Airport_17" function="internal">
-        <lane id=":Airport_17_0" index="0" speed="12.96" length="38.91" shape="-73.60,201.60 -90.05,201.25 -101.80,200.20 -108.85,198.45 -111.20,196.00"/>
-        <lane id=":Airport_17_1" index="1" speed="12.44" length="35.80" shape="-73.60,201.60 -88.65,201.25 -99.40,200.20 -105.85,198.45 -108.00,196.00"/>
-        <lane id=":Airport_17_2" index="2" speed="11.91" length="32.70" shape="-73.60,201.60 -87.25,201.25 -97.00,200.20 -102.85,198.45 -104.80,196.00"/>
-        <lane id=":Airport_17_3" index="3" speed="11.35" length="29.61" shape="-73.60,201.60 -85.85,201.25 -94.60,200.20 -99.85,198.45 -101.60,196.00"/>
-    </edge>
-    <edge id=":Airport_21" function="internal">
-        <lane id=":Airport_21_0" index="0" speed="16.67" length="17.60" shape="-79.20,196.00 -79.20,213.60"/>
-        <lane id=":Airport_21_1" index="1" speed="16.67" length="17.60" shape="-82.40,196.00 -82.40,213.60"/>
-        <lane id=":Airport_21_2" index="2" speed="16.67" length="17.60" shape="-85.60,196.00 -85.60,213.60"/>
-        <lane id=":Airport_21_3" index="3" speed="16.67" length="17.60" shape="-88.80,196.00 -88.80,213.60"/>
-        <lane id=":Airport_21_4" index="4" speed="16.67" length="17.60" shape="-92.00,196.00 -92.00,213.60"/>
-        <lane id=":Airport_21_5" index="5" speed="16.67" length="17.60" shape="-95.20,196.00 -95.20,213.60"/>
-        <lane id=":Airport_21_6" index="6" speed="16.67" length="17.60" shape="-98.40,196.00 -98.40,213.60"/>
+    <edge id=":Airport_18" function="internal">
+        <lane id=":Airport_18_0" index="0" speed="16.67" length="17.60" shape="-79.20,196.00 -79.20,213.60"/>
+        <lane id=":Airport_18_1" index="1" speed="16.67" length="17.60" shape="-82.40,196.00 -82.40,213.60"/>
+        <lane id=":Airport_18_2" index="2" speed="16.67" length="17.60" shape="-85.60,196.00 -85.60,213.60"/>
+        <lane id=":Airport_18_3" index="3" speed="16.67" length="17.60" shape="-88.80,196.00 -88.80,213.60"/>
+        <lane id=":Airport_18_4" index="4" speed="16.67" length="17.60" shape="-92.00,196.00 -92.00,213.60"/>
+        <lane id=":Airport_18_5" index="5" speed="16.67" length="17.60" shape="-95.20,196.00 -95.20,213.60"/>
+        <lane id=":Airport_18_6" index="6" speed="16.67" length="17.60" shape="-98.40,196.00 -98.40,213.60"/>
     </edge>
 
     <edge id="-E0" from="Airport" to="J0" priority="-1" length="1000.00">
@@ -122,43 +115,40 @@
     </edge>
 
     <tlLogic id="Airport" type="static" programID="0" offset="0">
-        <phase duration="10" state="GGGGrrGrrrrrrrrrrrrrrGGGGGGG"/>
-        <phase duration="5"  state="yyyyyyyyyyrrrrrrrrrrryyyyyyy"/>
-        <phase duration="10" state="rrrrrrrrrrGGGGGGGGGGGrrrrrrr"/>
-        <phase duration="5"  state="rrrrrrrrrryyyyyyyyyyyrrrrrrr"/>
-        <phase duration="10" state="rrrrGGrGGGrrrrrrrrrrrrrrrrrr"/>
-        <phase duration="5"  state="rrrryyryyyrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="90" state="GGGGGrrrrrrrrrrrrrGGGGGGG"/>
+        <phase duration="3"  state="yyyyyrrrrrrrrrrrrryyyyyyy"/>
+        <phase duration="35" state="rrrrrrrGGGGGGGGGGGrrrrrrr"/>
+        <phase duration="3"  state="rrrrrrryyyyyyyyyyyrrrrrrr"/>
+        <phase duration="55" state="rrrrrGGrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="3"  state="rrrrryyrrrrrrrrrrrrrrrrrr"/>
     </tlLogic>
 
-    <junction id="Airport" type="traffic_light" x="-100.00" y="200.00" incLanes="-E2_0 -E2_1 -E2_2 -E2_3 -E2_4 E1_0 E1_1 E1_2 E0_0 E0_1 E0_2 E0_3 E0_4 E0_5 E0_6" intLanes=":Airport_0_0 :Airport_0_1 :Airport_0_2 :Airport_0_3 :Airport_4_0 :Airport_4_1 :Airport_6_0 :Airport_7_0 :Airport_7_1 :Airport_7_2 :Airport_10_0 :Airport_10_1 :Airport_10_2 :Airport_10_3 :Airport_10_4 :Airport_10_5 :Airport_10_6 :Airport_17_0 :Airport_17_1 :Airport_17_2 :Airport_17_3 :Airport_21_0 :Airport_21_1 :Airport_21_2 :Airport_21_3 :Airport_21_4 :Airport_21_5 :Airport_21_6" shape="-116.00,213.60 -77.60,213.60 -77.16,211.38 -76.60,210.60 -75.82,210.04 -74.82,209.71 -73.60,209.60 -73.60,200.00 -75.82,199.56 -76.60,199.00 -77.16,198.22 -77.49,197.22 -77.60,196.00 -116.00,196.00">
-        <request index="0"  response="0000000000000000000000000000" foes="0000000111100000000000000000" cont="0"/>
-        <request index="1"  response="0000000000000000000000000000" foes="0000000111100000000000000000" cont="0"/>
-        <request index="2"  response="0000000000000000000000000000" foes="0000000111100000000000000000" cont="0"/>
-        <request index="3"  response="0000000000000000000000000000" foes="0000000111100000000000000000" cont="0"/>
-        <request index="4"  response="1111111000011111110000000000" foes="1111111000011111110000000000" cont="0"/>
-        <request index="5"  response="1111111000011111110000000000" foes="1111111000011111110000000000" cont="0"/>
-        <request index="6"  response="0000000000000000000000000000" foes="0000000111100000000000000000" cont="0"/>
-        <request index="7"  response="1111111000011111110000000000" foes="1111111000011111110000000000" cont="0"/>
-        <request index="8"  response="1111111000011111110000000000" foes="1111111000011111110000000000" cont="0"/>
-        <request index="9"  response="1111111000011111110000000000" foes="1111111000011111110000000000" cont="0"/>
-        <request index="10" response="1111111000000000000000000000" foes="1111111000000000001110110000" cont="0"/>
-        <request index="11" response="1111111000000000000000000000" foes="1111111000000000001110110000" cont="0"/>
-        <request index="12" response="1111111000000000000000000000" foes="1111111000000000001110110000" cont="0"/>
-        <request index="13" response="1111111000000000000000000000" foes="1111111000000000001110110000" cont="0"/>
-        <request index="14" response="1111111000000000000000000000" foes="1111111000000000001110110000" cont="0"/>
-        <request index="15" response="1111111000000000000000000000" foes="1111111000000000001110110000" cont="0"/>
-        <request index="16" response="1111111000000000000000000000" foes="1111111000000000001110110000" cont="0"/>
-        <request index="17" response="1111111000000000000001001111" foes="1111111000000000000001001111" cont="0"/>
-        <request index="18" response="1111111000000000000001001111" foes="1111111000000000000001001111" cont="0"/>
-        <request index="19" response="1111111000000000000001001111" foes="1111111000000000000001001111" cont="0"/>
-        <request index="20" response="1111111000000000000001001111" foes="1111111000000000000001001111" cont="0"/>
-        <request index="21" response="0000000000000000000000000000" foes="0000000111111111111110110000" cont="0"/>
-        <request index="22" response="0000000000000000000000000000" foes="0000000111111111111110110000" cont="0"/>
-        <request index="23" response="0000000000000000000000000000" foes="0000000111111111111110110000" cont="0"/>
-        <request index="24" response="0000000000000000000000000000" foes="0000000111111111111110110000" cont="0"/>
-        <request index="25" response="0000000000000000000000000000" foes="0000000111111111111110110000" cont="0"/>
-        <request index="26" response="0000000000000000000000000000" foes="0000000111111111111110110000" cont="0"/>
-        <request index="27" response="0000000000000000000000000000" foes="0000000111111111111110110000" cont="0"/>
+    <junction id="Airport" type="traffic_light" x="-100.00" y="200.00" incLanes="-E2_0 -E2_1 -E2_2 -E2_3 -E2_4 E1_0 E1_1 E1_2 E0_0 E0_1 E0_2 E0_3 E0_4 E0_5 E0_6" intLanes=":Airport_0_0 :Airport_0_1 :Airport_0_2 :Airport_0_3 :Airport_0_4 :Airport_5_0 :Airport_5_1 :Airport_7_0 :Airport_7_1 :Airport_7_2 :Airport_7_3 :Airport_7_4 :Airport_7_5 :Airport_7_6 :Airport_14_0 :Airport_14_1 :Airport_14_2 :Airport_14_3 :Airport_18_0 :Airport_18_1 :Airport_18_2 :Airport_18_3 :Airport_18_4 :Airport_18_5 :Airport_18_6" shape="-116.00,213.60 -77.60,213.60 -77.16,211.38 -76.60,210.60 -75.82,210.04 -74.82,209.71 -73.60,209.60 -73.60,200.00 -75.82,199.56 -76.60,199.00 -77.16,198.22 -77.49,197.22 -77.60,196.00 -116.00,196.00">
+        <request index="0"  response="0000000000000000000000000" foes="0000000111100000000000000" cont="0"/>
+        <request index="1"  response="0000000000000000000000000" foes="0000000111100000000000000" cont="0"/>
+        <request index="2"  response="0000000000000000000000000" foes="0000000111100000000000000" cont="0"/>
+        <request index="3"  response="0000000000000000000000000" foes="0000000111100000000000000" cont="0"/>
+        <request index="4"  response="0000000000000000000000000" foes="0000000111100000000000000" cont="0"/>
+        <request index="5"  response="1111111000011111110000000" foes="1111111000011111110000000" cont="0"/>
+        <request index="6"  response="1111111000011111110000000" foes="1111111000011111110000000" cont="0"/>
+        <request index="7"  response="1111111000000000000000000" foes="1111111000000000001100000" cont="0"/>
+        <request index="8"  response="1111111000000000000000000" foes="1111111000000000001100000" cont="0"/>
+        <request index="9"  response="1111111000000000000000000" foes="1111111000000000001100000" cont="0"/>
+        <request index="10" response="1111111000000000000000000" foes="1111111000000000001100000" cont="0"/>
+        <request index="11" response="1111111000000000000000000" foes="1111111000000000001100000" cont="0"/>
+        <request index="12" response="1111111000000000000000000" foes="1111111000000000001100000" cont="0"/>
+        <request index="13" response="1111111000000000000000000" foes="1111111000000000001100000" cont="0"/>
+        <request index="14" response="1111111000000000000011111" foes="1111111000000000000011111" cont="0"/>
+        <request index="15" response="1111111000000000000011111" foes="1111111000000000000011111" cont="0"/>
+        <request index="16" response="1111111000000000000011111" foes="1111111000000000000011111" cont="0"/>
+        <request index="17" response="1111111000000000000011111" foes="1111111000000000000011111" cont="0"/>
+        <request index="18" response="0000000000000000000000000" foes="0000000111111111111100000" cont="0"/>
+        <request index="19" response="0000000000000000000000000" foes="0000000111111111111100000" cont="0"/>
+        <request index="20" response="0000000000000000000000000" foes="0000000111111111111100000" cont="0"/>
+        <request index="21" response="0000000000000000000000000" foes="0000000111111111111100000" cont="0"/>
+        <request index="22" response="0000000000000000000000000" foes="0000000111111111111100000" cont="0"/>
+        <request index="23" response="0000000000000000000000000" foes="0000000111111111111100000" cont="0"/>
+        <request index="24" response="0000000000000000000000000" foes="0000000111111111111100000" cont="0"/>
     </junction>
     <junction id="J0" type="dead_end" x="-100.00" y="-1000.00" incLanes="-E0_0 -E0_1 -E0_2 -E0_3 -E0_4" intLanes="" shape="-100.00,-1000.00 -116.00,-1000.00 -100.00,-1000.00" fringe="outer"/>
     <junction id="J10" type="dead_end" x="-3100.00" y="-1400.00" incLanes="" intLanes="" shape="-3100.00,-1400.00"/>
@@ -191,58 +181,52 @@
     <connection from="-E2" to="-E0" fromLane="1" toLane="1" via=":Airport_0_1" tl="Airport" linkIndex="1" dir="s" state="O"/>
     <connection from="-E2" to="-E0" fromLane="2" toLane="2" via=":Airport_0_2" tl="Airport" linkIndex="2" dir="s" state="O"/>
     <connection from="-E2" to="-E0" fromLane="3" toLane="3" via=":Airport_0_3" tl="Airport" linkIndex="3" dir="s" state="O"/>
-    <connection from="-E2" to="E2" fromLane="3" toLane="2" via=":Airport_4_0" tl="Airport" linkIndex="4" dir="t" state="o"/>
-    <connection from="-E2" to="E2" fromLane="3" toLane="3" via=":Airport_4_1" tl="Airport" linkIndex="5" dir="t" state="o"/>
-    <connection from="-E2" to="-E0" fromLane="4" toLane="4" via=":Airport_6_0" tl="Airport" linkIndex="6" dir="s" state="O"/>
-    <connection from="-E2" to="E2" fromLane="4" toLane="4" via=":Airport_7_0" tl="Airport" linkIndex="7" dir="t" state="o"/>
-    <connection from="-E2" to="E2" fromLane="4" toLane="5" via=":Airport_7_1" tl="Airport" linkIndex="8" dir="t" state="o"/>
-    <connection from="-E2" to="E2" fromLane="4" toLane="6" via=":Airport_7_2" tl="Airport" linkIndex="9" dir="t" state="o"/>
-    <connection from="E0" to="E2" fromLane="0" toLane="0" via=":Airport_21_0" tl="Airport" linkIndex="21" dir="s" state="O"/>
-    <connection from="E0" to="E2" fromLane="1" toLane="1" via=":Airport_21_1" tl="Airport" linkIndex="22" dir="s" state="O"/>
-    <connection from="E0" to="E2" fromLane="2" toLane="2" via=":Airport_21_2" tl="Airport" linkIndex="23" dir="s" state="O"/>
-    <connection from="E0" to="E2" fromLane="3" toLane="3" via=":Airport_21_3" tl="Airport" linkIndex="24" dir="s" state="O"/>
-    <connection from="E0" to="E2" fromLane="4" toLane="4" via=":Airport_21_4" tl="Airport" linkIndex="25" dir="s" state="O"/>
-    <connection from="E0" to="E2" fromLane="5" toLane="5" via=":Airport_21_5" tl="Airport" linkIndex="26" dir="s" state="O"/>
-    <connection from="E0" to="E2" fromLane="6" toLane="6" via=":Airport_21_6" tl="Airport" linkIndex="27" dir="s" state="O"/>
-    <connection from="E1" to="E2" fromLane="0" toLane="0" via=":Airport_10_0" tl="Airport" linkIndex="10" dir="r" state="o"/>
-    <connection from="E1" to="E2" fromLane="1" toLane="1" via=":Airport_10_1" tl="Airport" linkIndex="11" dir="r" state="o"/>
-    <connection from="E1" to="E2" fromLane="1" toLane="2" via=":Airport_10_2" tl="Airport" linkIndex="12" dir="r" state="o"/>
-    <connection from="E1" to="E2" fromLane="1" toLane="3" via=":Airport_10_3" tl="Airport" linkIndex="13" dir="r" state="o"/>
-    <connection from="E1" to="E2" fromLane="1" toLane="4" via=":Airport_10_4" tl="Airport" linkIndex="14" dir="r" state="o"/>
-    <connection from="E1" to="E2" fromLane="1" toLane="5" via=":Airport_10_5" tl="Airport" linkIndex="15" dir="r" state="o"/>
-    <connection from="E1" to="E2" fromLane="1" toLane="6" via=":Airport_10_6" tl="Airport" linkIndex="16" dir="r" state="o"/>
-    <connection from="E1" to="-E0" fromLane="2" toLane="1" via=":Airport_17_0" tl="Airport" linkIndex="17" dir="l" state="o"/>
-    <connection from="E1" to="-E0" fromLane="2" toLane="2" via=":Airport_17_1" tl="Airport" linkIndex="18" dir="l" state="o"/>
-    <connection from="E1" to="-E0" fromLane="2" toLane="3" via=":Airport_17_2" tl="Airport" linkIndex="19" dir="l" state="o"/>
-    <connection from="E1" to="-E0" fromLane="2" toLane="4" via=":Airport_17_3" tl="Airport" linkIndex="20" dir="l" state="o"/>
+    <connection from="-E2" to="-E0" fromLane="3" toLane="4" via=":Airport_0_4" tl="Airport" linkIndex="4" dir="s" state="O"/>
+    <connection from="-E2" to="E2" fromLane="4" toLane="5" via=":Airport_5_0" tl="Airport" linkIndex="5" dir="t" state="o"/>
+    <connection from="-E2" to="E2" fromLane="4" toLane="6" via=":Airport_5_1" tl="Airport" linkIndex="6" dir="t" state="o"/>
+    <connection from="E0" to="E2" fromLane="0" toLane="0" via=":Airport_18_0" tl="Airport" linkIndex="18" dir="s" state="O"/>
+    <connection from="E0" to="E2" fromLane="1" toLane="1" via=":Airport_18_1" tl="Airport" linkIndex="19" dir="s" state="O"/>
+    <connection from="E0" to="E2" fromLane="2" toLane="2" via=":Airport_18_2" tl="Airport" linkIndex="20" dir="s" state="O"/>
+    <connection from="E0" to="E2" fromLane="3" toLane="3" via=":Airport_18_3" tl="Airport" linkIndex="21" dir="s" state="O"/>
+    <connection from="E0" to="E2" fromLane="4" toLane="4" via=":Airport_18_4" tl="Airport" linkIndex="22" dir="s" state="O"/>
+    <connection from="E0" to="E2" fromLane="5" toLane="5" via=":Airport_18_5" tl="Airport" linkIndex="23" dir="s" state="O"/>
+    <connection from="E0" to="E2" fromLane="6" toLane="6" via=":Airport_18_6" tl="Airport" linkIndex="24" dir="s" state="O"/>
+    <connection from="E1" to="E2" fromLane="0" toLane="0" via=":Airport_7_0" tl="Airport" linkIndex="7" dir="r" state="o"/>
+    <connection from="E1" to="E2" fromLane="1" toLane="1" via=":Airport_7_1" tl="Airport" linkIndex="8" dir="r" state="o"/>
+    <connection from="E1" to="E2" fromLane="1" toLane="2" via=":Airport_7_2" tl="Airport" linkIndex="9" dir="r" state="o"/>
+    <connection from="E1" to="E2" fromLane="1" toLane="3" via=":Airport_7_3" tl="Airport" linkIndex="10" dir="r" state="o"/>
+    <connection from="E1" to="E2" fromLane="1" toLane="4" via=":Airport_7_4" tl="Airport" linkIndex="11" dir="r" state="o"/>
+    <connection from="E1" to="E2" fromLane="1" toLane="5" via=":Airport_7_5" tl="Airport" linkIndex="12" dir="r" state="o"/>
+    <connection from="E1" to="E2" fromLane="1" toLane="6" via=":Airport_7_6" tl="Airport" linkIndex="13" dir="r" state="o"/>
+    <connection from="E1" to="-E0" fromLane="2" toLane="1" via=":Airport_14_0" tl="Airport" linkIndex="14" dir="l" state="o"/>
+    <connection from="E1" to="-E0" fromLane="2" toLane="2" via=":Airport_14_1" tl="Airport" linkIndex="15" dir="l" state="o"/>
+    <connection from="E1" to="-E0" fromLane="2" toLane="3" via=":Airport_14_2" tl="Airport" linkIndex="16" dir="l" state="o"/>
+    <connection from="E1" to="-E0" fromLane="2" toLane="4" via=":Airport_14_3" tl="Airport" linkIndex="17" dir="l" state="o"/>
 
     <connection from=":Airport_0" to="-E0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":Airport_0" to="-E0" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from=":Airport_0" to="-E0" fromLane="2" toLane="2" dir="s" state="M"/>
     <connection from=":Airport_0" to="-E0" fromLane="3" toLane="3" dir="s" state="M"/>
-    <connection from=":Airport_4" to="E2" fromLane="0" toLane="2" dir="t" state="M"/>
-    <connection from=":Airport_4" to="E2" fromLane="1" toLane="3" dir="t" state="M"/>
-    <connection from=":Airport_6" to="-E0" fromLane="0" toLane="4" dir="s" state="M"/>
-    <connection from=":Airport_7" to="E2" fromLane="0" toLane="4" dir="t" state="M"/>
-    <connection from=":Airport_7" to="E2" fromLane="1" toLane="5" dir="t" state="M"/>
-    <connection from=":Airport_7" to="E2" fromLane="2" toLane="6" dir="t" state="M"/>
-    <connection from=":Airport_10" to="E2" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from=":Airport_10" to="E2" fromLane="1" toLane="1" dir="r" state="M"/>
-    <connection from=":Airport_10" to="E2" fromLane="2" toLane="2" dir="r" state="M"/>
-    <connection from=":Airport_10" to="E2" fromLane="3" toLane="3" dir="r" state="M"/>
-    <connection from=":Airport_10" to="E2" fromLane="4" toLane="4" dir="r" state="M"/>
-    <connection from=":Airport_10" to="E2" fromLane="5" toLane="5" dir="r" state="M"/>
-    <connection from=":Airport_10" to="E2" fromLane="6" toLane="6" dir="r" state="M"/>
-    <connection from=":Airport_17" to="-E0" fromLane="0" toLane="1" dir="l" state="M"/>
-    <connection from=":Airport_17" to="-E0" fromLane="1" toLane="2" dir="l" state="M"/>
-    <connection from=":Airport_17" to="-E0" fromLane="2" toLane="3" dir="l" state="M"/>
-    <connection from=":Airport_17" to="-E0" fromLane="3" toLane="4" dir="l" state="M"/>
-    <connection from=":Airport_21" to="E2" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":Airport_21" to="E2" fromLane="1" toLane="1" dir="s" state="M"/>
-    <connection from=":Airport_21" to="E2" fromLane="2" toLane="2" dir="s" state="M"/>
-    <connection from=":Airport_21" to="E2" fromLane="3" toLane="3" dir="s" state="M"/>
-    <connection from=":Airport_21" to="E2" fromLane="4" toLane="4" dir="s" state="M"/>
-    <connection from=":Airport_21" to="E2" fromLane="5" toLane="5" dir="s" state="M"/>
-    <connection from=":Airport_21" to="E2" fromLane="6" toLane="6" dir="s" state="M"/>
+    <connection from=":Airport_0" to="-E0" fromLane="4" toLane="4" dir="s" state="M"/>
+    <connection from=":Airport_5" to="E2" fromLane="0" toLane="5" dir="t" state="M"/>
+    <connection from=":Airport_5" to="E2" fromLane="1" toLane="6" dir="t" state="M"/>
+    <connection from=":Airport_7" to="E2" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":Airport_7" to="E2" fromLane="1" toLane="1" dir="r" state="M"/>
+    <connection from=":Airport_7" to="E2" fromLane="2" toLane="2" dir="r" state="M"/>
+    <connection from=":Airport_7" to="E2" fromLane="3" toLane="3" dir="r" state="M"/>
+    <connection from=":Airport_7" to="E2" fromLane="4" toLane="4" dir="r" state="M"/>
+    <connection from=":Airport_7" to="E2" fromLane="5" toLane="5" dir="r" state="M"/>
+    <connection from=":Airport_7" to="E2" fromLane="6" toLane="6" dir="r" state="M"/>
+    <connection from=":Airport_14" to="-E0" fromLane="0" toLane="1" dir="l" state="M"/>
+    <connection from=":Airport_14" to="-E0" fromLane="1" toLane="2" dir="l" state="M"/>
+    <connection from=":Airport_14" to="-E0" fromLane="2" toLane="3" dir="l" state="M"/>
+    <connection from=":Airport_14" to="-E0" fromLane="3" toLane="4" dir="l" state="M"/>
+    <connection from=":Airport_18" to="E2" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":Airport_18" to="E2" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from=":Airport_18" to="E2" fromLane="2" toLane="2" dir="s" state="M"/>
+    <connection from=":Airport_18" to="E2" fromLane="3" toLane="3" dir="s" state="M"/>
+    <connection from=":Airport_18" to="E2" fromLane="4" toLane="4" dir="s" state="M"/>
+    <connection from=":Airport_18" to="E2" fromLane="5" toLane="5" dir="s" state="M"/>
+    <connection from=":Airport_18" to="E2" fromLane="6" toLane="6" dir="s" state="M"/>
 
 </net>

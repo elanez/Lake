@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-05-30 15:12:36 by Eclipse SUMO netedit Version 1.13.0
+<!-- generated on 2022-06-10 12:07:09 by Eclipse SUMO netedit Version 1.10.0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\Lance\Desktop\Roxas%20Blvd%20Scratch\Roxas.net.xml"/>
+        <sumo-net-file value="C:\Users\Elan%20Fernandez\OneDrive\Documents\GitHub\Lake\sumo_files\roxas\All\Roxas.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\Lance\Desktop\Roxas%20Blvd%20Scratch\Roxas.net.xml"/>
+        <output-file value="C:\Users\Elan%20Fernandez\OneDrive\Documents\GitHub\Lake\sumo_files\roxas\All\Roxas.net.xml"/>
     </output>
 
     <processing>
@@ -37,12 +37,12 @@
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <tlLogic id="J1" type="static" programID="0" offset="0">
-        <phase duration="10" state="GGGGrrGrrrrrrrrrrrrrrGGGGGGG"/>
-        <phase duration="5" state="yyyyyyyyyyrrrrrrrrrrryyyyyyy"/>
-        <phase duration="10" state="rrrrrrrrrrGGGGGGGGGGGrrrrrrr"/>
-        <phase duration="5" state="rrrrrrrrrryyyyyyyyyyyrrrrrrr"/>
-        <phase duration="10" state="rrrrGGrGGGrrrrrrrrrrrrrrrrrr"/>
-        <phase duration="5" state="rrrryyryyyrrrrrrrrrrrrrrrrrr"/>
+    <tlLogic id="UN" type="static" programID="0" offset="0">
+        <phase duration="88" state="GGGGrrrrrrGGGGG"/>
+        <phase duration="3" state="yyyyrrrrrryyyyy"/>
+        <phase duration="42" state="rrrrGGrrrrrrrrr"/>
+        <phase duration="3" state="rrrryyrrrrrrrrr"/>
+        <phase duration="30" state="rrrrrrGGGGGrrrr"/>
+        <phase duration="3" state="rrrrrryyyyyrrrr"/>
     </tlLogic>
 </additional>
