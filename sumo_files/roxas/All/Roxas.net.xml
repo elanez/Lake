@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-06-10 12:07:12 by Eclipse SUMO netedit Version 1.10.0
+<!-- generated on 2022-06-10 12:26:53 by Eclipse SUMO netedit Version 1.10.0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -860,14 +860,14 @@
         <phase duration="3"  state="rrrrryyrrrrrrrrrrrrrrrrrr"/>
     </tlLogic>
     <tlLogic id="Edsa" type="static" programID="0" offset="0">
-        <phase duration="30" state="rrrrrGGGGGGGrrrrrrrrGGGGGGGrr"/>
-        <phase duration="3"  state="rrrrryyyyyyyrrrrrrrryyyyyyyrr"/>
-        <phase duration="15" state="GrrrrrrrrrrrGGrrrrrrrrrrrrrGG"/>
-        <phase duration="3"  state="GrrrrrrrrrrryGrrrrrrrrrrrrryy"/>
-        <phase duration="30" state="GGGrrrrrrrrrrGGGGGrrrrrrrrrrr"/>
-        <phase duration="3"  state="yyyrrrrrrrrrryyyyyrrrrrrrrrrr"/>
-        <phase duration="15" state="rrrGGGrrrrrrrrrrrrGGGrrrrrrrr"/>
-        <phase duration="3"  state="rrryyGrrrrrrrrrrrryyGrrrrrrrr"/>
+        <phase duration="35" state="rrrrrrrrrrrrrGGGGGGGrrrrrrrrr"/>
+        <phase duration="3"  state="rrrrrrrrrrrrryyyyyyyrrrrrrrrr"/>
+        <phase duration="35" state="GGGGGrrrrrrrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="3"  state="yyyyyrrrrrrrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="25" state="rrrrrGGGGGGGGrrrrrrrrrrrrrrrr"/>
+        <phase duration="3"  state="rrrrryyyyyyyyrrrrrrrrrrrrrrrr"/>
+        <phase duration="25" state="rrrrrrrrrrrrrrrrrrrrGGGGGGGGG"/>
+        <phase duration="3"  state="rrrrrrrrrrrrrrrrrrrryyyyyyyyy"/>
     </tlLogic>
     <tlLogic id="Kalaw" type="static" programID="0" offset="0">
         <phase duration="85" state="GGGrrrrrrrrrrrrGGGrrrrrrrrrrrr"/>
