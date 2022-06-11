@@ -1,6 +1,3 @@
-from pyexpat import model
-
-
 class Settings:
     def __init__(self, filename):
         self.filename = filename
