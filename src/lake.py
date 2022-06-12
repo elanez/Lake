@@ -54,7 +54,7 @@ def func_create_test_settings():
     test_load_model = tl_load_model.get()
     settings = Settings('test_settings.ini')
     settings.generate_test_settings(3600, f'{test_load_model}','v1.0', f'{test_load_model}/{test_load_model}')
-    os.system('loading.py')
+    # os.system('loading.py')
 
 def func_test_file():
     getLogger().info('===== START TEST PROGRAM =====')
