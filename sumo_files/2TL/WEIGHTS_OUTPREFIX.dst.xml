@@ -1,17 +1,18 @@
 <edgedata>
     <interval id="dst" begin="0" end="3600">
-        <edge id="top_out" value="100.00"/>
         <edge id="left_out" value="100.00"/>
         <edge id="bottom_out" value="100.00"/>
-        <edge id="-E6" value="100.00"/>
+        <edge id="top_out" value="100.00"/>
         <edge id="E2" value="100.00"/>
+        <edge id="-E6" value="100.00"/>
         <edge id="E7" value="100.00"/>
+
         <edge id="right_out" value="0.00"/>
         <edge id="right_in" value="0.00"/>
+        <edge id="E6" value="0.00"/>
         <edge id="top_in" value="0.00"/>
         <edge id="left_in" value="0.00"/>
         <edge id="bottom_in" value="0.00"/>
-        <edge id="E6" value="0.00"/>
         <edge id="-E7" value="0.00"/>
         <edge id="-E2" value="0.00"/>
     </interval>
