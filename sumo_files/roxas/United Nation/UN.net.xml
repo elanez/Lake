@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-06-11 11:45:00 by Eclipse SUMO netedit Version 1.10.0
+<!-- generated on 2022-06-13 11:16:57 by Eclipse SUMO netedit Version 1.13.0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -109,25 +109,25 @@
         <lane id="E23_0" index="0" speed="16.67" length="1000.00" shape="-83.20,31995.20 900.00,31995.20"/>
         <lane id="E23_1" index="1" speed="16.67" length="1000.00" shape="-83.20,31998.40 900.00,31998.40"/>
     </edge>
-    <edge id="E24" from="UN" to="J15" priority="-1" length="1000.00">
-        <lane id="E24_0" index="0" speed="16.67" length="1000.00" shape="-88.80,32010.40 -88.80,33000.00"/>
-        <lane id="E24_1" index="1" speed="16.67" length="1000.00" shape="-92.00,32010.40 -92.00,33000.00"/>
-        <lane id="E24_2" index="2" speed="16.67" length="1000.00" shape="-95.20,32010.40 -95.20,33000.00"/>
-        <lane id="E24_3" index="3" speed="16.67" length="1000.00" shape="-98.40,32010.40 -98.40,33000.00"/>
+    <edge id="E24" from="UN" to="J15" priority="-1">
+        <lane id="E24_0" index="0" speed="16.67" length="989.60" shape="-88.80,32010.40 -88.80,33000.00"/>
+        <lane id="E24_1" index="1" speed="16.67" length="989.60" shape="-92.00,32010.40 -92.00,33000.00"/>
+        <lane id="E24_2" index="2" speed="16.67" length="989.60" shape="-95.20,32010.40 -95.20,33000.00"/>
+        <lane id="E24_3" index="3" speed="16.67" length="989.60" shape="-98.40,32010.40 -98.40,33000.00"/>
     </edge>
-    <edge id="E25" from="J15" to="J25" priority="-1" length="900.00">
-        <lane id="E25_0" index="0" speed="16.67" length="900.00" shape="-111.20,33000.00 -111.20,32104.00"/>
-        <lane id="E25_1" index="1" speed="16.67" length="900.00" shape="-108.00,33000.00 -108.00,32104.00"/>
-        <lane id="E25_2" index="2" speed="16.67" length="900.00" shape="-104.80,33000.00 -104.80,32104.00"/>
-        <lane id="E25_3" index="3" speed="16.67" length="900.00" shape="-101.60,33000.00 -101.60,32104.00"/>
+    <edge id="E25" from="J15" to="J25" priority="-1" length="880.00">
+        <lane id="E25_0" index="0" speed="16.67" length="880.00" shape="-111.20,33000.00 -111.20,32104.00"/>
+        <lane id="E25_1" index="1" speed="16.67" length="880.00" shape="-108.00,33000.00 -108.00,32104.00"/>
+        <lane id="E25_2" index="2" speed="16.67" length="880.00" shape="-104.80,33000.00 -104.80,32104.00"/>
+        <lane id="E25_3" index="3" speed="16.67" length="880.00" shape="-101.60,33000.00 -101.60,32104.00"/>
     </edge>
-    <edge id="E26" from="J25" to="UN" priority="-1">
-        <lane id="E26_0" index="0" speed="16.67" length="85.60" shape="-117.60,32096.00 -117.60,32010.40"/>
-        <lane id="E26_1" index="1" speed="16.67" length="85.60" shape="-114.40,32096.00 -114.40,32010.40"/>
-        <lane id="E26_2" index="2" speed="16.67" length="85.60" shape="-111.20,32096.00 -111.20,32010.40"/>
-        <lane id="E26_3" index="3" speed="16.67" length="85.60" shape="-108.00,32096.00 -108.00,32010.40"/>
-        <lane id="E26_4" index="4" speed="16.67" length="85.60" shape="-104.80,32096.00 -104.80,32010.40"/>
-        <lane id="E26_5" index="5" speed="16.67" length="85.60" shape="-101.60,32096.00 -101.60,32010.40"/>
+    <edge id="E26" from="J25" to="UN" priority="-1" length="120.00">
+        <lane id="E26_0" index="0" speed="16.67" length="120.00" shape="-117.60,32096.00 -117.60,32010.40"/>
+        <lane id="E26_1" index="1" speed="16.67" length="120.00" shape="-114.40,32096.00 -114.40,32010.40"/>
+        <lane id="E26_2" index="2" speed="16.67" length="120.00" shape="-111.20,32096.00 -111.20,32010.40"/>
+        <lane id="E26_3" index="3" speed="16.67" length="120.00" shape="-108.00,32096.00 -108.00,32010.40"/>
+        <lane id="E26_4" index="4" speed="16.67" length="120.00" shape="-104.80,32096.00 -104.80,32010.40"/>
+        <lane id="E26_5" index="5" speed="16.67" length="120.00" shape="-101.60,32096.00 -101.60,32010.40"/>
     </edge>
     <edge id="E37" from="J35" to="J38" priority="-1" length="200.00" shape="-100.00,31000.00 -99.90,31000.10">
         <lane id="E37_0" index="0" speed="13.89" length="200.00" shape="-94.03,30990.14 -93.88,30990.28"/>

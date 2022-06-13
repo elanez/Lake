@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-06-12 10:51:18 by Eclipse SUMO netedit Version 1.10.0
+<!-- generated on 2022-06-13 11:16:02 by Eclipse SUMO netedit Version 1.13.0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -693,19 +693,19 @@
         <lane id="E24_2" index="2" speed="13.89" length="200.00" shape="-95.20,6335.40 -95.20,6528.20"/>
         <lane id="E24_3" index="3" speed="13.89" length="200.00" shape="-98.40,6335.40 -98.40,6528.20"/>
     </edge>
-    <edge id="E25" from="Kalaw" to="J25" priority="-1" length="120.00">
-        <lane id="E25_0" index="0" speed="13.89" length="120.00" shape="-111.20,6528.20 -111.20,6429.00"/>
-        <lane id="E25_1" index="1" speed="13.89" length="120.00" shape="-108.00,6528.20 -108.00,6429.00"/>
-        <lane id="E25_2" index="2" speed="13.89" length="120.00" shape="-104.80,6528.20 -104.80,6429.00"/>
-        <lane id="E25_3" index="3" speed="13.89" length="120.00" shape="-101.60,6528.20 -101.60,6429.00"/>
+    <edge id="E25" from="Kalaw" to="J25" priority="-1" length="80.00">
+        <lane id="E25_0" index="0" speed="13.89" length="80.00" shape="-111.20,6528.20 -111.20,6429.00"/>
+        <lane id="E25_1" index="1" speed="13.89" length="80.00" shape="-108.00,6528.20 -108.00,6429.00"/>
+        <lane id="E25_2" index="2" speed="13.89" length="80.00" shape="-104.80,6528.20 -104.80,6429.00"/>
+        <lane id="E25_3" index="3" speed="13.89" length="80.00" shape="-101.60,6528.20 -101.60,6429.00"/>
     </edge>
-    <edge id="E26" from="J25" to="UN" priority="-1" length="80.00" shape="-100.00,6425.00 -99.90,6325.10">
-        <lane id="E26_0" index="0" speed="16.67" length="80.00" shape="-117.60,6420.99 -117.51,6335.40"/>
-        <lane id="E26_1" index="1" speed="16.67" length="80.00" shape="-114.40,6420.99 -114.31,6335.40"/>
-        <lane id="E26_2" index="2" speed="16.67" length="80.00" shape="-111.20,6420.99 -111.11,6335.40"/>
-        <lane id="E26_3" index="3" speed="16.67" length="80.00" shape="-108.00,6421.00 -107.91,6335.40"/>
-        <lane id="E26_4" index="4" speed="16.67" length="80.00" shape="-104.80,6421.00 -104.71,6335.40"/>
-        <lane id="E26_5" index="5" speed="16.67" length="80.00" shape="-101.60,6421.00 -101.51,6335.40"/>
+    <edge id="E26" from="J25" to="UN" priority="-1" length="120.00" shape="-100.00,6425.00 -99.90,6325.10">
+        <lane id="E26_0" index="0" speed="16.67" length="120.00" shape="-117.60,6420.99 -117.51,6335.40"/>
+        <lane id="E26_1" index="1" speed="16.67" length="120.00" shape="-114.40,6420.99 -114.31,6335.40"/>
+        <lane id="E26_2" index="2" speed="16.67" length="120.00" shape="-111.20,6420.99 -111.11,6335.40"/>
+        <lane id="E26_3" index="3" speed="16.67" length="120.00" shape="-108.00,6421.00 -107.91,6335.40"/>
+        <lane id="E26_4" index="4" speed="16.67" length="120.00" shape="-104.80,6421.00 -104.71,6335.40"/>
+        <lane id="E26_5" index="5" speed="16.67" length="120.00" shape="-101.60,6421.00 -101.51,6335.40"/>
     </edge>
     <edge id="E27" from="Kalaw" to="J28" priority="-1" length="600.00">
         <lane id="E27_0" index="0" speed="13.89" length="600.00" shape="-83.20,6533.80 500.00,6533.80"/>
