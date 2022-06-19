@@ -1,6 +1,3 @@
-from binascii import Incomplete
-
-
 class Route:
     def __init__(self, id, edge_in, edge_out, type):
         self.id = id
