@@ -154,7 +154,7 @@ class TestSimulation:
                     position_matrix[index][index_1] = 1
                     velocity_matrix[index][index_1] = speed
 
-        # getLogger().info(f'Pos: {position_matrix} \n Vel: {velocity_matrix} \n Phase: {phase_matrix}')
+        getLogger().info(f'Pos: {position_matrix} \n Vel: {velocity_matrix} \n Phase: {phase_matrix}')
         return [position_matrix, velocity_matrix, phase_matrix]     
     
     def _choose_action(self, state, tl):
