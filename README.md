@@ -1,6 +1,7 @@
 # Lake
  A Simulation of an AI Controlled Traffic Flow Management System using Reinforcement Learning
 
+<<<<<<< HEAD
 USER’S MANUAL <br />
 1.0  GENERAL INFORMATION <br />
     1.1  System Overview <br />
@@ -37,3 +38,20 @@ USER’S MANUAL <br />
             <p>The system’s AI could dynamically change the traffic phase based on the present situation at a certain intersection. It could either change to a different phase or keep the current phase. The traffic phase duration is at 10 seconds green phase and 5 seconds’ yellow phase. </p> <br />
         3.5  Traffic Data Report <br />
             <p>After each simulation, the system generates a traffic data report represented in a graph. It records the cumulative waiting times and the average queue length of each intersection. This graph can be seen by navigating through the system file folder and going to the “models” folder.</p> 
+=======
+Software Requirements:
+- SUMO v1.10
+- CUDA v11.2
+- cuDNN v8.1
+- Python libraries @ requirements.txt
+
+How to run:
+- TRAINING
+    - Edit train_settings.ini for configuration
+    - Run train.py
+    - After training, the model will be saved at models folder
+
+- TESTING
+    - Edit test_settings.ini and match the models parameters
+    - Run test.py
+>>>>>>> parent of 172a06a (Update README.md)
